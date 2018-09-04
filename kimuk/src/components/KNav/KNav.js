@@ -18,7 +18,7 @@ export default class KNav extends Component {
           <div className="col-4 "> 
             <ul class="nav">
               <li class="nav-item">
-                <a class="nav-link text-white align-text-bottom" href="#">Crear Voluntariado</a>
+                <a class="nav-link text-white align-text-bottom" onClick={() => this.props.ir(2)} href>Crear Voluntariado</a>
               </li>
               <li class="nav-item">
                 <a class="nav-link text-white align-text-bottom" href="#">Información</a>

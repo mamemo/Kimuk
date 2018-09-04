@@ -5,35 +5,74 @@ import KIndex from './components/KIndex/KIndex';
 import KFormVoluntariado from './components/kFormVoluntariado/KFormVoluntariado'
 import KFormVoluntario from './components/KFormVoluntario/KFormVoluntario'
 import KAdmin from './components/KAdmin/KAdmin'
-
+import kInfo from './components/KInfo/KInfo'
+import kContacto from './components/KContacto/KContacto'
+import KContacto from './components/KContacto/KContacto';
+import KInfo from './components/KInfo/KInfo';
 class App extends Component {
+  
+  constructor(){
+    super();
+    this.state ={
+        link:1
+    }
+    this.ir=this.ir.bind(this);
+  }
+  ir(nlink){
+    this.setState({
+        link:nlink
+    });
+  }
+/*
+http://localhost:3000/voluntariado
+http://localhost:3000/voluntario
+http://localhost:3000/info
+http://localhost:3000/admin
+http://localhost:3000/contacto
+*/
   render() {
-    switch (2) {
-      case 1:
+    const url=window.location.href.split("/")
+    console.log(url);
+    switch (url[3]) {
+      case "":
         return (
           <div className="App">
-            <KNav/>
+            <KNav ir={this.ir}/>
             <KIndex/>
           </div>);
-      case 2:
+      case "voluntariado":
         return (
           <div className="App">
-            <KNav/>
+            <KNav ir={this.ir}/>
             <KFormVoluntariado/>
           </div>
         );
-      case 3:
+      case "voluntario":
         return (
           <div className="App">
-            <KNav/>
+            <KNav ir={this.ir}/>
             <KFormVoluntario/>
           </div>
         );
-      case 4:
+      case "admin":
         return (
           <div className="App">
-            <KNav/>
+            <KNav ir={this.ir}/>
             <KAdmin/>
+          </div>
+        );
+      case "contacto":
+        return (
+          <div className="App">
+            <KNav ir={this.ir}/>
+            <KContacto/>
+          </div>
+        );
+      case "info":
+        return (
+          <div className="App">
+            <KNav ir={this.ir}/>
+            <KInfo/>
           </div>
         );
     }  
