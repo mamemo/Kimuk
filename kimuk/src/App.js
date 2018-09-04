@@ -1,16 +1,43 @@
 import React, { Component } from 'react';
 
-import Menubar from './components/navigation/MenuBar';
-import Index from './components/index';
+import KNav from './components/KNav/KNav';
+import KIndex from './components/KIndex/KIndex';
+import KFormVoluntariado from './components/kFormVoluntariado/KFormVoluntariado'
+import KFormVoluntario from './components/KFormVoluntario/KFormVoluntario'
+import KAdmin from './components/KAdmin/KAdmin'
 
 class App extends Component {
   render() {
-    return (
-      <div className="App">
-        <Menubar/>
-        <Index/>
-      </div>
-    );
+    switch (2) {
+      case 1:
+        return (
+          <div className="App">
+            <KNav/>
+            <KIndex/>
+          </div>);
+      case 2:
+        return (
+          <div className="App">
+            <KNav/>
+            <KFormVoluntariado/>
+          </div>
+        );
+      case 3:
+        return (
+          <div className="App">
+            <KNav/>
+            <KFormVoluntario/>
+          </div>
+        );
+      case 4:
+        return (
+          <div className="App">
+            <KNav/>
+            <KAdmin/>
+          </div>
+        );
+    }  
+    
   }
 }
 

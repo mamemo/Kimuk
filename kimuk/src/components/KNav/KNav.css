@@ -27,17 +27,18 @@ ul {
 }
 
 .nav-logo{
-  height: 100%;
-  width: 10%;
+  height: 90%;
+  width: 90%;
 }
 
 .nav-name{
   height: 100%;
   width: 40%
 }
-
+/*
 .nav-item{
   color: #FFFFFF;
   font-size: 1.25rem;
   margin-right: 2%;
 }
+*/
