@@ -5,16 +5,51 @@ import '../style/color.css';
 export default class KInfoVoluntario extends Component {
     constructor(){
         super();
+        this.state={
+            provincias:"",
+            cantones:"",
+            distritos:""
+        }
         this.guardar_info=this.guardar_info.bind(this);
-    }
-    obtener_canton(){
-        console.log("Hola mundo");
+        this.cargar_provincias=this.cargar_provincias.bind(this);
     }
     guardar_info(e){
-        console.log(e.target.name,e.target.value);
+        if(e.target.name==="provincia"){
+            
+            fetch("https://ubicaciones.paginasweb.cr/provincia/"+e.target.value+"/cantones.json")
+            .then((resp) => resp.json())
+            .then((data) => this.setState({ cantones: data }))
+            this.props.voluntario.canton="";
+            this.props.voluntario.distrito="";
+            this.render();
+        }
+        if(e.target.name==="canton"){
+            fetch("https://ubicaciones.paginasweb.cr/provincia/"+this.props.voluntario.provincia+"/canton/"+e.target.value+"/distritos.json")
+            .then((resp) => resp.json())
+            .then((data) => this.setState({ distritos: data }))
+            this.render();
+        }
         this.props.voluntario[e.target.name]=e.target.value;
     }
+    cargar_provincias(){
+        fetch("https://ubicaciones.paginasweb.cr/provincias.json")
+        .then((resp) => resp.json())
+        .then((data) => this.setState({ provincias: data }))
+    }
     render(){
+        this.cargar_provincias();
+        const p= [];
+        const c= [];
+        const d= [];
+        for(var k in this.state.provincias){
+            p.push( <option value={k} >{this.state.provincias[k]}</option>);
+        }
+        for(var k in this.state.cantones){
+            c.push( <option value={k} >{this.state.cantones[k]}</option>);
+        }
+        for(var k in this.state.distritos){
+            d.push( <option value={k} >{this.state.distritos[k]}</option>);
+        }
         return(
             <div className="container text-left">
                 <div className="row"> 
@@ -95,42 +130,47 @@ export default class KInfoVoluntario extends Component {
                             <td colspan="3">
                             <br/>
                             <h3>Lugar de residencia</h3>
+                            <hr/>
                             </td>
                         </tr>
                         <tr>
                             <td>
-                                <br/> <br/>Provincia:<br/>
+                                 Provincia:<br/>
                                 <select name="provincia" defaultValue={this.props.voluntario.provincia} onChange={this.guardar_info} >
                                 <option value="" selected disabled>Provincia</option>                                
+                                {p}
                                 </select>
                             </td>
                             <td>
-                                <br/> <br/>Canton:<br/>
-                                <select>
+                                 Canton:<br/>
+                                <select name="canton" defaultValue={this.props.voluntario.canton} onChange={this.guardar_info}>
                                 <option value="" selected disabled>Canton</option>
+                                {c}
                                 </select>
                             </td>
                             <td>
-                                <br/> <br/>Distrito:<br/>
-                                <select>
+                                 Distrito:<br/>
+                                <select name="distrito" defaultValue={this.props.voluntario.distrito} onChange={this.guardar_info}>
                                 <option value="" selected disabled>Distrito</option>
+                                {d}
                                 </select>
                             </td>
                         </tr>
                         <tr>
                             <td colspan="3">
-                                <br/> Dirección exacta:<br/>
+                            <br/>Dirección exacta:<br/>
                                 <input type="text" placeholder="Dirección exacta de la casa de habitación" name="direccion_exacta" defaultValue={this.props.voluntario.direccion_exacta} onChange={this.guardar_info} /> 
                             </td>
                         </tr>
                         <tr>
                         <td colspan="3">
                                 <br/> <h3>Contacto</h3>
+                                <hr/>
                             </td>
                         </tr>
                         <tr>
                         <td colspan="3">
-                                <br/> Correo electrónico:<br/>
+                                 Correo electrónico:<br/>
                                 <input type="text" placeholder="Correo" name="correo" defaultValue={this.props.voluntario.correo} onChange={this.guardar_info}/>     
                             </td>
                         </tr>
@@ -154,10 +194,8 @@ export default class KInfoVoluntario extends Component {
                 <br/>
                 
                 <div className="row">
-                    <div className="col-1 offset-2">
-                        <button className="bt" onClick={ this.props.anterior }>anterior</button> 
-                    </div>
-                    <div className="col-1 offset-6">
+                    
+                    <div className="col-1 offset-8">
                         <button className="bt-lg" onClick={ this.props.siguiente }>continuar</button> 
                     </div>
                 </div>
