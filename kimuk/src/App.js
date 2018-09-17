@@ -5,8 +5,6 @@ import KIndex from './components/KIndex/KIndex';
 import KFormVoluntariado from './components/kFormVoluntariado/KFormVoluntariado'
 import KFormVoluntario from './components/KFormVoluntario/KFormVoluntario'
 import KAdmin from './components/KAdmin/KAdmin'
-import kInfo from './components/KInfo/KInfo'
-import kContacto from './components/KContacto/KContacto'
 import KContacto from './components/KContacto/KContacto';
 import KInfo from './components/KInfo/KInfo';
 
