@@ -8,14 +8,14 @@ export default class KNav extends Component {
     return(
       <nav className="container-fluid color_1">
         <div className="row align-items-end">
-          <div className="col-1"> 
+          <div className="col-1">
             <img src={require('../rsc/logo-solo-blanco.png')} alt="Kimuk Logo Picture" className="nav-logo"/>
             </div>
-          <div className="col-7"> 
+          <div className="col-7">
             {/*} <img src={require('../../rsc/name-blanco.png')} alt="Kimuk Name" className="nav-name"/> */}
             <h1 className="text-white display-4"> Kimuk </h1>
           </div>
-          <div className="col-4 "> 
+          <div className="col-4 ">
             <ul class="nav">
               <li class="nav-item">
                 <a class="nav-link text-white align-text-bottom" onClick={() => this.props.ir(2)} href>Crear Voluntariado</a>

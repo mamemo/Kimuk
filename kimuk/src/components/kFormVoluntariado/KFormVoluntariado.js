@@ -29,7 +29,7 @@ export default class KFormVoluntariado extends Component {
         });
     }
     render(){
-        
+
         var pasos;
 
         switch(this.state.step){
@@ -37,9 +37,8 @@ export default class KFormVoluntariado extends Component {
                 pasos=
                 <div>
                     <ul class="list-group-horizontal">
-                        <li class="list-group-item active">Informacion del voluntariado</li>
+                        <li class="list-group-item active">Información del voluntariado</li>
                         <li class="list-group-item">Habilidades</li>
-                        <li class="list-group-item">Formacion Academica</li>
                         <li class="list-group-item">Documentos</li>
                         <li class="list-group-item">Terminos y condiciones</li>
                     </ul>
@@ -48,26 +47,25 @@ export default class KFormVoluntariado extends Component {
                             <div>
                             <br/>
                             <h2 className="text-left">Crear voluntariado</h2>
-                            {pasos} 
+                            {pasos}
                             </div>
-                            <KInfoVoluntariado anterior={this.anterior} siguiente={this.siguiente}/> 
+                            <KInfoVoluntariado anterior={this.anterior} siguiente={this.siguiente}/>
                         </div>)
             case 2:
                 pasos=
                 <div>
                     <ul class="list-group-horizontal">
-                        <li class="list-group-item active">Informacion del voluntariado</li>
+                        <li class="list-group-item active">Información del voluntariado</li>
                         <li class="list-group-item active">Habilidades</li>
-                        <li class="list-group-item">Formacion Academica</li>
                         <li class="list-group-item">Documentos</li>
                         <li class="list-group-item">Terminos y condiciones</li>
                     </ul>
-                </div>; 
+                </div>;
                 return (<div className="container text-center" >
                             <div>
                             <br/>
                             <h2 className="text-left">Crear voluntariado</h2>
-                            {pasos} 
+                            {pasos}
                             </div>
                             <KHabilidades  anterior={this.anterior} siguiente={this.siguiente}/>
                         </div>)
@@ -75,56 +73,35 @@ export default class KFormVoluntariado extends Component {
                 pasos=
                 <div>
                     <ul class="list-group-horizontal">
-                        <li class="list-group-item active">Informacion del voluntariado</li>
+                        <li class="list-group-item active">Información del voluntariado</li>
                         <li class="list-group-item active">Habilidades</li>
-                        <li class="list-group-item active">Formacion Academica</li>
-                        <li class="list-group-item">Documentos</li>
+                        <li class="list-group-item active">Documentos</li>
                         <li class="list-group-item">Terminos y condiciones</li>
                     </ul>
-                </div>; 
+                </div>;
                 return (<div className="container text-center" >
                             <div>
                             <br/>
                             <h2 className="text-left">Crear voluntariado</h2>
-                            {pasos} 
+                            {pasos}
                             </div>
-                            <KAcademica  anterior={this.anterior} siguiente={this.siguiente}/>
+                            <KDocumentos  anterior={this.anterior} siguiente={this.siguiente}/>
                         </div>)
             case 4:
                 pasos=
                 <div>
                     <ul class="list-group-horizontal">
-                        <li class="list-group-item active">Informacion del voluntariado</li>
+                        <li class="list-group-item active">Información del voluntariado</li>
                         <li class="list-group-item active">Habilidades</li>
-                        <li class="list-group-item active">Formacion Academica</li>
-                        <li class="list-group-item active">Documentos</li>
-                        <li class="list-group-item">Terminos y condiciones</li>
-                    </ul>
-                </div>; 
-                return (<div className="container text-center" >
-                            <div>
-                            <br/>
-                            <h2 className="text-left">Crear voluntariado</h2>
-                            {pasos} 
-                            </div>
-                            <KDocumentos  anterior={this.anterior} siguiente={this.siguiente}/>
-                        </div>)
-            case 5:
-                pasos=
-                <div>
-                    <ul class="list-group-horizontal">
-                        <li class="list-group-item active">Informacion del voluntariado</li>
-                        <li class="list-group-item active">Habilidades</li>
-                        <li class="list-group-item active">Formacion Academica</li>
                         <li class="list-group-item active">Documentos</li>
                         <li class="list-group-item active">Terminos y condiciones</li>
                     </ul>
-                </div>; 
+                </div>;
                 return (<div className="container text-center" >
                             <div>
                             <br/>
                             <h2 className="text-left">Crear voluntariado</h2>
-                            {pasos} 
+                            {pasos}
                             </div>
                             <KTeryCon  anterior={this.anterior} siguiente={this.siguiente}/>
                         </div>)

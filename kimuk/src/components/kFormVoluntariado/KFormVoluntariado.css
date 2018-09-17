@@ -3,8 +3,14 @@
 }
 .list-group-horizontal .list-group-item {
 	margin-bottom: 0;
-	margin-left:-4px;
+	margin-left: -3px;
 	margin-right: 0;
+}
+.list-group-item.active {
+    z-index: 2;
+    color: #fff;
+    background-color: #28a745;
+    border-color: #ffffff;
 }
 .list-group-horizontal .list-group-item:first-child {
 	border-top-right-radius:0;
