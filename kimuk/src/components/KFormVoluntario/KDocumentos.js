@@ -6,7 +6,8 @@ export default class KDocumentos extends Component {
     render(){
         return(
             <div className="container">
-                <div className="row"> hola mundo documentos</div>
+                <div className="row">  <input type="file" />
+               </div>
                 <div className="row">
                     <div className="col-1 offset-2">
                         <button className="bt" onClick={ this.props.anterior }>anterior</button> 
