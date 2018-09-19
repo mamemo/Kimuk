@@ -7,6 +7,7 @@ import KFormVoluntario from './components/KFormVoluntario/KFormVoluntario'
 import KAdmin from './components/KAdmin/KAdmin'
 import KContacto from './components/KContacto/KContacto';
 import KInfo from './components/KInfo/KInfo';
+import {base} from "./base";
 
 
 ///////////////////////  FIREBASE  //////////////////////////
@@ -24,7 +25,7 @@ class App extends Component {
     super();
     this.state ={
         link:1
-    }
+    };
     this.ir=this.ir.bind(this);
   }
   ir(nlink){
@@ -40,7 +41,7 @@ http://localhost:3000/admin
 http://localhost:3000/contacto
 */
   render() {
-    const url=window.location.href.split("/")
+    const url=window.location.href.split("/");
     console.log(url);
     switch (url[3]) {
       case "":

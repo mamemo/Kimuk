@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import './KFormVoluntario.css';
 import '../style/color.css';
+import '../DB/abilities';
+import {insertar_actualizar_habilidades} from "../DB/abilities";
 
 export default class KTeryCon extends Component {
     constructor(){
@@ -10,6 +12,7 @@ export default class KTeryCon extends Component {
     }
     registrar(){
         console.log(this.props.voluntario);
+        insertar_actualizar_habilidades(800, "Luis");
         //codigo del registro
     }
     guardar_info(e){
