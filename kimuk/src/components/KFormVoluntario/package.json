@@ -1,0 +1,45 @@
+{
+  "users": {
+    "116760644": {
+      "nombre": "Luis",
+      "Apellido": "Hidalgo"
+    }
+  },
+  "Habilidades":{
+    "1000": "CPR"
+  },
+  "Campanas":{
+     "ID": {
+       "nombre" : "Campana #1",
+       "descripcion": "Esta es la campana #1",
+       "fecha_ejecucion" : "1/9/2018",
+       "hora": "9:00",
+       "lugar": "Cañas",
+       "fecha_limite" : "15/9/2018",
+       "limite_registro": "3/9/2018",
+       "terminos_condiciones" : "Muchos terminos",
+       "limite_voluntarios": 0,
+       "Voluntarios" : {
+          "116760644": {
+            "nombre": "Luis Diego Hidalgo",
+            "estado": "Aprobado",
+            "ocupacion": "Estudiante",
+            "fecha_registro": "2/9/2018",
+            "etc": "etc"
+          }
+       },
+       "Habilidades" : {
+         "1523": "Natacion",
+         "7612": "Montañista"
+       },
+       "Encargados" : {
+         "198120433": {
+           "nombre": "Encargado #1",
+           "apellidos" : "Apellidos #1",
+           "correo_electronico": "lorem@ipsum.com",
+           "telefono": 88981212
+         }
+       }
+     }
+  }
+}
