@@ -4,8 +4,7 @@ import '../style/color.css';
 import KInfoVoluntariado from '../KInfoVoluntariado/KInfoVoluntariado';
 import {leer_campanas} from "../DB/campaigns";
 import {InCampanasKFormVoluntario, InEcargadosKFormVoluntario, InVoluntariosKFormAdmin, VisualizacionEncargados} from "../DB/add-onns";
-
-const JsonTable = require('ts-react-json-table');
+import KTable from '../KTable/KTable';
 
 var items = [
   {"id": 75950,"name": "Louella Wallace","age": 24,"phone": "+44 (0)203 437 7302","color": "green"},
@@ -43,28 +42,14 @@ export default class KAdmin extends Component {
 				<div className="page_container">
 
 					<KInfoVoluntariado campana={this.state.campana} vis_encargados={VisualizacionEncargados(this.state.encargados)}/>
-
-					<div className='members_container'>
-						<input type='search' className="searchBar" />
-						<button type="button">Buscar</button>
-						<div>
-							<JsonTable rows={this.state.voluntarios}/>
-						</div>
-					</div>
+					<KTable rows={this.state.voluntarios}/>
 				</div>
 			);
 		} else{
 			return (
 				<div className="page_container">
-
-						<div className='members_container'>
-							<input type='search' className="searchBar" />
-							<button type="button">Buscar</button>
-							<div>
-								
-							</div>
-						</div>
-					</div>
+				
+				</div>
 			);
 		}
 	}

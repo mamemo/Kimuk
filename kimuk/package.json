@@ -11,8 +11,7 @@
     "react-addons-create-fragment": "^15.6.2",
     "react-dom": "^16.4.2",
     "react-router": "^4.3.1",
-    "react-scripts": "1.1.5",
-    "ts-react-json-table": "^0.1.1"
+    "react-scripts": "1.1.5"
   },
   "scripts": {
     "start": "react-scripts start",
