@@ -33,6 +33,8 @@ function InVoluntariosKFormAdmin(result) {
     let content = Object.keys(result.Voluntarios).map(key => {
         return result.Voluntarios[key];
     });
+
+    console.log(content);
     return content;
 }
 
