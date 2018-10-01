@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import './KFormVoluntario.css';
 import '../style/color.css';
+import {insertar_actualizar_voluntarios_camapana, insertar_actualizar_habilidades_voluntarios,
+    actualizar_voluntarios_campana, eliminar_voluntario} from '../BD/volunteers';
 
 export default class KTeryCon extends Component {
     constructor(){
@@ -10,7 +12,14 @@ export default class KTeryCon extends Component {
     }
     registrar(){
         console.log(this.props.voluntario);
-        //codigo del registro
+        insertar_actualizar_voluntarios_camapana(7812303,
+            3213,this.props.tipo_id,this.props.nombre,
+            this.props.apellido_1,this.props.apellido_2,
+            this.props.f_nacimiento,this.props.genero,
+            this.props.estado_civil,this.props.ocupacion,
+            this.props.provincia,this.props.canton,this.props.distrito,
+            this.props.direccion_exacta,this.props.correo,
+            this.props.telefono_1,this.props.telefono_2," "," ")
     }
     guardar_info(e){
         this.props.voluntario[e.target.name]=e.target.value;

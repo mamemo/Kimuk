@@ -6,6 +6,8 @@ import KHabilidades from './KHabilidades'
 import KDocumentos from './KDocumentos'
 import KTeryCon from './KTeryCon'
 import info from './package.json'
+import {leer_campanas} from "../BD/campaigns"
+
 
 export default class KFormVoluntario extends Component {
     constructor(){
@@ -29,12 +31,20 @@ export default class KFormVoluntario extends Component {
             telefono_1:"",
             telefono_2:"",
             tyc:"",
-            habilidades:[]
+            habilidades:[],
+            datos:""
         }
         
         this.dato=info;
         this.siguiente=this.siguiente.bind(this);
         this.anterior=this.anterior.bind(this);
+        this.obtener_datos=this.obtener_datos.bind(this);
+    }
+    obtener_datos(){
+        leer_campanas(7812303).then((data) => this.setState({datos:data}))
+        //console.log(this.state.datos)
+        this.dato=this.state.datos;
+
     }
     siguiente(){
         this.setState({
@@ -47,10 +57,12 @@ export default class KFormVoluntario extends Component {
         });
     }
     render(){
+        this.obtener_datos()
+        //console.log(this.datos)
         var pasos;
         const encargados=[];
-        for(var k in this.dato.Campanas.ID.Encargados){
-            encargados.push(<li>{this.dato.Campanas.ID.Encargados[k].nombre}</li>);
+        for(var k in this.dato.Encargados){
+            encargados.push(<li>{this.dato.Encargados[k].nombre}</li>);
         }
         const info=<div className="container text-left">
                 <div className="row" >
@@ -58,13 +70,13 @@ export default class KFormVoluntario extends Component {
                         <img src="" />
                     </div>
                     <div className="col-8">  
-                        <h3>{this.dato.Campanas.ID.nombre}</h3>
+                        <h3>{this.dato.Nombre}</h3>
                         Organizado por: 
                         <ul>{encargados}</ul> 
-                        {this.dato.Campanas.ID.fecha_ejecucion} {this.dato.Campanas.ID.hora} <br/>
-                        {this.dato.Campanas.ID.lugar} <br/>
+                        {this.dato.Fecha_ejecucion} {this.dato.Hora} <br/>
+                        {this.dato.Lugar} <br/>
                         <hr/>
-                        {this.dato.Campanas.ID.descripcion} <br/><br/>
+                        {this.dato.Descripcion} <br/><br/>
                     </div>
                 </div>
             </div>;
@@ -105,7 +117,7 @@ export default class KFormVoluntario extends Component {
                             {info}
                             {pasos} 
                             </div>
-                            <KHabilidades voluntario={this.state} habilidades={this.dato.Campanas.ID.Habilidades} anterior={this.anterior} siguiente={this.siguiente}/>
+                            <KHabilidades voluntario={this.state} habilidades={this.dato.Habilidades} anterior={this.anterior} siguiente={this.siguiente}/>
                         </div>)
             case 3:
                 pasos=
@@ -143,7 +155,7 @@ export default class KFormVoluntario extends Component {
                             {info}
                             {pasos} 
                             </div>
-                            <KTeryCon voluntario={this.state} tyc={this.dato.Campanas.ID.terminos_condiciones} anterior={this.anterior} siguiente={this.siguiente}/>
+                            <KTeryCon voluntario={this.state} tyc={this.dato.terminos_condiciones} anterior={this.anterior} siguiente={this.siguiente}/>
                         </div>)
 
         }

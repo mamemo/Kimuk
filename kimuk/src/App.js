@@ -7,15 +7,17 @@ import KFormVoluntario from './components/KFormVoluntario/KFormVoluntario'
 import KAdmin from './components/KAdmin/KAdmin'
 import KContacto from './components/KContacto/KContacto';
 import KInfo from './components/KInfo/KInfo';
-
+import {base} from "./base"; // This import MUST remain here, DO NOT DELETE
 
 ///////////////////////  FIREBASE  //////////////////////////
+/*
 const firebase = require("firebase-admin");
 const serviceAccount = require("./serviceAccountKey.json");
 firebase.initializeApp({
   credential: firebase.credential.cert(serviceAccount),
   databaseURL: "https://kimuk-backend.firebaseio.com"
 });
+*/
 /////////////////////////////////////////////////////////////
 
 class App extends Component {
