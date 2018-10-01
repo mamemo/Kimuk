@@ -6,7 +6,6 @@ export default class KIndex extends Component {
   render(){
     return(
       <main>
-
         <div className="container text-center index">
           <div className="row h-100">
             <div className="col-lg-6 offset-lg-3  align-self-center">
@@ -17,8 +16,6 @@ export default class KIndex extends Component {
               <a href="#" type="button" class="btn-lg btn-success">Crear volutariado</a>
             </div>
           </div>
-
-
         </div>
       </main>
     );

@@ -9,13 +9,13 @@ export default class KDocumentos extends Component {
                 <div className="row"> hola mundo documentos</div>
                 <div className="row">
                     <div className="col-1 offset-2">
-                        <button className="bt" onClick={ this.props.anterior }>anterior</button> 
+                        <button className="bt" onClick={ this.props.anterior }>anterior</button>
                     </div>
                     <div className="col-1 offset-6">
-                        <button className="bt-lg" onClick={ this.props.siguiente }>continuar</button> 
+                        <button className="bt-lg" onClick={ this.props.siguiente }>continuar</button>
                     </div>
                 </div>
-            </div>    
+            </div>
         );
     }
 }
