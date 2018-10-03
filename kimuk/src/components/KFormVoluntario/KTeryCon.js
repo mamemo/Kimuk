@@ -13,13 +13,13 @@ export default class KTeryCon extends Component {
     registrar(){
         console.log(this.props.voluntario);
         insertar_actualizar_voluntarios_camapana(7812303,
-            3213,this.props.tipo_id,this.props.nombre,
-            this.props.apellido_1,this.props.apellido_2,
-            this.props.f_nacimiento,this.props.genero,
-            this.props.estado_civil,this.props.ocupacion,
-            this.props.provincia,this.props.canton,this.props.distrito,
-            this.props.direccion_exacta,this.props.correo,
-            this.props.telefono_1,this.props.telefono_2," "," ")
+            this.props.voluntario.id,this.props.voluntario.tipo_id,this.props.voluntario.nombre,
+            this.props.voluntario.apellido_1,this.props.voluntario.apellido_2,
+            this.props.voluntario.f_nacimiento,this.props.voluntario.genero,
+            this.props.voluntario.estado_civil,this.props.voluntario.ocupacion,
+            this.props.voluntario.provincia,this.props.voluntario.canton,this.props.voluntario.distrito,
+            this.props.voluntario.direccion_exacta,this.props.voluntario.correo,
+            this.props.voluntario.telefono_1,this.props.voluntario.telefono_2," "," ")
     }
     guardar_info(e){
         this.props.voluntario[e.target.name]=e.target.value;
