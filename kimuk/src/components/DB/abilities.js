@@ -1,9 +1,10 @@
 import firebase from "firebase";
-
+import * as uid from "uid";
 
 export {insertar_actualizar_habilidades, actualizar_key_habilidades, eliminar_habilidades, leer_habilidades}
 
-function insertar_actualizar_habilidades(Id, nombre) {
+function insertar_actualizar_habilidades(nombre) {
+    let Id = uid();
     firebase.database().ref('Habilidades/' + Id).update({
         Nombre: nombre
     }, function (error) {return error;});
