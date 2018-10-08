@@ -1,12 +1,14 @@
 import firebase from 'firebase'
+import * as uid from "uid";
 
 export {leer_campanas, insertar_actualizar_habilidades_campana, insertar_actualizar_encargados_campana, insertar_actualizar_campana,
 eliminar_habilidad_campana, eliminar_campana, actualizar_campana, actualizar_encargado_campana, eliminar_encargado_campana,
 leer_encargados_camapanas, leer_habilidades_camapana}
 
-function insertar_actualizar_campana(Id, nombre, descripcion, fecha_ejecucion, hora, lugar,
+function insertar_actualizar_campana(nombre, descripcion, fecha_ejecucion, hora, lugar,
                                      fecha_limite, limite_registro, limite_voluntarios, formacion_academica, terminos_condiciones
 ) {
+    let Id = uid();
     firebase.database().ref('Campanas/' + Id).update(
         {
             Nombre: nombre,
@@ -80,15 +82,17 @@ function leer_habilidades_camapana(Id_campana) {
 }
 
 
-function insertar_actualizar_encargados_campana(Id_campana, Id_encargado, nombre_encargado, apellidos_encargado,
-                                                correo_electronico_encargado, telefono_encargado){
+function insertar_actualizar_encargados_campana(Id_campana, nombre_encargado, apellidos_encargado,
+    correo_electronico_encargado, telefono_encargado){
+
+    let Id_encargado = uid();
     firebase.database().ref('Campanas/' + Id_campana + "/Encargados/" + Id_encargado).update({
-        nombre: nombre_encargado,
-        apellidos: apellidos_encargado,
-        correo_electronico: correo_electronico_encargado,
-        telefono: telefono_encargado
+    nombre: nombre_encargado,
+    apellidos: apellidos_encargado,
+    correo_electronico: correo_electronico_encargado,
+    telefono: telefono_encargado
     }, function (error) {
-        return error;
+    return error;
     });
 }
 

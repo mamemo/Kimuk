@@ -2,7 +2,7 @@ import createFragment from "react-addons-create-fragment";
 import React from "react";
 
 export {InCampanasKFormVoluntario, InHabilidadesGraficasKFormVoluntario, InEcargadosKFormVoluntario,
-VisualizacionEncargados, InHabilidadesCodigosKFormVoluntario}
+VisualizacionEncargados, InHabilidadesCodigosKFormVoluntario, InHabilidadesBD}
 
 function InCampanasKFormVoluntario(result) {
     return createFragment({
@@ -52,4 +52,12 @@ function InHabilidadesCodigosKFormVoluntario(result)
         master_array.push([habilidad.toString(), result.Habilidades[habilidad]]);
     }
     return master_array;
+}
+
+function InHabilidadesBD(result) {
+    let nombresHabilidades = [];
+    for(let k in result){
+        nombresHabilidades.push(result[k].Nombre);      
+    }
+    return nombresHabilidades;
 }
