@@ -3,17 +3,35 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "firebase-admin": "^6.0.0",
+    "firebase": "^5.5.3",
     "history": "^4.7.2",
+    "jquery": "^3.3.1",
+    "json-loader": "^0.5.7",
+    "moment": "^2.22.2",
+    "moment-timezone": "^0.5.21",
+    "re-base": "^4.0.0",
     "react": "^16.4.2",
+    "react-addons": "^0.9.1-deprecated",
+    "react-addons-create-fragment": "^15.6.2",
+    "react-bootstrap": "^0.32.4",
+    "react-confirm-alert": "^2.0.6",
+    "react-datepicker": "^1.6.0",
     "react-dom": "^16.4.2",
+    "react-modal": "^3.6.1",
+    "react-numeric-input": "^2.2.3",
     "react-router": "^4.3.1",
-    "react-scripts": "1.1.5"
+    "react-scripts": "1.1.5",
+    "react-tooltip": "^3.8.4",
+    "uid": "0.0.2"
   },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
+  },
+  "devDependencies": {
+    "dotenv": "^6.0.0",
+    "react-times": "^3.1.9"
   }
 }
