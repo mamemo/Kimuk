@@ -9,7 +9,6 @@ import KContacto from './components/KContacto/KContacto';
 import KInfo from './components/KInfo/KInfo';
 import {base} from "./base"; // This import MUST remain here, DO NOT DELETE
 
-
 class App extends Component {
   
   constructor(){

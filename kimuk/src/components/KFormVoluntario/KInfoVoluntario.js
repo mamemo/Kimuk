@@ -192,7 +192,7 @@ export default class KInfoVoluntario extends Component {
                 <div className="row">
                     
                     <div className="col-1 offset-8">
-                        <button className="bt-lg" onClick={ this.props.siguiente }>continuar</button> 
+                        <button className="btn btn-primary" onClick={ this.props.siguiente }>continuar</button> 
                     </div>
                 </div>
                 <br/>

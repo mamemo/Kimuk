@@ -1,0 +1,152 @@
+{
+  "Campanas" : {
+    "7812303" : {
+      "Descripcion" : "Lorem ipsum",
+      "Encargados" : {
+        "215469844" : {
+          "apellidos" : "Mendendez",
+          "correo_electronico" : "rmenendez@ipsum.com",
+          "nombre" : "Raul",
+          "telefono" : "88456218"
+        },
+        "414369844" : {
+          "apellidos" : "Ipsum",
+          "correo_electronico" : "lorem@ipsum.com",
+          "nombre" : "Lorem",
+          "telefono" : "81443218"
+        }
+      },
+	  
+	  "Documentos": {
+			"Poliza": "Archivo",
+			"Delincuencia": 1, 
+			"Licencia" : 1
+	  },
+	  
+      "Fecha_ejecucion" : "20/10/2018",
+      "Fecha_limite" : "25/10/2018",
+      "Habilidades" : {
+        "15001" : "Natacion",
+        "15002" : "CPR"
+      },
+      "Hora" : "8:00am",
+      "Limite_registro" : "23/10/2018",
+      "Limite_voluntarios" : 0,
+      "Lugar" : "San Jose",
+      "Nombre" : "Emergencia 2.0",
+      "Voluntarios" : {
+        "116760644" : {
+          "Beneficiarios" : {
+            "204589845" : {
+              "nombre" : "Lorem",
+              "parentesco" : "Padre",
+              "porcentaje" : "50"
+            },
+            "453289845" : {
+              "nombre" : "Ipsum",
+              "parentesco" : "Madre",
+              "porcentaje" : "50"
+            }
+          },
+          "Canton" : "Tibas",
+          "Correo_electronico" : "ldiegohcr@gmail.com",
+          "Direccion" : "Calle 5A",
+          "Distrito" : "San Juan",
+          "Emergencia" : {
+            "nombre" : "Lorem",
+            "parentesco" : "Padre",
+            "telefono" : 88978451
+          },
+          "Estado_civil" : "Soltero",
+          "Estado_solicitud" : "Pendiente",
+          "Fecha_nacimiento" : "13/05/1997",
+          "Fecha_registro" : "21/10/2018",
+          "Genero" : "M",
+          "Habilidades" : {
+            "15001" : "Natacion",
+            "15002" : "CPR"
+          },
+          "Info_academica" : [ null, {
+            "centro" : "TEC",
+            "especialidad" : "SQL",
+            "grado_academico" : "Bachillerato PC",
+            "titulo" : "Bachi"
+          }, {
+            "centro" : "Kamuk",
+            "especialidad" : "MATE",
+            "grado_academico" : "Bachillerato",
+            "titulo" : "Bachi"
+          } ],
+          "Nombre" : "Luis",
+          "Ocupacion" : "Estudiante",
+          "Primer_apellido" : "Hidalgo",
+          "Provincia" : "San Jose",
+          "Segundo_apellido" : "Blanco",
+          "Telefono_dos" : "22981232",
+          "Telefono_uno" : "88390105",
+          "Tipo_identificacion" : "Cedula"
+        },
+        "326760644" : {
+          "Beneficiarios" : {
+            "504589845" : {
+              "nombre" : "Lorem",
+              "parentesco" : "Padre",
+              "porcentaje" : "50"
+            },
+            "753289845" : {
+              "nombre" : "Ipsum",
+              "parentesco" : "Madre",
+              "porcentaje" : "50"
+            }
+          },
+          "Canton" : "Tibas",
+          "Correo_electronico" : "ldiegohcr@gmail.com",
+          "Direccion" : "Calle 5A",
+          "Distrito" : "San Juan",
+          "Emergencia" : {
+            "nombre" : "Ipsum",
+            "parentesco" : "Madre",
+            "telefono" : 88978451
+          },
+          "Estado_civil" : "Soltero",
+          "Estado_solicitud" : "Pendiente",
+          "Fecha_nacimiento" : "13/05/1997",
+          "Fecha_registro" : "21/10/2018",
+          "Genero" : "M",
+          "Habilidades" : {
+            "15002" : "CPR"
+          },
+          "Info_academica" : [ null, {
+            "centro" : "TEC",
+            "especialidad" : "C",
+            "grado_academico" : "Bachillerato Electri",
+            "titulo" : "Bachi"
+          }, {
+            "centro" : "TEC",
+            "especialidad" : "Robots",
+            "grado_academico" : "Bachillerato Meca",
+            "titulo" : "Bachi"
+          } ],
+          "Nombre" : "Diego",
+          "Ocupacion" : "Estudiante",
+          "Primer_apellido" : "Hidalgo",
+          "Provincia" : "San Jose",
+          "Segundo_apellido" : "Hidalgo",
+          "Telefono_dos" : "22981232",
+          "Telefono_uno" : "88390105",
+          "Tipo_identificacion" : "Cedula"
+        }
+      },
+      "formacion_academica" : 0,
+      "terminos_condiciones" : "Lorem ipsum dolor sit amet"
+    }
+  },
+  "Habilidades" : {
+    "15001" : {
+      "Nombre" : "Natacion"
+    },
+    "15002" : {
+      "Nombre" : "CPR"
+    }
+  }
+}

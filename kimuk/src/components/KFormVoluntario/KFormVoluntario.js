@@ -44,6 +44,13 @@ export default class KFormVoluntario extends Component {
         };
         this.siguiente=this.siguiente.bind(this);
         this.anterior=this.anterior.bind(this);
+        this.obtener_datos=this.obtener_datos.bind(this);
+    }
+    obtener_datos(){
+        leer_campanas(7812303).then((data) => this.setState({datos:data}))
+        //console.log(this.state.datos)
+        this.dato=this.state.datos;
+
     }
     siguiente(){
         this.setState({
@@ -70,7 +77,7 @@ export default class KFormVoluntario extends Component {
     }
 
     render(){
-        let pasos;
+      let pasos;
         const info=<div className="container text-left">
             <div className="row" >
                 <div className="col-4">

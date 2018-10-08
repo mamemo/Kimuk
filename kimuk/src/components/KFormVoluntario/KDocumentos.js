@@ -6,16 +6,24 @@ export default class KDocumentos extends Component {
     render(){
         return(
             <div className="container">
-                <div className="row"> hola mundo documentos</div>
+                <div className="row">  
+                <div className="col-6 offset-3">
+                    <input type="file" />
+                    <br/>
+                    <br/>    
+                </div>
+               </div>
                 <div className="row">
                     <div className="col-1 offset-2">
-                        <button className="bt" onClick={ this.props.anterior }>anterior</button>
+                        <button className="btn btn-info" onClick={ this.props.anterior }>anterior</button> 
                     </div>
                     <div className="col-1 offset-6">
-                        <button className="bt-lg" onClick={ this.props.siguiente }>continuar</button>
+                        <button className="btn btn-primary" onClick={ this.props.siguiente }>continuar</button> 
                     </div>
                 </div>
-            </div>
+                <br/>
+                <br/>
+            </div>    
         );
     }
 }

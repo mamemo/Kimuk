@@ -33,18 +33,25 @@ export default class KHabilidades extends Component {
                         <h3>¿Qué son las habilidades?</h3>
                         <p>Son características que queremos saber si tienes. Selecciona las que crees que van con vos.<br/>
 ¡Solo queremos conocerte mejor!</p>     
-                        {hab}
                     </div>
                 </div>
-                
+                <div className="row">
+                    <div className="col-6 offset-3">  
+                        {hab}
+                        <br/>
+                        <br/>  
+                    </div>
+                </div>
                 <div className="row">
                     <div className="col-1 offset-2">
-                        <button className="bt" onClick={ this.props.anterior }>anterior</button> 
+                        <button className="btn btn-info" onClick={ this.props.anterior }>anterior</button> 
                     </div>
                     <div className="col-1 offset-6">
-                        <button className="bt-lg" onClick={ this.props.siguiente }>continuar</button> 
+                        <button className="btn btn-primary" onClick={ this.props.siguiente }>continuar</button> 
                     </div>
                 </div>
+                <br/>
+                <br/>
             </div>    
         );
     }

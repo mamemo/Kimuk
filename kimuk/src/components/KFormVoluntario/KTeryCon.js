@@ -5,7 +5,6 @@ import '../DB/abilities';
 import {insertar_actualizar_voluntarios_camapana, insertar_actualizar_habilidades_voluntarios,
 actualizar_voluntarios_campana, eliminar_voluntario} from "../DB/volunteers";
 
-
 export default class KTeryCon extends Component {
     constructor(){
         super();
@@ -49,6 +48,7 @@ export default class KTeryCon extends Component {
         }
         alert("Registro exitoso");
     }
+
     guardar_info(e){
         this.props.voluntario[e.target.name]=e.target.value;
     }
@@ -56,24 +56,28 @@ export default class KTeryCon extends Component {
         return(
             <div className="container">
                 <div className="row"> 
-                <div className="col-6 offset-3">
+                <div className="col-6 offset-3 border border-dark text-justify">
                 {this.props.tyc}
                 </div>
                 </div>
                 <div className="row"> 
-                    <div className="col-4 offset-6">
+                    <div className="col-4 offset-6 text-left">
                     <input type="radio" name="tyc" value="si" defaultChecked={this.props.voluntario.tyc==="si"} onChange={this.guardar_info}/> Acepto términos y condiciones <br/>
                     <input type="radio" name="tyc" value="no" defaultChecked={this.props.voluntario.tyc==="no"} onChange={this.guardar_info}/> No acepto <br/>
+                    <br/>
+                    <br/>
                     </div>
                 </div>
                 <div className="row">
                     <div className="col-1 offset-2">
-                        <button className="bt" onClick={ this.props.anterior }>anterior</button> 
+                        <button className="btn btn-info" onClick={ this.props.anterior }>anterior</button> 
                     </div>
                     <div className="col-1 offset-6">
-                        <button className="bt-lg" onClick={ this.registrar }>Confirmar</button> 
+                        <button className="btn btn-success" onClick={ this.registrar }>Confirmar</button> 
                     </div>
                 </div>
+                <br/>
+                <br/>
             </div>    
         );
     }
