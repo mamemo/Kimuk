@@ -2,7 +2,7 @@ import createFragment from "react-addons-create-fragment";
 import React from "react";
 
 export {InCampanasKFormVoluntario, InHabilidadesGraficasKFormVoluntario, InEcargadosKFormVoluntario,
-VisualizacionEncargados, InHabilidadesCodigosKFormVoluntario, InVoluntariosKFormAdmin}
+VisualizacionEncargados, InHabilidadesCodigosKFormVoluntario}
 
 function InCampanasKFormVoluntario(result) {
     return createFragment({
@@ -27,15 +27,6 @@ function InEcargadosKFormVoluntario(result) {
         in_encargados.push(frag);
     }
     return in_encargados;
-}
-
-function InVoluntariosKFormAdmin(result) {
-    let content = Object.keys(result.Voluntarios).map(key => {
-        return result.Voluntarios[key];
-    });
-
-    console.log(content);
-    return content;
 }
 
 function VisualizacionEncargados(encargados) {
