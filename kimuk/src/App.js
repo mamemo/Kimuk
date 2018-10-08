@@ -9,24 +9,13 @@ import KContacto from './components/KContacto/KContacto';
 import KInfo from './components/KInfo/KInfo';
 import {base} from "./base"; // This import MUST remain here, DO NOT DELETE
 
-///////////////////////  FIREBASE  //////////////////////////
-/*
-const firebase = require("firebase-admin");
-const serviceAccount = require("./serviceAccountKey.json");
-firebase.initializeApp({
-  credential: firebase.credential.cert(serviceAccount),
-  databaseURL: "https://kimuk-backend.firebaseio.com"
-});
-*/
-/////////////////////////////////////////////////////////////
-
 class App extends Component {
   
   constructor(){
     super();
     this.state ={
         link:1
-    }
+    };
     this.ir=this.ir.bind(this);
   }
   ir(nlink){
@@ -42,7 +31,7 @@ http://localhost:3000/admin
 http://localhost:3000/contacto
 */
   render() {
-    const url=window.location.href.split("/")
+    const url=window.location.href.split("/");
     console.log(url);
     switch (url[3]) {
       case "":
@@ -86,8 +75,7 @@ http://localhost:3000/contacto
             <KInfo/>
           </div>
         );
-    }  
-    
+    }
   }
 }
 

@@ -1,0 +1,95 @@
+
+table.title {
+    position: relative;
+    left: 100px;
+    border-spacing: 3px;
+    width: 85%;
+    border: 1px solid lightgrey;
+    font-size: 14px;
+    table-layout: fixed;
+    font-family: Arial, Helvetica, sans-serif;
+    background: #F7F7F7;
+}
+
+th, td {
+    padding: 6px;
+    font-weight: bold;
+}
+
+th {
+    text-align: center;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+table.formacion {
+    position: relative;
+    left: 100px;
+    border-spacing: 20px;
+    width: 85%;
+    font-size: 14px;
+    table-layout: fixed;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+th.form{
+    font-weight: lighter;
+}
+
+td.form{
+    font-weight: lighter;
+}
+
+button.forma{
+    position:absolute;
+    left: 97%;
+    top: 23%;
+}
+
+
+a.aform {
+    position: relative;
+    display: inline;
+    vertical-align: top;
+    font-size: 18px;
+    right: 225px;
+    bottom: 2px;
+}
+
+h1.hform{
+    position: relative;
+    display: inline;
+    font-size: 18px;
+    right: 230px;
+}
+
+input{
+    width: 600px;
+    border-radius: 6px;
+}
+
+h6 {
+    text-align: left;
+    position: relative;
+    top: 2px;
+    font-family: Helvetica;
+}
+
+.ReactModal__Overlay {
+    z-index: 1000;
+}
+
+button.inside {
+    position: relative;
+    left: 250px;
+    width: 100px;
+    color: white;
+    background: #3D8BCD;
+    border-radius: 10px;
+    border: 2px solid #3D8BCD;
+}
+
+::placeholder{
+    text-align: center;
+}
+
+
