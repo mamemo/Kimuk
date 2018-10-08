@@ -1,0 +1,36 @@
+.members_container{
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+.volunteer_table{
+  width: 80%;
+}
+
+.searchBar{
+  width: 50%;
+}
+
+.pendiente{
+  background-color: lightgray;
+}
+
+.aprobado{
+  background-color: lightgreen;
+}
+
+.no_aprobado{
+  background-color: lightcoral;
+}
+
+.aprobado_seguro{
+  background-color: lightskyblue;
+}
+
+table, th, td {
+  border-bottom: 1px solid black;
+  border-collapse: collapse;
+}
