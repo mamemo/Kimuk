@@ -3,13 +3,26 @@ import { Link } from 'react-router';
 import Modal from 'react-modal';
 import './KNav.css';
 
-const customStyles = {
+const infoModalStyle = {
+    content : {
+        top                   : '50%',
+        left                  : '50%',
+        right                 : 'auto',
+        bottom                : 'auto',
+        height                : '500px',
+        transform             : 'translate(-50%, -50%)',
+        overflow              : 'auto',
+    }
+};
+
+const contactModalStyle = {
     content : {
         top                   : '50%',
         left                  : '50%',
         right                 : 'auto',
         bottom                : 'auto',
         transform             : 'translate(-50%, -50%)',
+        overflow              : 'auto',
     }
 };
 
@@ -53,7 +66,8 @@ export default class KNav extends React.Component {
       <Modal
         isOpen={this.state.contactIsOpen}
         onRequestClose={this.showContactModal}
-        style={customStyles}
+        style={contactModalStyle}
+        ariaHideApp={false}
       >
         <h4>Información de Contacto</h4>
         <h5>Dirección Principal</h5>
@@ -77,7 +91,8 @@ export default class KNav extends React.Component {
       <Modal
         isOpen={this.state.infoIsOpen}
         onRequestClose={this.showInfoModal}
-        style={customStyles}
+        style={infoModalStyle}
+        ariaHideApp={false}
       >
         <h4>Información General</h4>
         <p>
@@ -90,6 +105,18 @@ export default class KNav extends React.Component {
         <p>
           Como se menciona, el Ciclo está compuesto por varias fases o etapas que responden a momentos críticos en el proceso de reclutamiento y formación del recurso humano voluntario, procesos que todo voluntario deberá de completar para formar parte de la organización; las etapas son:
         </p>
+        <ol>
+          <li>
+            Captación y reclutamiento: durante esta fase se realiza la campaña de reclutamiento, las entrevistas de aspirantes, los convivios y la inscripción de aspirantes a voluntarios.
+          </li>
+          <li>
+            Capacitación: una de las fases primordiales del Ciclo, comprende todo el proceso de formación del voluntario, la capacitación básica institucional, la formación general y la formación especializada; además de incluir el proceso de consolidación, en la cual los aspirantes seleccionan la sección de servicio a la cual se integrarán.
+          </li>
+          <li>
+            Nivelación: este proceso está enfocado en los voluntarios con mayor tiempo de pertenecer a la organización, y que por algún motivo no han podido completar su proceso de capacitación, aprovechando el ingreso de nuevos aspirantes, se unen a estos para continuar con el cumplimiento de la malla curricular correspondiente.
+          </li>
+
+        </ol>
         <button className="btn-md btn-primary" aria-label="Close" onClick={this.showInfoModal}>
             <span aria-hidden="true">Cerrar</span>
         </button>

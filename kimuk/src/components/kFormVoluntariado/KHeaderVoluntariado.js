@@ -7,16 +7,9 @@ import { Glyphicon } from 'react-bootstrap';
 export default class KHeaderVoluntariado extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      volName: ''
-    };
-
-    this.handleChange = this.handleChange.bind(this);
+    this.state = {};
   }
 
-  handleChange(event) {
-    this.setState({volName: event.target.value});
-  }
   /*
    * Volunteering Data Component
    * Parts: Image, name
@@ -46,13 +39,20 @@ export default class KHeaderVoluntariado extends Component {
                 aria-describedby="inputGroup-sizing-sm"
                 align="left"
                 placeholder="Nombre del voluntariado"
-                value={this.state.volName}
-                onChange={this.handleChange} />
+                value={this.props.name}
+                onChange={this.props.handler} />
             </div>
           </div>
         </div>
         <div id="img-div" class="form-group">
-          <input type="file" class="form-control-file" id="image-file" />
+          <input
+            name="volImage"
+            type="file"
+            class="form-control-file"
+            id="image-file"
+            value={this.props.image}
+            onChange={this.props.handler}
+          />
         </div>
       </div>
     );

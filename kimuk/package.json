@@ -3,10 +3,12 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@material-ui/core": "^3.2.2",
     "firebase": "^5.5.3",
     "history": "^4.7.2",
     "jquery": "^3.3.1",
     "json-loader": "^0.5.7",
+    "material-ui-time-picker": "^1.0.0",
     "moment": "^2.22.2",
     "moment-timezone": "^0.5.21",
     "re-base": "^4.0.0",
@@ -31,7 +33,6 @@
     "eject": "react-scripts eject"
   },
   "devDependencies": {
-    "dotenv": "^6.0.0",
-    "react-times": "^3.1.9"
+    "dotenv": "^6.0.0"
   }
 }

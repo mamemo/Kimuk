@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
+import KFormPregunta from '../KFormPregunta/KFormPregunta';
+import KModalHabilidades from './KModalHabilidades';
+import { confirmAlert } from 'react-confirm-alert';
+
 import './KFormVoluntariado.css';
 import '../style/color.css';
 import '../style/general.css';
-import KFormPregunta from '../KFormPregunta/KFormPregunta';
-import KHeaderVoluntariado from './KHeaderVoluntariado';
-import KModalHabilidades from './KModalHabilidades';
-import { confirmAlert } from 'react-confirm-alert';
 import 'react-confirm-alert/src/react-confirm-alert.css';
 
 const question = {
@@ -36,13 +36,12 @@ export default class KHabilidades extends Component {
     render() {
         return (
             <div className="container">
-                <KHeaderVoluntariado />
                 <div className="row">
                     <KFormPregunta
                         title={question.title}
                         question={question.question}
                         description={question.description} />
-                        
+
                 </div>
                 <div className="row">
                     <div className="col-1 offset-2">

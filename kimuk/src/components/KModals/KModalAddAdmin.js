@@ -64,7 +64,7 @@ export default class KModalAddAdmin extends Component
         {alert("Correo electrónico inválido.\nPor favor ingrese correctamente el correo electrónico"); return;}
 
         const encargado = [nuevoNombre, nuevoApellidos, nuevoCorreo, nuevoTelefono];
-        this.props.campana.encargados.push(encargado);
+        this.props.manager.encargados.push(encargado);
         nuevoNombre = nuevoApellidos = nuevoCorreo = nuevoTelefono = "";
         this.closeModal();
         this.actualizarListaEncargados();
@@ -77,7 +77,7 @@ export default class KModalAddAdmin extends Component
 
     quitarEncargado(e){
         const id = parseInt(e.target.id);
-        this.props.campana.encargados.splice(id, 1);
+        this.props.manager.encargados.splice(id, 1);
         this.actualizarListaEncargados();
     }
 
@@ -91,14 +91,14 @@ export default class KModalAddAdmin extends Component
 
     actualizarListaEncargados(){
         let encargados = [];
-        for(let k in this.props.campana.encargados)
+        for(let k in this.props.manager.encargados)
         {
             encargados.push(<table className="formacion">
                 <tr>
-                    <td className="form">{this.props.campana.encargados[k][0]}</td>
-                    <td className="form">{this.props.campana.encargados[k][1]}</td>
-                    <td className="form">{this.props.campana.encargados[k][2]}</td>
-                    <td className="form">{this.props.campana.encargados[k][3]}</td>
+                    <td className="form">{this.props.manager.encargados[k][0]}</td>
+                    <td className="form">{this.props.manager.encargados[k][1]}</td>
+                    <td className="form">{this.props.manager.encargados[k][2]}</td>
+                    <td className="form">{this.props.manager.encargados[k][3]}</td>
                 </tr>
                 <button id={k} type="button" onClick={this.quitarEncargado} className="forma">
                     <span className="eliminate">
@@ -123,7 +123,8 @@ export default class KModalAddAdmin extends Component
                 <Modal
                     isOpen={this.state.modalIsOpen}
                     onRequestClose={this.closeModal}
-                    style={customStyles}>
+                    style={customStyles}
+                    ariaHideApp={false}>
                     <h7>&nbsp; Ingrese información del encargado</h7>
                     <br/>
                     <h6>Nombre:</h6>
@@ -144,7 +145,7 @@ export default class KModalAddAdmin extends Component
                     </button>
                 </Modal>
                 <div>
-                    <table class="title">
+                    <table className="title">
                         <tr>
                             <td>Nombre</td>
                             <td>Apellidos</td>
