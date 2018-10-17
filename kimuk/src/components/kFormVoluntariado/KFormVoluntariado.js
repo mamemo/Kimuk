@@ -34,6 +34,7 @@ export default class KFormVoluntariado extends Component {
             disabled: true,
             encargados: [],
             skills: [],
+            documents: [],
             id: uid()
         }
         this.handleInputChange = this.handleInputChange.bind(this);
@@ -222,7 +223,7 @@ export default class KFormVoluntariado extends Component {
                             <div className="relative">
                               <div className="absolute">
                                 <KHeaderVoluntariado />
-                                <KDocumentos anterior={this.anterior} siguiente={this.siguiente}/>
+                                <KDocumentos documents={this.state.documents} anterior={this.anterior} siguiente={this.siguiente}/>
                               </div>
                             </div>
                         </div>)

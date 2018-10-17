@@ -34,6 +34,7 @@ table {
 	position: absolute;
 	z-index: -1;
 }
+
 .inputfile + label {
     font-size: 0.7em;
     color: white;

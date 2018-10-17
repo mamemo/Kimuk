@@ -182,7 +182,7 @@ export default class KInfoVoluntariado extends Component {
         </div>
         <div className="col-sm-10">
           <label data-tip data-for='checkbox-tooltip'>
-          Seleccionar fecha límite de voluntariado
+          Habilitar fecha límite de voluntariado
           <input
             name="registrationDeadline"
             type="checkbox"

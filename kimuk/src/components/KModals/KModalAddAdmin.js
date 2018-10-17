@@ -128,16 +128,16 @@ export default class KModalAddAdmin extends Component
                     <h7>&nbsp; Ingrese información del encargado</h7>
                     <br/>
                     <h6>Nombre:</h6>
-                    <input type="text" name="Nombre" placeholder="Nombre" onChange={KModalAddAdmin.guardar_info}/>
+                    <input type="text" name="Nombre" placeholder="Nombre" style={{width: 500}} onChange={KModalAddAdmin.guardar_info}/>
                     <br/> <br/>
                     <h6>Apellidos:</h6>
-                    <input type="text" name="Apellidos" placeholder="Apellidos" onChange={KModalAddAdmin.guardar_info}/>
+                    <input type="text" name="Apellidos" placeholder="Apellidos" style={{width: 500}} onChange={KModalAddAdmin.guardar_info}/>
                     <br/> <br/>
                     <h6>Correo electrónico:</h6>
-                    <input type="text" name="Correo" placeholder="Correo electrónico" onChange={KModalAddAdmin.guardar_info}/>
+                    <input type="text" name="Correo" placeholder="Correo electrónico" style={{width: 500}} onChange={KModalAddAdmin.guardar_info}/>
                     <br/> <br/>
                     <h6>Teléfono:</h6>
-                    <input type="text" name="Telefono" placeholder="Teléfono" onChange={KModalAddAdmin.guardar_info}/>
+                    <input type="text" name="Telefono" placeholder="Teléfono" style={{width: 500}} onChange={KModalAddAdmin.guardar_info}/>
                     <br/> <br/>
                     <button className="inside" onClick={this.agregarEncargado}>Aceptar</button>
                     <button type="button" className="close" aria-label="Close" onClick={this.closeModal}>
