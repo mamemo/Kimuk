@@ -7,10 +7,10 @@ export default class KIndex extends Component {
     return(
       <main>
 
-        <div className="container index">
+        <div id="quote" className="container index">
           <h1 className="text-center">Hazte Voluntario</h1>
           <br />
-          <h3 className="text-center">
+          <h3 id="quote-h3" className="text-center">
             Tu tiempo y talento pueden marcar una diferencia real en la vida de las personas
           </h3>
           <div id="div-btn-crear-voluntariado" className="text-center">

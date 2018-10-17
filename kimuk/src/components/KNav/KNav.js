@@ -128,7 +128,10 @@ export default class KNav extends React.Component {
     const classCollapseNavbar = 'collapse navbar-collapse' + (this.state.openCollapse ? ' show' : '')
     return(
       <nav className="navbar navbar-expand-lg navbar-dark bg-primary">
-        <a className="navbar-brand" href="/">Kimuk</a>
+        <a className="navbar-brand" href="/">
+          <img src={require('../rsc/logo-solo-blanco.png')} width="30" height="30" class="d-inline-block align-top" alt=""/>
+          Kimuk
+        </a>
         <button
           className="navbar-toggler"
           type="button"

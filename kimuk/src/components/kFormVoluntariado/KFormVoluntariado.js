@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router';
 import moment from 'moment';
-
+import * as uid from "uid";
 import KHeaderVoluntariado from './KHeaderVoluntariado';
 import KInfoVoluntariado from './KInfoVoluntariado'
 import KHabilidades from './KHabilidades'
@@ -10,6 +10,7 @@ import KDocumentos from './KDocumentos'
 import KTeryCon from './KTeryCon'
 import './KFormVoluntariado.css';
 import '../style/color.css';
+import {insertar_campana_construccion} from '../DB/campaigns';
 
 export default class KFormVoluntariado extends Component {
     constructor(props){
@@ -32,15 +33,19 @@ export default class KFormVoluntariado extends Component {
             time: "",
             disabled: true,
             encargados: [],
-            habilidadesSeleccionadas: []
+            skills: [],
+            id: uid()
         }
         this.handleInputChange = this.handleInputChange.bind(this);
         this.handleStartDateChange = this.handleStartDateChange.bind(this);
         this.handleFinishDateChange = this.handleFinishDateChange.bind(this);
         this.handleTimeChange = this.handleTimeChange.bind(this);
         this.handleCheckoxChange = this.handleCheckoxChange.bind(this);
+        this.handleNumeric = this.handleNumeric.bind(this);
         this.siguiente = this.siguiente.bind(this);
         this.anterior = this.anterior.bind(this);
+        insertar_campana_construccion(this.state.id);
+        console.log(this.state.id);
     }
 
   /*
@@ -48,7 +53,6 @@ export default class KFormVoluntariado extends Component {
    *
    */
     handleInputChange(event) {
-      event.preventDefault()
       const target = event.target;
       const name = target.name;
 
@@ -101,7 +105,12 @@ export default class KFormVoluntariado extends Component {
       }
       this.setState({ registrationDeadline: target.checked });
       this.setState({ disabled: !this.state.disabled});
+    }
 
+    handleNumeric(event) {
+      this.setState({
+        numberOfVolunteers: event.target.value
+      });
     }
 
   /*
@@ -162,6 +171,7 @@ export default class KFormVoluntariado extends Component {
                                 handleFinishDateChange={this.handleFinishDateChange}
                                 handleTimeChange={this.handleTimeChange}
                                 handleCheckoxChange={this.handleCheckoxChange}
+                                handlerNumeric={this.handleNumeric}
                               />
                             </div>
                           </div>
@@ -189,7 +199,7 @@ export default class KFormVoluntariado extends Component {
                                   image={this.state.volImage}
                                   handler={this.handleInputChange}
                                 />
-                                <KHabilidades data={this.state} anterior={this.anterior} siguiente={this.siguiente}/>
+                                <KHabilidades skills={this.state.skills} anterior={this.anterior} siguiente={this.siguiente}/>
                               </div>
                             </div>
                         </div>)

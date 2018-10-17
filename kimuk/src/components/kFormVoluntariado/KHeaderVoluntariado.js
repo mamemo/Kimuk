@@ -7,9 +7,16 @@ import { Glyphicon } from 'react-bootstrap';
 export default class KHeaderVoluntariado extends Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      inputType: 'hidden'
+    };
+
+    this.handleHiddenInput = this.handleHiddenInput.bind(this);
   }
 
+  handleHiddenInput() {
+    this.setState({inputType: 'text'});
+  }
   /*
    * Volunteering Data Component
    * Parts: Image, name
@@ -44,15 +51,24 @@ export default class KHeaderVoluntariado extends Component {
             </div>
           </div>
         </div>
-        <div id="img-div" class="form-group">
+        <div id="img-div" className="form-group">
+          <label className="btn btn-link">
+              Agregar imagen al voluntariado
+              <input
+                id="image-file"
+                name="volImage"
+                type="file"
+                style={{display: 'none'}}
+                value={this.props.image}
+                onChange={this.props.handler}
+              />
+          </label>
           <input
-            name="volImage"
-            type="file"
-            class="form-control-file"
-            id="image-file"
+            className="form-control input-lg"
+            type={this.state.inputType}
             value={this.props.image}
-            onChange={this.props.handler}
-          />
+            onChange={this.handleHiddenInput}
+            readonly />
         </div>
       </div>
     );

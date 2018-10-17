@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import NumericInput from 'react-numeric-input';
 import { Glyphicon } from 'react-bootstrap';
 import KModalAddAdmin from '../KModals/KModalAddAdmin';
 import ReactTooltip from 'react-tooltip'
@@ -153,11 +152,19 @@ export default class KInfoVoluntariado extends Component {
           <label className="col-6 col-form-label">Hora</label>
           <div className="col-md-6">
             <TimeInput
+              data-tip data-for='time-tooltip'
               mode='12h'
               cancelLabel='Cancelar'
               onChange={this.props.handleTimeChange}
             />
           </div>
+          <ReactTooltip id='time-tooltip' type='info' effect='solid'>
+            <span>
+              Seleccionar la hora a realizarse el voluntariado.
+              <br />
+              No olvide seleccionar el formato de la hora (AM/PM).
+            </span>
+          </ReactTooltip>
         </div>
         <div className="form-group">
           <label for="address" className="col-2 col-form-label"> Lugar </label>
@@ -206,15 +213,15 @@ export default class KInfoVoluntariado extends Component {
             </div>
           </div>
         </div>
-        <label className="col-4 col-form-label" data-tip data-for='numeric-tooltip'>
+        <label className="col-4 col-form-label" >
           Cantidad máxima de voluntarios
-          <NumericInput
-            name="numberOfVolunteers"
-            min={0}
+          <input
+            min="0"
+            name="numberOfGuests"
+            type="number"
             className="form-control"
             value={this.props.campana.numberOfVolunteers}
-            onChange={this.props.handler}
-          />
+            onChange={this.props.handlerNumeric} />
         </label>
         <ReactTooltip id='numeric-tooltip' type='info' effect='solid'>
           <span>
