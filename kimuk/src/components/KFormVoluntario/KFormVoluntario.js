@@ -8,6 +8,7 @@ import KTeryCon from './KTeryCon';
 import {leer_campanas} from "../DB/campaigns";
 import {InCampanasKFormVoluntario, InHabilidadesGraficasKFormVoluntario, InEcargadosKFormVoluntario,
     VisualizacionEncargados, InHabilidadesCodigosKFormVoluntario} from '../DB/add-onns';
+import KInfoVoluntariado from '../KInfoVoluntariado/KInfoVoluntariado';
 
 export default class KFormVoluntario extends Component {
 
@@ -76,23 +77,7 @@ export default class KFormVoluntario extends Component {
 
     render(){
       let pasos;
-        const info=<div className="container text-left">
-            <div className="row" >
-                <div className="col-4">
-                    <img src="" />
-                </div>
-                <div className="col-8">
-                    <h3>{this.state.campana[7]}</h3>
-                    Organizado por:
-                    <ul>{VisualizacionEncargados(this.state.encargados)}</ul>
-                    <h5>{this.state.campana[0]}</h5>
-                    {this.state.campana[1]} {this.state.campana[3]} <br/>
-                    {this.state.campana[6]} <br/>
-                    <hr/>
-                    {this.state.campana[0]} <br/><br/>
-                </div>
-            </div>
-        </div>;
+        const info=<KInfoVoluntariado campana={this.state.campana} vis_encargados={VisualizacionEncargados(this.state.encargados)}/>;
 
         switch(this.state.step){
             case 1:

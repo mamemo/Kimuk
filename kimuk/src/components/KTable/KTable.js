@@ -9,12 +9,19 @@ export default class KTable extends Component {
   constructor(props){
     super(props);
 
-    //console.log(this.filterItemsSearchBar('Luis Hidalgo'));
-    //console.log(this.filterItemsState('Pendiente'));
+    this.state = {
+      inputValue: '',
+      voluntarios: this.props.rows
+    };
+
+    this.updateInputValue = this.updateInputValue.bind(this);
+    this.filtrarEstado = this.filtrarEstado.bind(this);
   }
 
   filterItemsSearchBar = (query) => {
-    return this.props.rows.filter((el) =>
+    if(query == "")
+      return this.state.voluntarios;
+    return this.state.voluntarios.filter((el) =>
       el.Nombre.replace(/\s/g,'').toLowerCase().indexOf(query.replace(/\s/g,'').toLowerCase()) > -1 ||
       el.Primer_apellido.replace(/\s/g,'').toLowerCase().indexOf(query.replace(/\s/g,'').toLowerCase()) > -1 ||
       el.Segundo_apellido.replace(/\s/g,'').toLowerCase().indexOf(query.replace(/\s/g,'').toLowerCase()) > -1 ||
@@ -49,15 +56,13 @@ export default class KTable extends Component {
   createTable = () => {
     let tableBody = [];
 
-    const voluntarios = this.props.rows;
+    const voluntarios = this.filterItemsSearchBar(this.state.inputValue);
 
-    console.log(voluntarios);
-
-    for(var i = 1; i < voluntarios.length; i++){
+    for(var i = 0; i < voluntarios.length; i++){
       if(voluntarios[i]){
         tableBody.push(<tr>
                         <td></td>
-                        <td>{voluntarios[i].Nombre}</td>
+                        <td>{voluntarios[i].Nombre+' '+voluntarios[i].Primer_apellido+' '+voluntarios[i].Segundo_apellido}</td>
                         <td>{this.createStateCell(voluntarios[i].Estado_solicitud)}</td>
                         <td>{voluntarios[i].Ocupacion}</td>
                         <td>{voluntarios[i].Fecha_registro}</td>
@@ -69,15 +74,49 @@ export default class KTable extends Component {
 
     return tableBody;
   }
+  
+  updateInputValue(evt) {
+    this.setState({
+      inputValue: evt.target.value
+    });
+  }
 
+  filtrarEstado(evt){
+    let newRows = [];
 
+    switch (evt.target.name) {
+      case 'Aprobados':
+        newRows = this.filterItemsState('Aprobados');
+        break;
+      case 'No Aprobados':
+        newRows = this.filterItemsState('No Aprobados');
+        break;
+      case 'Todos':
+        newRows = this.props.rows;
+        break;
+      case 'Selección':
+        newRows = this.filterItemsState('Selección');
+        break;
+      case 'Pendientes':
+        newRows = this.filterItemsState('Pendientes');
+        break;
+      case 'Aprobados para seguro':
+        newRows = this.filterItemsState('Aprobados para seguro');
+        break;
+
+      default:
+        break;
+    }
+    
+    this.setState({
+      voluntarios : newRows
+    });
+  }
 
   render() {
     return (
       <div className='members_container'>
-        <input type='search' className="searchBar" />
-        <button type="button">Buscar</button>
-
+        <input type='search' className="searchBar" value={this.state.inputValue} onChange={evt => this.updateInputValue(evt)}/>
         <table className="volunteer_table">
           <thead>
             <tr>
@@ -92,6 +131,15 @@ export default class KTable extends Component {
           </thead>
           {this.createTable()}
         </table>
+
+        <div>
+          <button name="Aprobados" onClick={evt=>this.filtrarEstado(evt)}>Aprobados</button>
+          <button name="No Aprobados" onClick={evt=>this.filtrarEstado(evt)}>No Aprobados</button>
+          <button name="Todos" onClick={evt=>this.filtrarEstado(evt)}>Todos</button>
+          <button name="Selección" onClick={evt=>this.filtrarEstado(evt)}>Selección</button>
+          <button name="Pendientes" onClick={evt=>this.filtrarEstado(evt)}>Pendientes</button>
+          <button name="Aprobados para seguro" onClick={evt=>this.filtrarEstado(evt)}>Aprobados para seguro</button>
+        </div>
 
 			</div>
     );

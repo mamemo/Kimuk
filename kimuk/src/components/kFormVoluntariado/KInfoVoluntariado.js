@@ -1,38 +1,105 @@
 import React, { Component } from 'react';
-import NumericInput from 'react-numeric-input';
 import { Glyphicon } from 'react-bootstrap';
-import KHeaderVoluntariado from './KHeaderVoluntariado';
 import KModalAddAdmin from '../KModals/KModalAddAdmin';
-import KTimePicker from '../KDatetime/KTimePicker';
-import KDatePicker from '../KDatetime/KDatePicker';
 import ReactTooltip from 'react-tooltip'
+import TimeInput from 'material-ui-time-picker'
+import DatePicker from 'react-datepicker';
 
 import './KFormVoluntariado.css';
 import '../style/color.css';
 import 'react-datepicker/dist/react-datepicker.css';
 
-export default class KInfoVolutariado extends Component {
+export default class KInfoVoluntariado extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      fields: {},
       errors: {}
     };
 
-    this.handleInputChange = this.handleInputChange.bind(this);
-    this.submitDataRegistrationForm= this.submitDataRegistrationForm.bind(this);
+    //this.handleInputChange = this.handleInputChange.bind(this);
+    this.submitDataRegistrationForm = this.submitDataRegistrationForm.bind(this);
   }
 
-/*
- * Handle changes in inputs
- *
- */
-  handleInputChange(e) {
-    let fields = this.state.fields;
-    fields[e.target.name] = e.target.value;
-    this.setState({
-      fields
-    });
+  validateForm() {
+    //let fields = this.state.fields;
+    let errors = {};
+    let formIsValid = true;
+    // no funciona bien identification
+    if (!this.props.campana.identification) {
+      formIsValid = false;
+      errors["identification"] = "*Por favor ingrese número de identificación del encargado.";
+    }
+    // fin identification
+    if (typeof this.props.campana.identification !== "undefined") {
+      if (this.props.campana.identification.match(/^[0-9]*$/)) {
+        formIsValid = false;
+        errors["identification"] = "*Por favor, introduzca una identificación válida.";
+      }
+    }
+
+    if (!this.props.campana.volName) {
+      formIsValid = false;
+      errors["volName"] = "*Por favor ingrese nombre del voluntariado.";
+    }
+
+    if (!this.props.campana.name) {
+      formIsValid = false;
+      errors["name"] = "*Por favor ingrese nombre del encargado.";
+    }
+
+    if (!this.props.campana.lastname) {
+      formIsValid = false;
+      errors["lastname"] = "*Por favor ingresar apellidos del encargado.";
+    }
+
+    if (typeof this.props.campana.name !== "undefined" &&
+        typeof this.props.campana.lastname !== "undefined") {
+      if (!this.props.campana.name.match(/^[a-zA-Z ]*$/) &&
+          !this.props.campana.lastname.match(/^[a-zA-Z ]*$/)) {
+        formIsValid = false;
+        errors["name"] = "*Por favor introduzca solo caracteres del alfabeto.";
+        errors["lastname"] = "*Por favor introduzca solo caracteres del alfabeto.";
+      }
+    }
+
+    if (!this.props.campana.email) {
+      formIsValid = false;
+      errors["email"] = "*Por favor ingrese correo electrónico del encargado.";
+    }
+
+    if (typeof this.props.campana.email !== "undefined") {
+      //regular expression for email validation
+      const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+      if (!re.test(this.props.campana.email)) {
+        formIsValid = false;
+        errors["email"] = "*Por favor, introduzca una dirección de correo electrónico válida.";
+      }
+    }
+
+    if (!this.props.campana.tel) {
+      formIsValid = false;
+      errors["tel"] = "*Por favor ingrese número de teléfono del encargado.";
+    }
+
+    if (typeof this.props.campana.tel !== "undefined") {
+      if (!this.props.campana.tel.match(/^[0-9]{10}$/)) {
+        formIsValid = false;
+        errors["tel"] = "*Por favor, introduzca un número de teléfono válido.";
+      }
+    }
+
+    if (!this.props.campana.description) {
+      formIsValid = false;
+      errors["description"] = "*Por favor ingrese descripción del voluntariado.";
+    }
+
+    if (!this.props.campana.address) {
+      formIsValid = false;
+      errors["address"] = "*Por favor ingrese dirección del lugar del voluntariado.";
+    }
+
+    this.setState({errors: errors});
+    return formIsValid;
   }
 
 /*
@@ -42,16 +109,6 @@ export default class KInfoVolutariado extends Component {
  submitDataRegistrationForm(e) {
     e.preventDefault();
     if (this.validateForm()) {
-        let fields = {};
-        fields["volName"] = "";
-        fields["description"] = "";
-        fields["address"] = "";
-        fields["identification"] = "";
-        fields["name"] = "";
-        fields["lastname"] = "";
-        fields["email"] = "";
-        fields["tel"] = "";
-        this.setState({fields:fields});
         alert("Form submitted");
         this.props.siguiente;
     }
@@ -71,8 +128,8 @@ export default class KInfoVolutariado extends Component {
               id='description'
               name='description'
               placeholder='Por favor ingrese descripción del voluntariado'
-              value={this.state.fields.description}
-              onChange={this.handleInputChange}
+              value={this.props.campana.description}
+              onChange={this.props.handler}
               className="form-control"
             />
           </div>
@@ -81,15 +138,33 @@ export default class KInfoVolutariado extends Component {
         <div className="form-group">
           <label className="col-6 col-form-label">Fecha de voluntariado</label>
           <div className="col-md-6">
-            <KDatePicker />
+            <div id="datetime_picker_wrapper" className="time_picker_wrapper">
+              <DatePicker
+                name="startDate"
+                selected={this.props.campana.startDate}
+                onChange={this.props.handleStartDateChange}
+                className="form-control mb-2 mr-sm-2 mb-sm-0"
+              />
+            </div>
           </div>
         </div>
         <div className="form-group">
-          <label className="col-8 col-form-label">Hora</label>
-          <br /><br />
+          <label className="col-6 col-form-label">Hora</label>
           <div className="col-md-6">
-            <KTimePicker />
+            <TimeInput
+              data-tip data-for='time-tooltip'
+              mode='12h'
+              cancelLabel='Cancelar'
+              onChange={this.props.handleTimeChange}
+            />
           </div>
+          <ReactTooltip id='time-tooltip' type='info' effect='solid'>
+            <span>
+              Seleccionar la hora a realizarse el voluntariado.
+              <br />
+              No olvide seleccionar el formato de la hora (AM/PM).
+            </span>
+          </ReactTooltip>
         </div>
         <div className="form-group">
           <label for="address" className="col-2 col-form-label"> Lugar </label>
@@ -98,46 +173,65 @@ export default class KInfoVolutariado extends Component {
                id='address'
                name='address'
                placeholder='Por favor ingrese dirección exacta del lugar a llevar a cabo el voluntariado'
-               value={this.state.fields.address}
-               onChange={this.handleInputChange}
+               value={this.props.campana.address}
+               onChange={this.props.handler}
                className="form-control"
             />
           </div>
           <div className="errorMsg">{this.state.errors.address}</div>
         </div>
-        <div className="form-group">
-          <label className="col-6 col-form-label">
-            Fecha límite de registro de voluntariados
+        <div className="col-sm-10">
+          <label data-tip data-for='checkbox-tooltip'>
+          Habilitar fecha límite de voluntariado
+          <input
+            name="registrationDeadline"
+            type="checkbox"
+            checked={this.props.campana.registrationDeadline}
+            onChange={this.props.handleCheckoxChange} />
           </label>
+          <ReactTooltip id='checkbox-tooltip' type='info' effect='solid'>
+            <span>
+              Seleccionar la fecha límite de recepción de solicitudes de
+              <br />
+              inscripción de voluntarios en la campaña. Inicialmente las
+              <br />
+              campañas no poseen fecha límite de inscripción.
+            </span>
+          </ReactTooltip>
+        </div>
+        <div className="form-group">
           <div className="col-md-6">
-            <KDatePicker />
+            <div id="datetime_picker_wrapper" className="time_picker_wrapper">
+              <DatePicker
+                name="finishDate"
+                placeholderText="Sin fecha límite"
+                disabled={this.props.campana.disabled}
+                selected={this.props.campana.finishDate}
+                onChange={this.props.handleFinishDateChange}
+                className="form-control mb-2 mr-sm-2 mb-sm-0"
+              />
+            </div>
           </div>
         </div>
-        <label className="col-4 col-form-label">
-          Límite de registro de voluntariados
+        <label className="col-4 col-form-label" >
+          Cantidad máxima de voluntarios
+          <input
+            min="0"
+            name="numberOfGuests"
+            type="number"
+            className="form-control"
+            value={this.props.campana.numberOfVolunteers}
+            onChange={this.props.handlerNumeric} />
         </label>
-        <div className="form-check">
-          <input
-            type="radio"
-            className="form-check-input"
-            id="radio1"
-            name="optradio"
-            value="option1"
-            checked
-          />
-          <label className="form-check-label" for="radio1"> No </label>
-        </div>
-        <div className="form-check">
-          <input
-            type="radio"
-            className="form-check-input"
-            id="radio2"
-            name="optradio"
-            value="option2"
-          />
-          <label className="form-check-label" for="radio2"> Si </label>
-        </div>
-        <NumericInput  min={0}/>
+        <ReactTooltip id='numeric-tooltip' type='info' effect='solid'>
+          <span>
+            Indica la cantidad máxima de voluntarios deseados.
+            <br />
+            Si la cantidad es igual a 0, se asume que el voluntariado
+            <br />
+            es sin límite de voluntarios.
+          </span>
+        </ReactTooltip>
       </div>
     );
   }
@@ -164,8 +258,8 @@ export default class KInfoVolutariado extends Component {
               type="text"
               placeholder="Cédula"
               className="form-control mb-2 mr-sm-2 mb-sm-0"
-              value={this.state.fields.identification}
-              onChange={this.handleInputChange}
+              value={this.props.campana.identification}
+              onChange={this.props.handler}
               data-tip data-for='identification-tooltip'
             />
             <ReactTooltip id='identification-tooltip' type='info' effect='solid'>
@@ -183,8 +277,8 @@ export default class KInfoVolutariado extends Component {
               type="text"
               placeholder="Nombre"
               className="form-control mb-2 mr-sm-2 mb-sm-0"
-              value={this.state.fields.name}
-              onChange={this.handleInputChange}
+              value={this.props.campana.name}
+              onChange={this.props.handler}
             />
           </div>
           <div className="errorMsg">{this.state.errors.name}</div>
@@ -198,8 +292,8 @@ export default class KInfoVolutariado extends Component {
               type="text"
               placeholder="Apellidos"
               className="form-control mb-2 mr-sm-2 mb-sm-0"
-              value={this.state.fields.lastname}
-              onChange={this.handleInputChange}
+              value={this.props.campana.lastname}
+              onChange={this.props.handler}
             />
           </div>
           <div className="errorMsg">{this.state.errors.lastname}</div>
@@ -213,8 +307,8 @@ export default class KInfoVolutariado extends Component {
               type="email"
               placeholder="Correo Electrónico"
               className="form-control mb-2 mr-sm-2 mb-sm-0"
-              value={this.state.fields.email}
-              onChange={this.handleInputChange}
+              value={this.props.campana.email}
+              onChange={this.props.handler}
               data-tip data-for='email-tooltip'
             />
             <ReactTooltip id='email-tooltip' type='info' effect='solid'>
@@ -232,8 +326,8 @@ export default class KInfoVolutariado extends Component {
               type="text"
               placeholder="Teléfono"
               className="form-control mb-2 mr-sm-2 mb-sm-0"
-              value={this.state.fields.tel}
-              onChange={this.handleInputChange}
+              value={this.props.campana.tel}
+              onChange={this.props.handler}
               data-tip data-for='tel-tooltip'
             />
             <ReactTooltip id='tel-tooltip' type='info' effect='solid'>
@@ -246,106 +340,25 @@ export default class KInfoVolutariado extends Component {
     );
   }
 
-  validateForm() {
-      let fields = this.state.fields;
-      let errors = {};
-      let formIsValid = true;
-
-      if (!fields["identification"]) {
-        formIsValid = false;
-        errors["identification"] = "*Por favor ingrese número de identificación del encargado.";
-      }
-
-      if (typeof fields["identification"] !== "undefined") {
-        if (!fields["identification"].match(/^[0-9]{10}$/)) {
-          formIsValid = false;
-          errors["identification"] = "*Por favor, introduzca una identificación válida.";
-        }
-      }
-
-      if (!fields["volName"]) {
-        formIsValid = false;
-        errors["volName"] = "*Por favor ingrese nombre del voluntariado.";
-      }
-
-      if (!fields["name"]) {
-        formIsValid = false;
-        errors["name"] = "*Por favor ingrese nombre del encargado.";
-      }
-
-      if (!fields["lastname"]) {
-        formIsValid = false;
-        errors["lastname"] = "*Por favor ingresar apellidos del encargado.";
-      }
-
-      if (typeof fields["name"] !== "undefined" && typeof fields["lastname"] !== "undefined") {
-        if (!fields["name"].match(/^[a-zA-Z ]*$/) && !fields["lastname"].match(/^[a-zA-Z ]*$/)) {
-          formIsValid = false;
-          errors["name"] = "*Por favor introduzca solo caracteres del alfabeto.";
-        }
-      }
-
-      if (!fields["email"]) {
-        formIsValid = false;
-        errors["email"] = "*Por favor ingrese correo electrónico del encargado.";
-      }
-
-      if (typeof fields["email"] !== "undefined") {
-        //regular expression for email validation
-        var pattern = new RegExp(/^(("[\w-\s]+")|([\w-]+(?:\.[\w-]+)*)|("[\w-\s]+")([\w-]+(?:\.[\w-]+)*))(@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$)|(@\[?((25[0-5]\.|2[0-4][0-9]\.|1[0-9]{2}\.|[0-9]{1,2}\.))((25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\.){2}(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\]?$)/i);
-        if (!pattern.test(fields["email"])) {
-          formIsValid = false;
-          errors["email"] = "*Por favor, introduzca una dirección de correo electrónico válida.";
-        }
-      }
-
-      if (!fields["tel"]) {
-        formIsValid = false;
-        errors["tel"] = "*Por favor ingrese número de teléfono del encargado.";
-      }
-
-      if (typeof fields["tel"] !== "undefined") {
-        if (!fields["tel"].match(/^[0-9]{10}$/)) {
-          formIsValid = false;
-          errors["tel"] = "*Por favor, introduzca un número de teléfono válido.";
-        }
-      }
-
-      if (!fields["description"]) {
-        formIsValid = false;
-        errors["description"] = "*Por favor ingrese descripción del voluntariado.";
-      }
-
-      if (!fields["address"]) {
-        formIsValid = false;
-        errors["address"] = "*Por favor ingrese dirección del lugar del voluntariado.";
-      }
-
-      this.setState({errors: errors});
-      return formIsValid;
-    }
-
   render(){
     return (
       <div className="container">
-        <div className="relative">
-          <div className="absolute">
-            <KHeaderVoluntariado />
-            <div className="errorMsg">{this.state.errors.volName}</div>
-            {this.volunteeringFormData()}
-            {this.volunteeringManagerFormData()}
-            <KModalAddAdmin campana={this.props}/>
-            <div className="row">
-              <div className="col-1 offset-9">
-                <button   data-tip data-for='btn-tooltip' type="button" className="btn btn-primary" onClick = {this.props.siguiente} > 
-                  <Glyphicon glyph="menu-righ" /> Continuar
-                </button>
-              </div>
-              <ReactTooltip id='btn-tooltip' type='warning' effect='solid'>
-                <span>Para poder continuar debe de asegurarse de haber completado correctamente todos los campos de información solicitados.</span>
-              </ReactTooltip>
-            </div>
+        {this.volunteeringFormData()}
+        {this.volunteeringManagerFormData()}
+        <KModalAddAdmin manager={this.props.campana}/>
+        <div className="row">
+          <div className="col-1 offset-9">
+            <button
+              data-tip data-for='btn-tooltip'
+              type="button"
+              className="btn btn-primary"
+              onClick = {this.props.siguiente} >
+              <Glyphicon glyph="menu-righ" /> Continuar
+            </button>
           </div>
+          <ReactTooltip id='btn-tooltip' type='warning' effect='solid'>
+            <span>Para poder continuar debe de asegurarse de haber completado correctamente todos los campos de información solicitados.</span>
+          </ReactTooltip>
         </div>
       </div>
     );

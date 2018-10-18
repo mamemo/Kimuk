@@ -2,7 +2,8 @@ import createFragment from "react-addons-create-fragment";
 import React from "react";
 
 export {InCampanasKFormVoluntario, InHabilidadesGraficasKFormVoluntario, InEcargadosKFormVoluntario,
-VisualizacionEncargados, InHabilidadesCodigosKFormVoluntario, InHabilidadesBD, InVoluntariosKFormAdmin}
+VisualizacionEncargados, InHabilidadesCodigosKFormVoluntario, InHabilidadesBD, InVoluntariosKFormAdmin,
+InDocumentosBD}
 
 function InCampanasKFormVoluntario(result) {
     return createFragment({
@@ -68,6 +69,14 @@ function InHabilidadesBD(result) {
     let nombresHabilidades = [];
     for(let k in result){
         nombresHabilidades.push(result[k].Nombre);      
+    }
+    return nombresHabilidades;
+}
+
+function InDocumentosBD(result) {
+    let nombresHabilidades = [];
+    for(let k in result){
+        nombresHabilidades.push(result[k]);
     }
     return nombresHabilidades;
 }

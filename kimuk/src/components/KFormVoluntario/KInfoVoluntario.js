@@ -56,7 +56,7 @@ export default class KInfoVoluntario extends Component {
                 <div className="col-6 offset-3">
                         <table>
                         <tr>
-                            <td colspan="3">
+                            <td >
                             <br/>Tipo de indentificación<br/>
                                 <select name="tipo_id" defaultValue={this.props.voluntario.tipo_id} onChange={this.guardar_info}>
                                 <option value="" selected disabled>Tipo indentificación</option>
@@ -66,7 +66,7 @@ export default class KInfoVoluntario extends Component {
                             </td>
                         </tr>
                         <tr>
-                            <td colspan="3">
+                            <td >
                             <br/>Indentificación | Número de residencia:<br/>
                                 <input type="text" name="id" placeholder="1-1111-1111" defaultValue={this.props.voluntario.id} onChange={this.guardar_info} />
                             </td>
@@ -75,24 +75,22 @@ export default class KInfoVoluntario extends Component {
                             <td><br/>Nombre:
                                 <br/>
                                 <input type="text" name="nombre" placeholder="Nombre" defaultValue={this.props.voluntario.nombre} onChange={this.guardar_info}/>
-                            </td>
-                            <td><br/>Primer apellido:
+                            <br/>Primer apellido:
                                 <br/>
                                 <input type="text" name="apellido_1" placeholder="Primer apellido" defaultValue={this.props.voluntario.apellido_1} onChange={this.guardar_info} />
-                            </td> 
-                        <td><br/>Segundo apellido:
+                            <br/>Segundo apellido:
                                 <br/>
                                 <input type="text" name="apellido_2" placeholder="Segundo apellido" defaultValue={this.props.voluntario.apellido_2} onChange={this.guardar_info}/>
                             </td>
                         </tr>
                         <tr>
-                            <td colspan="3"><br/>Fecha de nacimiento:
+                            <td ><br/>Fecha de nacimiento:
                                 <br/>
                                 <input type="date" name="f_nacimiento"  defaultValue={this.props.voluntario.f_nacimiento} onChange={this.guardar_info}/>
                             </td>
                         </tr>
                         <tr>
-                            <td colspan="3">
+                            <td >
                                 <br/>
                                 Género:
                                 <br/>
@@ -103,7 +101,7 @@ export default class KInfoVoluntario extends Component {
                             </td>
                         </tr>
                         <tr>
-                            <td colspan="3">
+                            <td >
                                 <br/>
                                 Estado civil:
                                 <br/>
@@ -118,7 +116,7 @@ export default class KInfoVoluntario extends Component {
                             </td>
                         </tr>
                         <tr>
-                            <td colspan="3"><br/>Ocupación:
+                            <td ><br/>Ocupación:
                                 <br/>
                                 <input type="radio" name="ocupacion" value="trabajo" defaultChecked={this.props.voluntario.ocupacion==="trabajo"}  onChange={this.guardar_info} /> Trabajo
                                 <input type="radio" name="ocupacion" value="estudio" defaultChecked={this.props.voluntario.ocupacion==="estudio"} onChange={this.guardar_info}/> Estudio
@@ -127,7 +125,7 @@ export default class KInfoVoluntario extends Component {
                             </td>
                         </tr>
                         <tr>
-                            <td colspan="3">
+                            <td >
                             <br/>
                             <h3>Lugar de residencia</h3>
                             <hr/>
@@ -140,16 +138,12 @@ export default class KInfoVoluntario extends Component {
                                 <option value="" selected disabled>Provincia</option>                                
                                 {p}
                                 </select>
-                            </td>
-                            <td>
-                                 Canton:<br/>
+                                <br/>Canton:<br/>
                                 <select name="canton" defaultValue={this.props.voluntario.canton} onChange={this.guardar_info}>
                                 <option value="" selected disabled>Canton</option>
                                 {c}
                                 </select>
-                            </td>
-                            <td>
-                                 Distrito:<br/>
+                                <br/>Distrito:<br/>
                                 <select name="distrito" defaultValue={this.props.voluntario.distrito} onChange={this.guardar_info}>
                                 <option value="" selected disabled>Distrito</option>
                                 {d}
@@ -157,19 +151,19 @@ export default class KInfoVoluntario extends Component {
                             </td>
                         </tr>
                         <tr>
-                            <td colspan="3">
+                            <td >
                             <br/>Dirección exacta:<br/>
                                 <input type="text" placeholder="Dirección exacta de la casa de habitación" name="direccion_exacta" defaultValue={this.props.voluntario.direccion_exacta} onChange={this.guardar_info} /> 
                             </td>
                         </tr>
                         <tr>
-                        <td colspan="3">
+                        <td >
                                 <br/> <h3>Contacto</h3>
                                 <hr/>
                             </td>
                         </tr>
                         <tr>
-                        <td colspan="3">
+                        <td >
                                  Correo electrónico:<br/>
                                 <input type="text" placeholder="Correo" name="correo" defaultValue={this.props.voluntario.correo} onChange={this.guardar_info}/>     
                             </td>
@@ -178,9 +172,7 @@ export default class KInfoVoluntario extends Component {
                             <td>
                                 <br/> Teléfono 1:<br/>
                                 <input type="text" placeholder="88-88-88-88" name="telefono_1" defaultValue={this.props.voluntario.telefono_1} onChange={this.guardar_info}/>     
-                            </td>
-                            <td>
-                                <br/> Teléfono 2:<br/>
+                            <br/> Teléfono 2:<br/>
                                 <input type="text" placeholder="88-88-88-88" name="telefono_2" defaultValue={this.props.voluntario.telefono_2} onChange={this.guardar_info}/>     
                             </td>
                         </tr>

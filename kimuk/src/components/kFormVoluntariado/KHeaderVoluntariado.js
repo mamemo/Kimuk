@@ -8,14 +8,14 @@ export default class KHeaderVoluntariado extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      volName: ''
+      inputType: 'hidden'
     };
 
-    this.handleChange = this.handleChange.bind(this);
+    this.handleHiddenInput = this.handleHiddenInput.bind(this);
   }
 
-  handleChange(event) {
-    this.setState({volName: event.target.value});
+  handleHiddenInput() {
+    this.setState({inputType: 'text'});
   }
   /*
    * Volunteering Data Component
@@ -46,13 +46,29 @@ export default class KHeaderVoluntariado extends Component {
                 aria-describedby="inputGroup-sizing-sm"
                 align="left"
                 placeholder="Nombre del voluntariado"
-                value={this.state.volName}
-                onChange={this.handleChange} />
+                value={this.props.name}
+                onChange={this.props.handler} />
             </div>
           </div>
         </div>
-        <div id="img-div" class="form-group">
-          <input type="file" class="form-control-file" id="image-file" />
+        <div id="img-div" className="form-group">
+          <label className="btn btn-link">
+              Agregar imagen al voluntariado
+              <input
+                id="image-file"
+                name="volImage"
+                type="file"
+                style={{display: 'none'}}
+                value={this.props.image}
+                onChange={this.props.handler}
+              />
+          </label>
+          <input
+            className="form-control input-lg"
+            type={this.state.inputType}
+            value={this.props.image}
+            onChange={this.handleHiddenInput}
+            readonly />
         </div>
       </div>
     );

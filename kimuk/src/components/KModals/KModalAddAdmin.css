@@ -1,4 +1,9 @@
-table.title {
+table {
+    border-collapse: collapse;
+    width: 100%;
+  }
+  
+  table.title {
     position: relative;
     border-spacing: 3px;
     width: 85%;
@@ -8,121 +13,124 @@ table.title {
     font-family: Arial, Helvetica, sans-serif;
     background: #F7F7F7;
     margin-top: 1em;
-}
-
-th, td {
+  }
+  
+  tr:nth-child(even){background-color: #f2f2f2}
+  
+  tr:hover {background-color:#f5f5f5;}
+  
+  th, td {
     padding: 6px;
     font-weight: bold;
-}
-
-th {
+  }
+  
+  th {
     text-align: center;
     font-family: Arial, Helvetica, sans-serif;
-}
-
-table.formacion {
-    position: relative;
-    left: 100px;
-    border-spacing: 20px;
-    width: 85%;
-    font-size: 14px;
-    table-layout: fixed;
-    font-family: Arial, Helvetica, sans-serif;
-}
-
-th.form{
-    font-weight: lighter;
-}
-
-td.form{
-    font-weight: lighter;
-}
-
-
-a.aform {
-    position: relative;
-    display: inline;
-    font-size: 15px;
-    margin-left: 0.5em;
-    margin-bottom: 1em;
-}
-
-h1.hform{
-    position: relative;
-    display: inline;
-    font-size: 15px;
-    margin-bottom: 1em;
-}
-
-input{
-    width: 500px;
-    border-radius: 6px;
-}
-
-h6 {
-    text-align: left;
-    position: relative;
-    top: 2px;
-    font-family: Helvetica;
-}
-
-.ReactModal__Overlay {
-    z-index: 1000;
-}
-
-button.inside {
-    position: relative;
-    left: 200px;
-    width: 100px;
-    color: white;
-    background: #3D8BCD;
-    border-radius: 10px;
-    border: 2px solid #3D8BCD;
-}
-
-button.forma{
-    position:absolute;
-    left: 97%;
-    top: 18%;
-    font-size: 20px;
-
-    height: 20px;
-    padding-bottom: 20px;
-    background-color: red; /* Green */
-    border: none;
-    color: white;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    cursor: pointer;
-
-    border-radius: 50%;
-
-}
-
-button.close {
-    position: relative;
-    color: #55C0E0;
-    left: 10px;
-    bottom: 368px;
-    border: none;
-    font-size: 20px;
-}
-
-::placeholder{
-    text-align: center;
-}
-
-h7 {
-    color: #55C0E0;
-    bottom: 395px;
-    background:#D9EDF8;
-    position: absolute;
-    width: 541px;
-    left: -1px;
-}
-
-span.eliminate {
-    position: relative;
-    bottom: 7px;
-}
+  }
+  
+  table.formacion {
+      position: relative;
+      border-spacing: 20px;
+      width: 85%;
+      font-size: 14px;
+      table-layout: fixed;
+      font-family: Arial, Helvetica, sans-serif;
+  }
+  
+  th.form {
+      font-weight: lighter;
+  }
+  
+  td.form {
+      font-weight: lighter;
+  }
+  
+  
+  a.aform {
+      position: relative;
+      display: inline;
+      font-size: 15px;
+      margin-left: 0.5em;
+      margin-bottom: 1em;
+  }
+  
+  h1.hform {
+      position: relative;
+      display: inline;
+      font-size: 15px;
+      margin-bottom: 1em;
+  }
+  
+  #modalInput {
+      width: 500px;
+      border-radius: 6px;
+  }
+  
+  h6 {
+      text-align: left;
+      position: relative;
+      top: 2px;
+      font-family: Helvetica;
+  }
+  
+  .ReactModal__Overlay {
+      z-index: 1000;
+  }
+  
+  button.inside {
+      position: relative;
+      left: 200px;
+      width: 100px;
+      color: white;
+      background: #3D8BCD;
+      border-radius: 10px;
+      overflow-x:auto;
+  }
+  
+  button.forma{
+      position:absolute;
+      left: 97%;
+      top: 18%;
+      font-size: 20px;
+  
+      height: 20px;
+      padding-bottom: 20px;
+      background-color: red;
+      border: none;
+      color: white;
+      text-align: center;
+      text-decoration: none;
+      display: inline-block;
+      cursor: pointer;
+  
+      border-radius: 50%;
+  
+  }
+  
+  button.close {
+      position: relative;
+      color: #55C0E0;
+      left: 10px;
+      bottom: 368px;
+      border: none;
+      font-size: 20px;
+  }
+  
+  ::placeholder{
+      text-align: center;
+  }
+  
+  h7 {
+      color: #55C0E0;
+      bottom: 395px;
+      background:#D9EDF8;
+      position: absolute;
+      width: 541px;
+      left: -1px;
+  }
+  
+  span.eliminate {
+      position: relative;
+      bottom: 7px;
+  }
