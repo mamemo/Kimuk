@@ -3,10 +3,10 @@ import './KFormVoluntariado.css';
 import '../style/color.css';
 import '../style/general.css';
 import KFormPregunta from '../KFormPregunta/KFormPregunta';
-import KHeaderVoluntariado from './KHeaderVoluntariado';
 import KModalHabilidades from './KModalHabilidades';
 import { confirmAlert } from 'react-confirm-alert';
 import 'react-confirm-alert/src/react-confirm-alert.css';
+import ReactTooltip from 'react-tooltip'
 
 const question = {
     title: '¿Qué son habilidades?',
@@ -36,33 +36,40 @@ export default class KHabilidades extends Component {
     render() {
         return (
             <div className="container">
-                <KHeaderVoluntariado />
                 <div className="row">
                     <KFormPregunta
                         title={question.title}
                         question={question.question}
                         description={question.description} />
-                        
+
                 </div>
                 <div className="row">
                     <div className="col-1 offset-2">
                         <button
                             id="navigationButton"
-                            className="btn btn-default btn-md"
+                            className="btn btn-secundary"
+                            data-tip data-for='btn-tooltip'
                             onClick={this.props.siguiente}
                         >
                             No
                         </button>
+                        <ReactTooltip id='btn-tooltip' type='warning' effect='solid' place="right">
+                            <span>Si no querés seleccionar habilidades para tu voluntariado dale click aquí</span>
+                        </ReactTooltip>
                         <button
                             id="navigationButton"
+                            data-tip data-for='btn-tooltip2'
                             className="btn btn-default btn-md"
                             onClick={this.props.anterior}
                         >
                             Anterior
                         </button>
+                        <ReactTooltip id='btn-tooltip2' type='info' effect='solid' place="bottom">
+                            <span>Regresá a la sección de información de voluntariado</span>
+                        </ReactTooltip>
                     </div>
                     <div className="col-1 offset-6">
-                        <KModalHabilidades siguiente={this.props.siguiente} />
+                        <KModalHabilidades habilidades={this.props.skills} siguiente={this.props.siguiente} />
                     </div>
                 </div>
             </div>

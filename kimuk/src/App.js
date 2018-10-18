@@ -11,7 +11,7 @@ import {base} from "./base"; // This import MUST remain here, DO NOT DELETE
 
 
 class App extends Component {
-  
+
   constructor(){
     super();
     this.state ={
@@ -76,8 +76,8 @@ http://localhost:3000/contacto
             <KInfo/>
           </div>
         );
-    }  
-    
+    }
+
   }
 }
 

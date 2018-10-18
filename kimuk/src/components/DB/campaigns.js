@@ -3,12 +3,11 @@ import * as uid from "uid";
 
 export {leer_campanas, insertar_actualizar_habilidades_campana, insertar_actualizar_encargados_campana, insertar_actualizar_campana,
 eliminar_habilidad_campana, eliminar_campana, actualizar_campana, actualizar_encargado_campana, eliminar_encargado_campana,
-leer_encargados_camapanas, leer_habilidades_camapana}
+leer_encargados_camapanas, leer_habilidades_camapana, insertar_campana_construccion}
 
-function insertar_actualizar_campana(nombre, descripcion, fecha_ejecucion, hora, lugar,
-                                     fecha_limite, limite_registro, limite_voluntarios, formacion_academica, terminos_condiciones
+function insertar_actualizar_campana(Id, nombre, descripcion, fecha_ejecucion, hora, lugar,
+                                     fecha_limite, limite_registro, limite_voluntarios, terminos_condiciones
 ) {
-    let Id = uid();
     firebase.database().ref('Campanas/' + Id).update(
         {
             Nombre: nombre,
@@ -19,11 +18,22 @@ function insertar_actualizar_campana(nombre, descripcion, fecha_ejecucion, hora,
             Fecha_limite: fecha_limite,
             Limite_registro: limite_registro,
             Limite_voluntarios: limite_voluntarios,
-            formacion_academica: formacion_academica,
-            terminos_condiciones: terminos_condiciones
+            terminos_condiciones: terminos_condiciones,
+            estado: "Activa"
         }, function (error) {
             return error;
         });
+}
+
+function insertar_campana_construccion(Id)
+{
+   firebase.database().ref('Campanas/' + Id).update(
+       {estado: "Construccion"}
+   ).then(function () {
+       alert("Campaña en construccion");
+   }).catch(function (error) {
+       alert("Error al inicializar la campaña\n" + error );
+   });
 }
 
 function actualizar_campana(Id_campana, llave_valor, nuevo_valor) {

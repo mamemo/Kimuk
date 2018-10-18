@@ -38,7 +38,6 @@ export default class KTeryCon extends Component {
     return(
       <div className="container">
         <div>
-          <KHeaderVoluntariado />
           {this.termsAndConditions()}
         </div>
         <div className="row">
