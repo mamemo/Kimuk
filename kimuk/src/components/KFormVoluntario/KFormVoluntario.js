@@ -9,6 +9,7 @@ import {leer_campanas} from "../DB/campaigns";
 import {InCampanasKFormVoluntario, InHabilidadesGraficasKFormVoluntario, InEcargadosKFormVoluntario,
     VisualizacionEncargados, InHabilidadesCodigosKFormVoluntario} from '../DB/add-onns';
 import KInfoVoluntariado from '../KInfoVoluntariado/KInfoVoluntariado';
+import moment from 'moment';
 
 export default class KFormVoluntario extends Component {
 
@@ -22,7 +23,7 @@ export default class KFormVoluntario extends Component {
             nombre: "",
             apellido_1: "",
             apellido_2: "",
-            f_nacimiento: "",
+            f_nacimiento: moment(),
             genero: "",
             estado_civil: "",
             ocupacion: "",

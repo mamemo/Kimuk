@@ -3,6 +3,7 @@ import './KFormVoluntario.css';
 import '../style/color.css';
 import {insertar_actualizar_voluntarios_camapana, insertar_actualizar_habilidades_voluntarios,
     actualizar_voluntarios_campana, eliminar_voluntario} from '../DB/volunteers';
+import ReactTooltip from 'react-tooltip'
 
 export default class KTeryCon extends Component {
     constructor(){
@@ -51,11 +52,29 @@ export default class KTeryCon extends Component {
                 </div>
                 <div className="row">
                     <div className="col-1 offset-2">
-                        <button className="btn btn-info" onClick={ this.props.anterior }>anterior</button> 
+                        <button 
+                            className="btn btn-info" 
+                            data-tip data-for='btn-tooltip'
+                            onClick={ this.props.anterior }
+                        >
+                            Anterior
+                        </button> 
                     </div>
+                    <ReactTooltip id='btn-tooltip' type='info' effect='solid' place="bottom">
+                        <span>Regresá a la sección de documentos</span>
+                    </ReactTooltip>
                     <div className="col-1 offset-6">
-                        <button className="btn btn-success" onClick={ this.registrar }>Confirmar</button> 
+                        <button 
+                            className="btn btn-success" 
+                            data-tip data-for='btn-tooltip2'
+                            onClick={ this.registrar }
+                        >
+                            Confirmar
+                        </button> 
                     </div>
+                    <ReactTooltip id='btn-tooltip2' type='warning' effect='solid' place="bottom">
+                        <span>Termina la inscripición</span>
+                    </ReactTooltip>
                 </div>
                 <br/>
                 <br/>

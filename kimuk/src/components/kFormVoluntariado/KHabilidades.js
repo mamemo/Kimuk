@@ -65,7 +65,7 @@ export default class KHabilidades extends Component {
                             Anterior
                         </button>
                         <ReactTooltip id='btn-tooltip2' type='info' effect='solid' place="bottom">
-                            <span>Regresá a la sección de información de voluntariado</span>
+                            <span>Regresá a la sección de información del voluntariado</span>
                         </ReactTooltip>
                     </div>
                     <div className="col-1 offset-6">

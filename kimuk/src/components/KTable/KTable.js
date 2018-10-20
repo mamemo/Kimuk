@@ -116,7 +116,12 @@ export default class KTable extends Component {
   render() {
     return (
       <div className='members_container'>
-        <input type='search' className="searchBar" value={this.state.inputValue} onChange={evt => this.updateInputValue(evt)}/>
+        <input 
+          type='search' 
+          className="searchBar" 
+          value={this.state.inputValue} 
+          onChange={evt => this.updateInputValue(evt)}
+          placeholder='Buscá un voluntario por Nombre y/o Apellidos'/>
         <table className="volunteer_table">
           <thead>
             <tr>
