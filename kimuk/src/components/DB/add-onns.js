@@ -68,15 +68,15 @@ function InHabilidadesCodigosKFormVoluntario(result)
 function InHabilidadesBD(result) {
     let nombresHabilidades = [];
     for(let k in result){
-        nombresHabilidades.push(result[k].Nombre);      
+        nombresHabilidades.push(result[k].Nombre);
     }
     return nombresHabilidades;
 }
 
 function InDocumentosBD(result) {
-    let nombresHabilidades = [];
+    let documents = [];
     for(let k in result){
-        nombresHabilidades.push(result[k]);
+        documents.push(result[k]);
     }
-    return nombresHabilidades;
+    return documents;
 }

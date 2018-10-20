@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Glyphicon } from 'react-bootstrap';
 import KModalAddAdmin from '../KModals/KModalAddAdmin';
-import ReactTooltip from 'react-tooltip'
+import ReactTooltip from 'react-tooltip';
 import TimeInput from 'material-ui-time-picker'
 import DatePicker from 'react-datepicker';
 
@@ -136,10 +136,11 @@ export default class KInfoVoluntariado extends Component {
           <div className="errorMsg">{this.state.errors.description}</div>
         </div>
         <div className="form-group">
-          <label className="col-6 col-form-label">Fecha de voluntariado</label>
+          <label className="col-6 col-form-label">Fecha a realizar el voluntariado</label>
           <div className="col-md-6">
             <div id="datetime_picker_wrapper" className="time_picker_wrapper">
               <DatePicker
+                data-tip data-for='date-tooltip'
                 name="startDate"
                 selected={this.props.campana.startDate}
                 onChange={this.props.handleStartDateChange}
@@ -182,7 +183,7 @@ export default class KInfoVoluntariado extends Component {
         </div>
         <div className="col-sm-10">
           <label data-tip data-for='checkbox-tooltip'>
-          Habilitar fecha límite de voluntariado
+          Habilitar fecha límite de inscripción
           <input
             name="registrationDeadline"
             type="checkbox"
@@ -220,6 +221,7 @@ export default class KInfoVoluntariado extends Component {
             name="numberOfGuests"
             type="number"
             className="form-control"
+            data-tip data-for='numeric-tooltip'
             value={this.props.campana.numberOfVolunteers}
             onChange={this.props.handlerNumeric} />
         </label>

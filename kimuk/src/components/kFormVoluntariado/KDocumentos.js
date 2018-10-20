@@ -2,9 +2,8 @@ import React, { Component } from 'react';
 import './KFormVoluntariado.css';
 import '../style/color.css';
 import '../style/general.css';
-import KFormPregunta from '../KFormPregunta/KFormPregunta';
-import KHeaderVoluntariado from './KHeaderVoluntariado';
 import './KDocumentos.css';
+import ReactTooltip from 'react-tooltip';
 
 import {leer_documentos} from "../DB/CRUDdocuments.js";
 import {InDocumentosBD} from "../DB/add-onns.js"
@@ -93,11 +92,31 @@ actualizaDocsSeleccionados(e){
               </table>
               <div className="offset-6">
                 <div className="col-1 offset-6">
-                    <button id="navigationButton" className="btn btn-dafault btn-md" onClick={ this.props.anterior }>Anterior</button>
+                    <button 
+                        id="navigationButton" 
+                        data-tip data-for='btn-tooltip'
+                        className="btn btn-dafault btn-md" 
+                        onClick={ this.props.anterior }
+                    >
+                        Anterior
+                    </button>
                 </div>
+                <ReactTooltip id='btn-tooltip' type='warning' effect='solid' place="right">
+                    <span>Regresá a la sección de selección de habilidades</span>
+                </ReactTooltip>
                 <div className="col-3 offset-6">
-                    <button id="navigationButton" className="btn btn-primary btn-md" onClick={ this.props.siguiente }>Siguiente</button>
+                    <button 
+                        id="navigationButton" 
+                        data-tip data-for='btn-tooltip2'
+                        className="btn btn-primary btn-md" 
+                        onClick={ this.props.siguiente }
+                    >
+                        Siguiente
+                    </button>
                 </div>
+                <ReactTooltip id='btn-tooltip2' type='info' effect='solid' place="right">
+                    <span>Continuá configurando tu voluntariado</span>
+                </ReactTooltip>
             </div>
             
           </div>

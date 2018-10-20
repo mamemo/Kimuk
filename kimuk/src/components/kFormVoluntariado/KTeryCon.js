@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import './KFormVoluntariado.css';
 import '../style/color.css';
 import '../style/general.css'
-import KHeaderVoluntariado from './KHeaderVoluntariado';
+import ReactTooltip from 'react-tooltip';
 
 export default class KTeryCon extends Component {
   constructor(props) {
@@ -34,6 +34,15 @@ export default class KTeryCon extends Component {
      );
    }
 
+  //  <textarea
+  //             id='description'
+  //             name='description'
+  //             placeholder='Por favor ingrese descripción del voluntariado'
+  //             value={this.props.campana.description}
+  //             onChange={this.props.handler}
+  //             className="form-control"
+  //           />
+
   render(){
     return(
       <div className="container">
@@ -42,11 +51,30 @@ export default class KTeryCon extends Component {
         </div>
         <div className="row">
             <div className="col-1 offset-2">
-                <button id="navigationButton" className="btn btn-dafault btn-md" onClick={ this.props.anterior }>Anterior</button>
+                <button 
+                    id="navigationButton" 
+                    data-tip data-for='btn-tooltip'
+                    className="btn btn-dafault btn-md" 
+                    onClick={ this.props.anterior }
+                >
+                    Anterior
+                </button>
             </div>
+            <ReactTooltip id='btn-tooltip' type='info' effect='solid' place="right">
+                <span>Regresá a la sección de selección de documentos</span>
+            </ReactTooltip>
             <div className="col-1 offset-6">
-                <button id="navigationButton" className="btn btn-primary btn-md" >Crear</button>
+                <button 
+                    id="navigationButton" 
+                    className="btn btn-primary btn-md" 
+                    data-tip data-for='btn-tooltip2' 
+                >
+                    Crear
+                </button>
             </div>
+            <ReactTooltip id='btn-tooltip2' type='warning' effect='solid' place="right">
+                <span>Termina la configuración y crea tu voluntariado</span>
+            </ReactTooltip>
         </div>
       </div>
     );
