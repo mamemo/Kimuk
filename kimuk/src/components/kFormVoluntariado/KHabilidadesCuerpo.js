@@ -183,7 +183,9 @@ export default class KHabilidades extends Component {
                     <span>
                         Escribí la habilidad que querés buscar.
                         <br />
-                        Para ver todas las habilidades presioná el botón buscar con la entrada de texto vacía.
+                        Para ver todas las habilidades presioná 
+                        <br/>
+                        el botón buscar con la entrada de texto vacía.
                     </span>
                 </ReactTooltip>
                 <button 
