@@ -1,16 +1,21 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router';
 import moment from 'moment';
+import ReactTooltip from 'react-tooltip'
 import * as uid from "uid";
 import KHeaderVoluntariado from './KHeaderVoluntariado';
 import KInfoVoluntariado from './KInfoVoluntariado'
 import KHabilidades from './KHabilidades'
-import KAcademica from './KAcademica'
 import KDocumentos from './KDocumentos'
 import KTeryCon from './KTeryCon'
 import './KFormVoluntariado.css';
 import '../style/color.css';
-import {insertar_campana_construccion} from '../DB/campaigns';
+import Kformdocuments from '../KModals/Kformdocuments';
+import { insertar_campana_construccion,
+         insertar_actualizar_campana,
+         insertar_actualizar_encargado_general_campana,
+         insertar_actualizar_encargados_campana,
+         insertar_actualizar_habilidades_campana } from '../DB/campaigns';
 
 export default class KFormVoluntariado extends Component {
     constructor(props){
@@ -29,9 +34,10 @@ export default class KFormVoluntariado extends Component {
             tel: "",
             startDate: moment(),
             finishDate: "",
-            registrationDeadline: false,
             time: "",
+            termsAndConditions: "",
             disabled: true,
+            registrationDeadline: false,
             encargados: [],
             skills: [],
             documents: [],
@@ -45,8 +51,8 @@ export default class KFormVoluntariado extends Component {
         this.handleNumeric = this.handleNumeric.bind(this);
         this.siguiente = this.siguiente.bind(this);
         this.anterior = this.anterior.bind(this);
+        this.insertNewCampaign = this.insertNewCampaign.bind(this);
         insertar_campana_construccion(this.state.id);
-        console.log(this.state.id);
     }
 
   /*
@@ -134,6 +140,40 @@ export default class KFormVoluntariado extends Component {
         });
     }
 
+    /*
+     * Insert: new campaign, general manager, other managers, skills
+     * and documents to the DB
+     */
+     insertNewCampaign() {
+       // Insert new campaign in DB
+       let campaign = insertar_actualizar_campana(this.state.id, this.state.volName, this.state.description,
+                                                  this.state.startDate.toString(), this.state.time.toString(),
+                                                  this.state.address, this.state.finishDate.toString(), "",
+                                                  this.state.numberOfVolunteers, this.state.termsAndConditions);
+       // Insert the manager of the campaign
+       let generalManager = insertar_actualizar_encargado_general_campana(this.state.id, this.state.identification,
+                                                                          this.state.name, this.state.lastname,
+                                                                          this.state.email, this.state.tel);
+      // Insert other managers to the campaing
+       for(var manager in this.state.encargados) {
+         insertar_actualizar_encargados_campana(this.state.id, this.state.encargados[manager][0],
+                                                this.state.encargados[manager][1], this.state.encargados[manager][2],
+                                                this.state.encargados[manager][3]);
+       }
+
+       // Add skills to the campaing
+       for(var skill in this.state.skills) {
+         insertar_actualizar_habilidades_campana(this.state.id, this.state.skills[skill]);
+       }
+
+       if (!campaign) {
+           alert(this.state.volName + ": campaña creada con éxito");
+       }
+       else {
+           alert("Error al crear campaña de voluntariado.");
+       }
+     }
+
     render(){
 
         var pasos;
@@ -174,6 +214,24 @@ export default class KFormVoluntariado extends Component {
                                 handleCheckoxChange={this.handleCheckoxChange}
                                 handlerNumeric={this.handleNumeric}
                               />
+
+                              <div className="row">
+                                <div className="col-1 offset-2">
+
+                                </div>
+                                <div className="col-1 offset-6">
+                                    <button
+                                      id="navigationButton"
+                                      className="btn btn-primary btn-md"
+                                      onClick={ this.siguiente }
+                                      data-tip data-for='btn-tooltip'> Siguiente
+                                    </button>
+                                    <ReactTooltip id='btn-tooltip' type='warning' effect='solid'>
+                                      <span>Para poder continuar debe de asegurarse de haber completado correctamente todos los campos de información solicitados.</span>
+                                    </ReactTooltip>
+                                </div>
+                              </div>
+
                             </div>
                           </div>
                         </div>)
@@ -200,7 +258,11 @@ export default class KFormVoluntariado extends Component {
                                   image={this.state.volImage}
                                   handler={this.handleInputChange}
                                 />
-                                <KHabilidades skills={this.state.skills} anterior={this.anterior} siguiente={this.siguiente}/>
+                                <KHabilidades
+                                  test={this.state.encargados}
+                                  skills={this.state.skills}
+                                  anterior={this.anterior}
+                                  siguiente={this.siguiente} />
                               </div>
                             </div>
                         </div>)
@@ -223,7 +285,11 @@ export default class KFormVoluntariado extends Component {
                             <div className="relative">
                               <div className="absolute">
                                 <KHeaderVoluntariado />
-                                <KDocumentos documents={this.state.documents} anterior={this.anterior} siguiente={this.siguiente}/>
+                                <KDocumentos
+                                  documents={this.state.documents}
+                                  anterior={this.anterior}
+                                  siguiente={this.siguiente} />
+
                               </div>
                             </div>
                         </div>)
@@ -246,7 +312,12 @@ export default class KFormVoluntariado extends Component {
                             <div className="relative">
                               <div className="absolute">
                                 <KHeaderVoluntariado />
-                                <KTeryCon  anterior={this.anterior} siguiente={this.siguiente}/>
+                                <KTeryCon
+                                  tyc={this.state.termsAndConditions}
+                                  anterior={this.anterior}
+                                  siguiente={this.siguiente}
+                                  handler={this.handleInputChange}
+                                  insertInDB={this.insertNewCampaign} />
                               </div>
                             </div>
                         </div>)
@@ -254,5 +325,6 @@ export default class KFormVoluntariado extends Component {
         }
 
     }
+
 
 }

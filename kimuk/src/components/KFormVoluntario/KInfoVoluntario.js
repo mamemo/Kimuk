@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import './KFormVoluntario.css';
 import '../style/color.css';
+import DatePicker from 'react-datepicker';
+import ReactTooltip from 'react-tooltip';
 
 export default class KInfoVoluntario extends Component {
     constructor(){
@@ -86,7 +88,12 @@ export default class KInfoVoluntario extends Component {
                         <tr>
                             <td ><br/>Fecha de nacimiento:
                                 <br/>
-                                <input type="date" name="f_nacimiento"  defaultValue={this.props.voluntario.f_nacimiento} onChange={this.guardar_info}/>
+                                <DatePicker
+                                    name="f_nacimiento"
+                                    selected={this.props.voluntario.f_nacimiento}
+                                    onChange={this.guardar_info}
+                                    className="form-control mb-2 mr-sm-2 mb-sm-0"
+                                />
                             </td>
                         </tr>
                         <tr>
@@ -165,15 +172,18 @@ export default class KInfoVoluntario extends Component {
                         <tr>
                         <td >
                                  Correo electrónico:<br/>
-                                <input type="text" placeholder="Correo" name="correo" defaultValue={this.props.voluntario.correo} onChange={this.guardar_info}/>     
+                                <input type="text" placeholder="Correo" name="correo" data-tip data-for='email-tooltip' defaultValue={this.props.voluntario.correo} onChange={this.guardar_info}/>     
+                                <ReactTooltip id='email-tooltip' type='info' effect='solid'>
+                                    <span>ejemplo@kimuk.com</span>
+                                </ReactTooltip>
                             </td>
                         </tr>
                         <tr>
                             <td>
                                 <br/> Teléfono 1:<br/>
-                                <input type="text" placeholder="88-88-88-88" name="telefono_1" defaultValue={this.props.voluntario.telefono_1} onChange={this.guardar_info}/>     
+                                <input type="text" placeholder="8888-8888" name="telefono_1" defaultValue={this.props.voluntario.telefono_1} onChange={this.guardar_info}/>     
                             <br/> Teléfono 2:<br/>
-                                <input type="text" placeholder="88-88-88-88" name="telefono_2" defaultValue={this.props.voluntario.telefono_2} onChange={this.guardar_info}/>     
+                                <input type="text" placeholder="8888-8888" name="telefono_2" defaultValue={this.props.voluntario.telefono_2} onChange={this.guardar_info}/>     
                             </td>
                         </tr>
 
@@ -188,8 +198,11 @@ export default class KInfoVoluntario extends Component {
                 <div className="row">
                     
                     <div className="col-1 offset-8">
-                        <button className="btn btn-primary" onClick={ this.props.siguiente }>continuar</button> 
+                        <button className="btn btn-primary" data-tip data-for='btn-tooltip' onClick={ this.props.siguiente }>Siguiente</button> 
                     </div>
+                    <ReactTooltip id='btn-tooltip' type='warning' effect='solid'>
+                        <span>Para poder continuar debe de asegurarse de haber completado correctamente todos los campos de información solicitados.</span>
+                    </ReactTooltip>
                 </div>
                 <br/>
                 <br/>

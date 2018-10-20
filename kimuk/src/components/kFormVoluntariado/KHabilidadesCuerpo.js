@@ -60,7 +60,7 @@ export default class KHabilidades extends Component {
             }
         }
     }
-    
+
     /**
      * Modifica el state.valueBuscar cada vez que se
      * hace una modificacion en su respectivo input
@@ -74,7 +74,7 @@ export default class KHabilidades extends Component {
         if (habilidad === "") { // muestra todas las habilidades
             for(var k in this.state.habilidadesBD) {
                 habilidades.push( <div className="text-left"><input type="checkbox"
-                name="habilidadesBD" onChange={this.onChangeHabilidadesSeleccionadas} 
+                name="habilidadesBD" onChange={this.onChangeHabilidadesSeleccionadas}
                 value={this.state.habilidadesBD[k]}/> {this.state.habilidadesBD[k]}</div> );
             }
         } else { // muestra habilidades segun input
@@ -82,7 +82,7 @@ export default class KHabilidades extends Component {
                 if (this.state.habilidadesBD[k].replace(/\s+/g, ' ').toLowerCase()
                         .indexOf(habilidad.replace(/\s+/g, ' ').toLowerCase()) > -1) {
                     habilidades.push( <div className="text-left"><input type="checkbox"
-                    name="habilidadesBD" onChange={this.onChangeHabilidadesSeleccionadas} 
+                    name="habilidadesBD" onChange={this.onChangeHabilidadesSeleccionadas}
                     value={this.state.habilidadesBD[k]}/> {this.state.habilidadesBD[k]}</div> );
                 }
             }
@@ -93,7 +93,7 @@ export default class KHabilidades extends Component {
     muestraHabilidadesSeleccionadas() {
         let habilidades = [];
         for(var k in this.props.habilidades) {
-            habilidades.push( <div className="text-left"><button onClick={this.onClickHabilidadSeleccionada} 
+            habilidades.push( <div className="text-left"><button onClick={this.onClickHabilidadSeleccionada}
                 value={this.props.habilidades[k]}> {this.props.habilidades[k]} </button> </div> );
         }
         this.setState({habSeleccionadas: habilidades});
@@ -142,8 +142,8 @@ export default class KHabilidades extends Component {
     }
 
     /**
-     * 
-     * @param {habilidad marcada} habilidad 
+     *
+     * @param {habilidad marcada} habilidad
      * RETURN true => si la habilidad se encuentra en las habilidades seleccionadas
      * RETURN false => si la habilidad NO se encuentra en las habilidades seleccionadas
      */
@@ -169,11 +169,11 @@ export default class KHabilidades extends Component {
                     <input
                         type="text"
                         value={this.state.valueBuscar}
-                        placeholder='Escribí la habilidad que querés buscar'
+                        placeholder='Busca habilidades específicas'
                         onChange={this.updateValueBuscar}
                     />
                 </label>
-                <button 
+                <button
                     onClick={this.onClickBuscar}
                     data-tip data-for='btn-tooltip-botonBuscar'
                 >
@@ -188,7 +188,7 @@ export default class KHabilidades extends Component {
                         el botón buscar con la entrada de texto vacía.
                     </span>
                 </ReactTooltip>
-                <button 
+                <button
                     onClick={this.agregarHabilidadABD}
                     data-tip data-for='btn-tooltip-botonAgregar'
                 >

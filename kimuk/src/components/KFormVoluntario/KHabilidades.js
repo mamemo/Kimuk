@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import './KFormVoluntario.css';
 import '../style/color.css';
+import ReactTooltip from 'react-tooltip';
 
 export default class KHabilidades extends Component {
     constructor(){
@@ -57,11 +58,29 @@ export default class KHabilidades extends Component {
                 </div>
                 <div className="row">
                     <div className="col-1 offset-2">
-                        <button className="btn btn-info" onClick={ this.props.anterior }>anterior</button> 
+                        <button 
+                            className="btn btn-info"
+                            data-tip data-for='btn-tooltip' 
+                            onClick={ this.props.anterior }
+                        >
+                            Anterior
+                        </button> 
                     </div>
+                    <ReactTooltip id='btn-tooltip' type='warning' effect='solid' place="bottom">
+                        <span>Regresá a la sección de información del voluntario</span>
+                    </ReactTooltip>
                     <div className="col-1 offset-6">
-                        <button className="btn btn-primary" onClick={ this.props.siguiente }>continuar</button> 
+                        <button 
+                            className="btn btn-primary"
+                            data-tip data-for='btn-tooltip2'
+                            onClick={ this.props.siguiente }
+                        >
+                            Siguiente
+                        </button> 
                     </div>
+                    <ReactTooltip id='btn-tooltip2' type='info' effect='solid' place="right">
+                        <span>Continuá configurando tu voluntariado</span>
+                    </ReactTooltip>
                 </div>
                 <br/>
                 <br/>

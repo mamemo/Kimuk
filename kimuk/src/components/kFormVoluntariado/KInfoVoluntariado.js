@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Glyphicon } from 'react-bootstrap';
 import KModalAddAdmin from '../KModals/KModalAddAdmin';
-import ReactTooltip from 'react-tooltip';
+import ReactTooltip from 'react-tooltip'
 import TimeInput from 'material-ui-time-picker'
 import DatePicker from 'react-datepicker';
 
@@ -136,11 +136,10 @@ export default class KInfoVoluntariado extends Component {
           <div className="errorMsg">{this.state.errors.description}</div>
         </div>
         <div className="form-group">
-          <label className="col-6 col-form-label">Fecha a realizar el voluntariado</label>
+          <label className="col-6 col-form-label">Fecha de realización del voluntariado</label>
           <div className="col-md-6">
             <div id="datetime_picker_wrapper" className="time_picker_wrapper">
               <DatePicker
-                data-tip data-for='date-tooltip'
                 name="startDate"
                 selected={this.props.campana.startDate}
                 onChange={this.props.handleStartDateChange}
@@ -220,14 +219,14 @@ export default class KInfoVoluntariado extends Component {
             min="0"
             name="numberOfGuests"
             type="number"
-            className="form-control"
             data-tip data-for='numeric-tooltip'
+            className="form-control"
             value={this.props.campana.numberOfVolunteers}
             onChange={this.props.handlerNumeric} />
         </label>
         <ReactTooltip id='numeric-tooltip' type='info' effect='solid'>
           <span>
-            Indica la cantidad máxima de voluntarios deseados.
+            Indique la cantidad máxima de voluntarios deseados.
             <br />
             Si la cantidad es igual a 0, se asume que el voluntariado
             <br />
@@ -348,20 +347,6 @@ export default class KInfoVoluntariado extends Component {
         {this.volunteeringFormData()}
         {this.volunteeringManagerFormData()}
         <KModalAddAdmin manager={this.props.campana}/>
-        <div className="row">
-          <div className="col-1 offset-9">
-            <button
-              data-tip data-for='btn-tooltip'
-              type="button"
-              className="btn btn-primary"
-              onClick = {this.props.siguiente} >
-              <Glyphicon glyph="menu-righ" /> Continuar
-            </button>
-          </div>
-          <ReactTooltip id='btn-tooltip' type='warning' effect='solid'>
-            <span>Para poder continuar debe de asegurarse de haber completado correctamente todos los campos de información solicitados.</span>
-          </ReactTooltip>
-        </div>
       </div>
     );
   }
