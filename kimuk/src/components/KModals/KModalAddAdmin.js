@@ -25,9 +25,9 @@ export default class KModalAddAdmin extends Component
         super(props);
         this.state = {
             listaEncargadosGrafica : [],
-            modalIsOpen: false
+            modalIsOpen: false,
+            errors: {}
         };
-        KModalAddAdmin.validateEmail = KModalAddAdmin.validateEmail.bind(this);
         this.actualizarListaEncargados = this.actualizarListaEncargados.bind(this);
         this.agregarEncargado = this.agregarEncargado.bind(this);
         this.quitarEncargado = this.quitarEncargado.bind(this);
@@ -55,24 +55,69 @@ export default class KModalAddAdmin extends Component
         }
     }
 
-    agregarEncargado(){
-        if(nuevoNombre.replace(/\s/g, '') === "" || nuevoApellidos.replace(/\s/g, '') === ""
-            || nuevoCorreo.replace(/\s/g, '') === "" || nuevoTelefono.replace(/\s/g, '') === "")
-        {alert("Uno de los campos se encuentra vacio.\nDebe completar todos los campos."); return;}
-
-        if(!KModalAddAdmin.validateEmail(nuevoCorreo))
-        {alert("Correo electrónico inválido.\nPor favor ingrese correctamente el correo electrónico"); return;}
-
-        const encargado = [nuevoNombre, nuevoApellidos, nuevoCorreo, nuevoTelefono];
-        this.props.manager.encargados.push(encargado);
-        nuevoNombre = nuevoApellidos = nuevoCorreo = nuevoTelefono = "";
-        this.closeModal();
-        this.actualizarListaEncargados();
+    validateForm() {
+        //let fields = this.state.fields;
+        let errors = {};
+        let formIsValid = true;
+    
+        if (!nuevoNombre) {
+          formIsValid = false;
+          errors["name"] = "*Por favor ingrese nombre del encargado.";
+        }
+    
+        if (!nuevoApellidos) {
+          formIsValid = false;
+          errors["lastname"] = "*Por favor ingresar apellidos del encargado.";
+        }
+    
+        if (typeof nuevoNombre !== "undefined" &&
+            typeof nuevoApellidos !== "undefined") {
+          if (!nuevoNombre.match(/^[a-zA-Z ]*$/) &&
+              !nuevoApellidos.match(/^[a-zA-Z ]*$/)) {
+            formIsValid = false;
+            errors["name"] = "*Por favor introduzca solo caracteres del alfabeto.";
+            errors["lastname"] = "*Por favor introduzca solo caracteres del alfabeto.";
+          }
+        }
+    
+        if (!nuevoCorreo) {
+          formIsValid = false;
+          errors["email"] = "*Por favor ingrese correo electrónico del encargado.";
+        }
+    
+        if (typeof nuevoCorreo !== "undefined") {
+          //regular expression for email validation
+          const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+          if (!re.test(nuevoCorreo)) {
+            formIsValid = false;
+            errors["email"] = "*Por favor, introduzca una dirección de correo electrónico válida.";
+          }
+        }
+    
+        if (!nuevoTelefono) {
+          formIsValid = false;
+          errors["tel"] = "*Por favor ingrese número de teléfono del encargado.";
+        }
+    
+        if (typeof nuevoTelefono !== "undefined") {
+          if (!nuevoTelefono.match(/^[0-9]{8}$/)) {
+            formIsValid = false;
+            errors["tel"] = "*Por favor, introduzca un número de teléfono válido.";
+          }
+        }
+    
+        this.setState({errors: errors});
+        return formIsValid;
     }
 
-    static validateEmail(email) {
-    const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-    return re.test(email);
+    agregarEncargado(){
+        if (this.validateForm()) {
+            const encargado = [nuevoNombre, nuevoApellidos, nuevoCorreo, nuevoTelefono];
+            this.props.manager.encargados.push(encargado);
+            nuevoNombre = nuevoApellidos = nuevoCorreo = nuevoTelefono = "";
+            this.closeModal();
+            this.actualizarListaEncargados();
+        }
     }
 
     quitarEncargado(e){
@@ -129,16 +174,24 @@ export default class KModalAddAdmin extends Component
                     <br/>
                     <h6>Nombre:</h6>
                     <input type="text" name="Nombre" placeholder="Nombre" style={{width: 500}} onChange={KModalAddAdmin.guardar_info}/>
-                    <br/> <br/>
+                    <br/>
+                    <div className="errorMsg">{this.state.errors.name}</div>
+                    <br/>
                     <h6>Apellidos:</h6>
                     <input type="text" name="Apellidos" placeholder="Apellidos" style={{width: 500}} onChange={KModalAddAdmin.guardar_info}/>
-                    <br/> <br/>
+                    <br/>
+                    <div className="errorMsg">{this.state.errors.lastname}</div>
+                    <br/>
                     <h6>Correo electrónico:</h6>
                     <input type="text" name="Correo" placeholder="Correo electrónico" style={{width: 500}} onChange={KModalAddAdmin.guardar_info}/>
-                    <br/> <br/>
+                    <br/>
+                    <div className="errorMsg">{this.state.errors.email}</div>
+                    <br/>
                     <h6>Teléfono:</h6>
                     <input type="text" name="Telefono" placeholder="Teléfono" style={{width: 500}} onChange={KModalAddAdmin.guardar_info}/>
-                    <br/> <br/>
+                    <br/>
+                    <div className="errorMsg">{this.state.errors.tel}</div>
+                    <br/>
                     <button className="inside" onClick={this.agregarEncargado}>Aceptar</button>
                     <button type="button" className="close" aria-label="Close" onClick={this.closeModal}>
                         <span aria-hidden="true">&times;</span>

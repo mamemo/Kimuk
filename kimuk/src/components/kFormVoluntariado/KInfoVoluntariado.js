@@ -16,7 +16,6 @@ export default class KInfoVoluntariado extends Component {
       errors: {}
     };
 
-    //this.handleInputChange = this.handleInputChange.bind(this);
     this.submitDataRegistrationForm = this.submitDataRegistrationForm.bind(this);
   }
 
@@ -24,14 +23,14 @@ export default class KInfoVoluntariado extends Component {
     //let fields = this.state.fields;
     let errors = {};
     let formIsValid = true;
-    // no funciona bien identification
+    
     if (!this.props.campana.identification) {
       formIsValid = false;
       errors["identification"] = "*Por favor ingrese número de identificación del encargado.";
     }
-    // fin identification
+    
     if (typeof this.props.campana.identification !== "undefined") {
-      if (this.props.campana.identification.match(/^[0-9]*$/)) {
+      if (!this.props.campana.identification.match(/^[0-9]{9,12}$/)) {
         formIsValid = false;
         errors["identification"] = "*Por favor, introduzca una identificación válida.";
       }
@@ -82,7 +81,7 @@ export default class KInfoVoluntariado extends Component {
     }
 
     if (typeof this.props.campana.tel !== "undefined") {
-      if (!this.props.campana.tel.match(/^[0-9]{10}$/)) {
+      if (!this.props.campana.tel.match(/^[0-9]{8}$/)) {
         formIsValid = false;
         errors["tel"] = "*Por favor, introduzca un número de teléfono válido.";
       }
@@ -121,6 +120,7 @@ export default class KInfoVoluntariado extends Component {
   volunteeringFormData() {
     return (
       <div>
+        <div className="errorMsg">{this.state.errors.volName}</div>
         <div className="form-group">
          <label for="description" className="col-2 col-form-label"> Descripción </label>
          <div className="col-sm-10">
@@ -136,7 +136,7 @@ export default class KInfoVoluntariado extends Component {
           <div className="errorMsg">{this.state.errors.description}</div>
         </div>
         <div className="form-group">
-          <label className="col-6 col-form-label">Fecha de realización del voluntariado</label>
+          <label className="col-6 col-form-label">Fecha del voluntariado</label>
           <div className="col-md-6">
             <div id="datetime_picker_wrapper" className="time_picker_wrapper">
               <DatePicker
@@ -149,7 +149,7 @@ export default class KInfoVoluntariado extends Component {
           </div>
         </div>
         <div className="form-group">
-          <label className="col-6 col-form-label">Hora</label>
+          <label className="col-6 col-form-label">Hora de inicio del voluntariado</label>
           <div className="col-md-6">
             <TimeInput
               data-tip data-for='time-tooltip'
@@ -347,6 +347,22 @@ export default class KInfoVoluntariado extends Component {
         {this.volunteeringFormData()}
         {this.volunteeringManagerFormData()}
         <KModalAddAdmin manager={this.props.campana}/>
+        <div className="row">
+          <div className="col-1 offset-2">
+
+          </div>
+          <div className="col-1 offset-6">
+              <button
+                id="navigationButton"
+                className="btn btn-primary btn-md"
+                onClick={ this.submitDataRegistrationForm }
+                data-tip data-for='btn-tooltip'> Siguiente
+              </button>
+              <ReactTooltip id='btn-tooltip' type='warning' effect='solid'>
+                <span>Para poder continuar debe de asegurarse de haber completado correctamente todos los campos de información solicitados.</span>
+              </ReactTooltip>
+          </div>
+        </div>
       </div>
     );
   }
