@@ -134,3 +134,8 @@ table {
       position: relative;
       bottom: 7px;
   }
+
+  .errorMsg {
+    color: #cc0000;
+    margin-bottom: 12px;
+  }

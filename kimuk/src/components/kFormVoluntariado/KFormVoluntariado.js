@@ -215,23 +215,6 @@ export default class KFormVoluntariado extends Component {
                                 handlerNumeric={this.handleNumeric}
                               />
 
-                              <div className="row">
-                                <div className="col-1 offset-2">
-
-                                </div>
-                                <div className="col-1 offset-6">
-                                    <button
-                                      id="navigationButton"
-                                      className="btn btn-primary btn-md"
-                                      onClick={ this.siguiente }
-                                      data-tip data-for='btn-tooltip'> Siguiente
-                                    </button>
-                                    <ReactTooltip id='btn-tooltip' type='warning' effect='solid'>
-                                      <span>Para poder continuar debe de asegurarse de haber completado correctamente todos los campos de información solicitados.</span>
-                                    </ReactTooltip>
-                                </div>
-                              </div>
-
                             </div>
                           </div>
                         </div>)
