@@ -35,7 +35,7 @@ function insertar_campana_construccion(Id)
     firebase.database().ref('Campanas/' + Id).update(
         {estado: "Construccion"}
     ).then(function () {
-        alert("Campaña en construccion");
+        return "Campaña en construccion";
     }).catch(function (error) {
         alert("Error al inicializar la campaña\n" + error );
     });
