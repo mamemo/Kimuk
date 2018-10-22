@@ -10,11 +10,13 @@ export default class KAdmin extends Component {
 
 	constructor(props) {
 		super(props);
-		this.state = {id_campana : 7812303,
+		this.state = {id_campana : props.url,
 									campana : null,
 									encargados : {},
 									voluntarios : {}
 								};
+		console.log(props.url);
+		
 	}
 
 	componentDidMount(){
