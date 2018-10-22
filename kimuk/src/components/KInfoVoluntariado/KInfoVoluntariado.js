@@ -24,14 +24,14 @@ export default class KInfoVoluntariado extends Component {
                             </div>
                     </div>
                     <div className="col">
-                        <h1>{this.props.campana[7]}</h1>
+                        <h1>{this.props.campana[0]}</h1>
                         <h3>Organizado por:</h3> 
                         <h4><ul>{this.props.vis_encargados}</ul></h4>
-                        <p>Fecha de Creación: {this.props.campana[1]} {this.props.campana[3]}</p>
-                        <p>{this.props.campana[6]}</p>
+                        <p>Fecha de Ejecución: {this.props.campana[1]} {this.props.campana[2]}</p>
+                        <p>{this.props.campana[3]}</p>
                         <hr />
                         <h2>Detalle</h2>
-                        <p>{this.props.campana[0]}</p>
+                        <p>{this.props.campana[4]}</p>
                     </div>
                 </div>
             </div>

@@ -6,8 +6,8 @@ import {insertar_actualizar_voluntarios_camapana, insertar_actualizar_habilidade
 import ReactTooltip from 'react-tooltip'
 
 export default class KTeryCon extends Component {
-    constructor(){
-        super();
+    constructor(props){
+        super(props);
         this.registrar=this.registrar.bind(this);
         this.guardar_info=this.guardar_info.bind(this);
     }

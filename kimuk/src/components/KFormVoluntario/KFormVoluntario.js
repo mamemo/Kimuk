@@ -40,14 +40,14 @@ export default class KFormVoluntario extends Component {
             campana: {},
             encargados: {},
             campana_habilidades_graficas: {},
-            Id_campana: 7812303  // props.Id_campana
+            Id_campana: props.url
         };
         this.siguiente=this.siguiente.bind(this);
         this.anterior=this.anterior.bind(this);
         this.obtener_datos=this.obtener_datos.bind(this);
     }
     obtener_datos(){
-        leer_campanas(7812303).then((data) => this.setState({datos:data}))
+        leer_campanas(this.state.Id_campana).then((data) => this.setState({datos:data}))
         //console.log(this.state.datos)
         this.dato=this.state.datos;
 
@@ -65,14 +65,18 @@ export default class KFormVoluntario extends Component {
 
     componentDidMount(){
         leer_campanas(this.state.Id_campana).then(result =>  {
-            let in_campana = InCampanasKFormVoluntario(result);
-            let in_encargados = InEcargadosKFormVoluntario(result);
-            let in_campana_habilidades_graficas = InHabilidadesGraficasKFormVoluntario(result);
-            this.setState( {
-                campana: in_campana,
-                encargados: in_encargados,
-                campana_habilidades_graficas: in_campana_habilidades_graficas
-            });
+            if (result){
+                let in_campana = InCampanasKFormVoluntario(result);
+                let in_encargados = InEcargadosKFormVoluntario(result);
+                let in_campana_habilidades_graficas = InHabilidadesGraficasKFormVoluntario(result);
+                this.setState( {
+                    campana: in_campana,
+                    encargados: in_encargados,
+                    campana_habilidades_graficas: in_campana_habilidades_graficas
+                });
+            } else {
+                window.location.href = "http://localhost:3000";
+            }
         });
     }
 
@@ -155,7 +159,7 @@ export default class KFormVoluntario extends Component {
                         {info}
                         {pasos}
                     </div>
-                    <KTeryCon voluntario={this.state} tyc={this.state.campana[9]} anterior={this.anterior} siguiente={this.siguiente}/>
+                    <KTeryCon voluntario={this.state} tyc={this.state.campana[5]} anterior={this.anterior} siguiente={this.siguiente}/>
                 </div>)
 
         }

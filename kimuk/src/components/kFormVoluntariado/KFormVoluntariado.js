@@ -16,6 +16,7 @@ import { insertar_campana_construccion,
          insertar_actualizar_encargado_general_campana,
          insertar_actualizar_encargados_campana,
          insertar_actualizar_habilidades_campana } from '../DB/campaigns';
+         
 
 export default class KFormVoluntariado extends Component {
     constructor(props){
@@ -145,6 +146,8 @@ export default class KFormVoluntariado extends Component {
      * and documents to the DB
      */
      insertNewCampaign() {
+       console.log(this.state.termsAndConditions);
+       
        // Insert new campaign in DB
        let campaign = insertar_actualizar_campana(this.state.id, this.state.volName, this.state.description,
                                                   this.state.startDate.toString(), this.state.time.toString(),
@@ -214,7 +217,6 @@ export default class KFormVoluntariado extends Component {
                                 handleCheckoxChange={this.handleCheckoxChange}
                                 handlerNumeric={this.handleNumeric}
                               />
-
                             </div>
                           </div>
                         </div>)
@@ -306,6 +308,7 @@ export default class KFormVoluntariado extends Component {
                         </div>)
 
         }
+
 
     }
 

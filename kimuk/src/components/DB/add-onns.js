@@ -6,18 +6,12 @@ VisualizacionEncargados, InHabilidadesCodigosKFormVoluntario, InHabilidadesBD, I
 InDocumentosBD}
 
 function InCampanasKFormVoluntario(result) {
-    return createFragment({
-        Descripcion: result.Descripcion,
-        Fecha_ejecucion: result.Fecha_ejecucion,
-        Fecha_limite: result.Fecha_limite,
-        Hora: result.Hora,
-        Limite_registro: result.Limite_registro,
-        Limite_voluntarios: result.Limite_voluntarios,
-        Lugar: result.Lugar,
-        Nombre: result.Nombre,
-        Formacion_academica: result.formacion_academica,
-        Terminos_condiciones: result.terminos_condiciones
+    let keys = ["Nombre", "Fecha_ejecucion", "Hora", "Lugar", "Descripcion", "terminos_condiciones"];
+    let content = [];
+    keys.forEach(k => {
+        content.push(result[k]);
     });
+    return content;
 }
 
 function InEcargadosKFormVoluntario(result) {
@@ -34,8 +28,6 @@ function InVoluntariosKFormAdmin(result) {
     let content = Object.keys(result.Voluntarios).map(key => {
         return result.Voluntarios[key];
     });
-
-    console.log(content);
     return content;
 }
 

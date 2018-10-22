@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import './KTable.css';
+import KModalInfo from '../KModals/KModalInfo';
 
 //Imports for pop up
 import { confirmAlert } from 'react-confirm-alert'; // Import
@@ -53,6 +54,16 @@ export default class KTable extends Component {
     }
   }
 
+  createModal(userJson) {
+    confirmAlert({
+      customUI: ({onClose}) => {
+        return(
+          <KModalInfo volunteerInfo={userJson}/>
+        );
+      }
+    });
+  }
+
   createTable = () => {
     let tableBody = [];
 
@@ -62,23 +73,71 @@ export default class KTable extends Component {
       if(voluntarios[i]){
         tableBody.push(<tr>
                         <td></td>
-                        <td>{voluntarios[i].Nombre+' '+voluntarios[i].Primer_apellido+' '+voluntarios[i].Segundo_apellido}</td>
+                        <td>{voluntarios[i].Nombre+" "+voluntarios[i].Primer_apellido+" "+voluntarios[i].Segundo_apellido}</td>
                         <td>{this.createStateCell(voluntarios[i].Estado_solicitud)}</td>
                         <td>{voluntarios[i].Ocupacion}</td>
                         <td>{voluntarios[i].Fecha_registro}</td>
-                        <td><a href="#">Editar Información</a></td>
-                        <td><input type="checkbox"/></td>
+                        <td><button onClick={this.createModal.bind(this, voluntarios[i])}>Editar información</button></td>
+                        <td><input type="checkbox" className="checkbox"/></td>
                       </tr>);
       }
     }
 
     return tableBody;
   }
-  
+
   updateInputValue(evt) {
     this.setState({
       inputValue: evt.target.value
     });
+  }
+
+  convertToCSV(objArray) {
+    var array = typeof objArray != 'object' ? JSON.parse(objArray) : objArray;
+    var str = '';
+
+    for (var i = 0; i < array.length; i++) {
+        var line = '';
+        for (var index in array[i]) {
+            if (line != '') line += ','
+
+            line += array[i][index];
+        }
+
+        str += line + '\r\n';
+    }
+
+    return str;
+  }
+
+  exportCSVFile(headers, items, fileTitle) {
+      if (headers) {
+          items.unshift(headers);
+      }
+
+      // Convert Object to JSON
+      var jsonObject = JSON.stringify(items);
+
+      var csv = this.convertToCSV(jsonObject);
+
+      var exportedFilenmae = fileTitle + '.csv' || 'export.csv';
+
+      var blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+      if (navigator.msSaveBlob) { // IE 10+
+          navigator.msSaveBlob(blob, exportedFilenmae);
+      } else {
+          var link = document.createElement("a");
+          if (link.download !== undefined) { // feature detection
+              // Browsers that support HTML5 download attribute
+              var url = URL.createObjectURL(blob);
+              link.setAttribute("href", url);
+              link.setAttribute("download", exportedFilenmae);
+              link.style.visibility = 'hidden';
+              document.body.appendChild(link);
+              link.click();
+              document.body.removeChild(link);
+          }
+      }
   }
 
   filtrarEstado(evt){
