@@ -148,7 +148,7 @@ export default class KInfoVoluntario extends Component {
 
     submitDataRegistrationForm(e) {
         e.preventDefault();
-        if (!this.validateForm()) {
+        if (this.validateForm()) {
             this.props.siguiente();
         }
     }

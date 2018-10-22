@@ -24,13 +24,9 @@ class App extends Component {
         link:nlink
     });
   }
-/*
-http://localhost:3000/voluntariado
-http://localhost:3000/voluntario
-http://localhost:3000/info
-http://localhost:3000/admin
-http://localhost:3000/contacto
-*/
+
+  //https://loc/voluntariado/123
+
   render() {
     const url=window.location.href.split("/")
     console.log(url);
