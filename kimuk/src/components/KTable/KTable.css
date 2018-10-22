@@ -8,6 +8,7 @@
 
 .volunteer_table{
   width: 80%;
+  justify-content: space-evenly;
 }
 
 .searchBar{
@@ -33,4 +34,8 @@
 table, th, td {
   border-bottom: 1px solid black;
   border-collapse: collapse;
+}
+
+.checkbox{
+  width: auto;
 }

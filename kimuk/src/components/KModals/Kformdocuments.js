@@ -59,22 +59,6 @@ export default class Kformdocuments extends Component {
         });
     }
 
-    showDownloadButtons() {
-        let buttons = [];
-        leer_url_documento_campana("7812303", "Currículum vitae").then(result => {
-            buttons.push(
-                <a href={result} target="_blank">
-                    <input type="button" value="Download"/>
-                </a>
-            );
-            this.setState({
-                downloadButtons: buttons
-            });
-        });
-
-    }
-
-
     static onChangeCheckBox(e) {
         const button = document.getElementById("file" + e.target.id);
         button.disabled = !button.disabled;

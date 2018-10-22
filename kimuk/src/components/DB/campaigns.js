@@ -3,12 +3,13 @@ import * as uid from "uid";
 
 export {leer_campanas, insertar_actualizar_habilidades_campana, insertar_actualizar_encargados_campana, insertar_actualizar_campana,
 eliminar_habilidad_campana, eliminar_campana, actualizar_campana, actualizar_encargado_campana, eliminar_encargado_campana,
-leer_encargados_camapanas, leer_habilidades_camapana, insertar_campana_construccion, insertar_actualizar_encargado_general_campana}
+leer_encargados_camapanas, leer_habilidades_camapana, eliminar_campanas_en_construccion, insertar_actualizar_encargado_general_campana,
+insertar_campana_construccion}
 
 function insertar_actualizar_campana(Id, nombre, descripcion, fecha_ejecucion, hora, lugar,
-                                     fecha_limite, limite_registro, limite_voluntarios, terminos_condiciones
-) {
-
+                                     fecha_limite, limite_registro, limite_voluntarios, terminos_condiciones) {
+    console.log(terminos_condiciones);
+    
     firebase.database().ref('Campanas/' + Id).update(
         {
 
@@ -35,7 +36,7 @@ function insertar_campana_construccion(Id)
     firebase.database().ref('Campanas/' + Id).update(
         {estado: "Construccion"}
     ).then(function () {
-        return "Campaña en construccion";
+        alert("Campaña en construccion");
     }).catch(function (error) {
         alert("Error al inicializar la campaña\n" + error );
     });
@@ -73,7 +74,7 @@ function actualizar_campana(Id_campana, llave_valor, nuevo_valor) {
 function eliminar_campana(Id_campana){
     const ref = firebase.database().ref('Campanas');
     ref.child(Id_campana).remove().then(function () {
-        alert("Campaña eliminada");
+        return "Campaña eliminada";
     }).catch(function (error) {
         alert("Error al eliminar la camapaña\n" + error);
     });
@@ -153,7 +154,7 @@ function actualizar_encargado_general_campana(Id_campana, Id_encargado, llave_va
         }).catch(function (error) {
             alert("Error al actualizar el encargado general\n" + error)
         });
-    } else {  // This code changes the primary key of the campaign
+    } else {
         const ref = firebase.database().ref('Campanas/'+ Id_campana + "/EncarcadoGeneral/");
         const child = ref.child(Id_encargado);
         child.once('value', function (snapshot) {
@@ -242,5 +243,32 @@ function leer_encargados_camapanas(Id_campana) {
         }).catch(function (error) {
         alert("Error al leer los encargados\n" + error);
     });
+    });
+}
+
+
+function leer_todas_campanas()
+{
+    return new Promise(resolve => {
+        const ref = firebase.database().ref("Campanas/");
+        ref.once('value', function(snapshot) {
+            resolve(snapshot.val());
+        }).catch(function (error) {
+            alert("Error al leer las campañas\n" + error);
+        });
+    });
+}
+
+
+function eliminar_campanas_en_construccion()
+{
+    leer_todas_campanas().then(result => {
+        const campanas = result;
+        for(let k in campanas)
+        {
+            if(campanas[k].estado === "Construccion"){
+                eliminar_campana(k);
+            }
+        }
     });
 }

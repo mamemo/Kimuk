@@ -15,19 +15,25 @@ export default class KAdmin extends Component {
 									encargados : {},
 									voluntarios : {}
 								};
-		console.log(props.url);
 		
 	}
 
 	componentDidMount(){
 		leer_campanas(this.state.id_campana).then(result => {
-			let in_campana = InCampanasKFormVoluntario(result);
-			let in_encargados = InEcargadosKFormVoluntario(result);
-			let in_voluntarios = InVoluntariosKFormAdmin(result);
-			this.setState({campana:in_campana,
-										encargados:in_encargados,
-										voluntarios : in_voluntarios
-			});
+			if(result){
+				let in_campana = InCampanasKFormVoluntario(result);
+				let in_encargados = InEcargadosKFormVoluntario(result);
+				let in_voluntarios = {};
+				if ('Voluntarios' in result){
+					in_voluntarios = InVoluntariosKFormAdmin(result);
+				}
+				this.setState({campana:in_campana,
+											encargados:in_encargados,
+											voluntarios : in_voluntarios
+				});
+			} else{
+				window.location.href = "http://localhost:3000";
+			}
 		});
 	}
 
@@ -35,7 +41,6 @@ export default class KAdmin extends Component {
 		if(this.state.campana != null){
 			return (
 				<div className="page_container">
-
 					<KInfoVoluntariado campana={this.state.campana} vis_encargados={VisualizacionEncargados(this.state.encargados)}/>
 					<KTable rows={this.state.voluntarios}/>
 				</div>

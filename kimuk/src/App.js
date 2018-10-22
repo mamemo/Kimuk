@@ -25,70 +25,18 @@ class App extends Component {
     });
   }
 
-  //https://loc/voluntariado/123
 
   render() {
-    // const url=window.location.href.split("/")
-    // const len=url.length-1
-    // switch (url[len]) {
-    //   case "":
-    //     return (
-    //       <div className="App">
-    //         <KNav ir={this.ir}/>
-    //         <KIndex/>
-    //       </div>);
-      
-    //   case "voluntariado":
-    //     return (
-    //       <div className="App">
-    //         <KNav ir={this.ir}/>
-    //         <KFormVoluntariado/>
-    //       </div>
-    //     );
-      
-    //   }
-    // switch (url[len-1]) {   
-    //   case "admin":
-    //     return (
-    //       <div className="App">
-    //         <KNav ir={this.ir}/>
-    //         <KAdmin url = {url[len]}/>
-    //       </div>
-    //     );
-    //   case "contacto":
-    //     return (
-    //       <div className="App">
-    //         <KNav ir={this.ir}/>
-    //         <KContacto/>
-    //       </div>
-    //     );
-    //   case "info":
-    //     return (
-    //       <div className="App">
-    //         <KNav ir={this.ir}/>
-    //         <KInfo/>
-    //       </div>
-    //     );
-    //   case "voluntario":
-    //   console.log(url[len])
-    //   return (
-    //     <div className="App">
-    //       <KNav ir={this.ir}/>
-    //       <KFormVoluntario/>
-    //     </div>
-    //   );
-    // }
-
-    
     const url=window.location.href.split("/")
-    console.log(url);
-    switch (url[3]) {
+    const len=url.length-1
+    switch (url[len]) {
       case "":
         return (
           <div className="App">
             <KNav ir={this.ir}/>
             <KIndex/>
           </div>);
+      
       case "voluntariado":
         return (
           <div className="App">
@@ -96,18 +44,14 @@ class App extends Component {
             <KFormVoluntariado/>
           </div>
         );
-      case "voluntario":
-        return (
-          <div className="App">
-            <KNav ir={this.ir}/>
-            <KFormVoluntario/>
-          </div>
-        );
+      
+    }
+    switch (url[len-1]) {   
       case "admin":
         return (
           <div className="App">
             <KNav ir={this.ir}/>
-            <KAdmin/>
+            <KAdmin url = {url[len]}/>
           </div>
         );
       case "contacto":
@@ -124,7 +68,22 @@ class App extends Component {
             <KInfo/>
           </div>
         );
+      case "voluntario":
+        return (
+          <div className="App">
+            <KNav ir={this.ir}/>
+            <KFormVoluntario url = {url[len]}/>
+          </div>
+        );
+
+      default:
+        return (
+          <div className="App">
+            <KNav ir={this.ir}/>
+            <KIndex/>
+          </div>);
     }
+
 
   }
 }

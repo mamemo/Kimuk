@@ -2,11 +2,20 @@ import React, { Component } from 'react';
 import './KFormVoluntariado.css';
 import '../style/color.css';
 import '../style/general.css';
+import KFormPregunta from '../KFormPregunta/KFormPregunta';
 import ReactTooltip from 'react-tooltip'
 import './KDocumentos.css';
 
 import {leer_documentos} from "../DB/CRUDdocuments.js";
 import {InDocumentosBD} from "../DB/add-onns.js"
+
+
+const question = {
+  title: '¿A cuáles documentos hace referencia?',
+  question: '¿Deseas seleccionar documentos requeridos?',
+  description: 'Adjunta documentos como pólizas de seguro.'
+              +' También puedes solicitar a los posibles voluntarios documentos como: cédula de identidad, hoja de delincuencia, curriculum vitae, etc.'
+};
 
 export default class KDocumentos extends Component {
 
@@ -16,6 +25,7 @@ export default class KDocumentos extends Component {
       documentosBD: []
     }
     this.muestraDocumentos = this.muestraDocumentos.bind(this);
+
     this.onChangeSelectedDocuments = this.onChangeSelectedDocuments.bind(this);
     this.deleteSelectedDocument = this.deleteSelectedDocument.bind(this);
     this.isDocumentMember = this.isDocumentMember.bind(this);
@@ -34,149 +44,212 @@ export default class KDocumentos extends Component {
     );
   }
 
-  addPolicyDocument(docsBD, documento){
-    docsBD.push(
-      <tr align="left">
-        <td>
-          <input
-            type="checkbox"
-            value={this.state.documentosBD[documento]}
-            onChange={this.onChangeSelectedDocuments} />
-        </td>
-        <td class="round">
-          <div>
-            <h6>{this.state.documentosBD[documento]}</h6>
-            <input type="file" name="file" id="file" class="inputfile" />
-            <label for="file">Agregar</label>
-          </div>
-        </td>
-      </tr>
-    );
-  }
+  mostrarDocumentos() {
+         leer_documentos().then(
+           result => {
+             const documentos = result;
+             let documentosGraficos = [];
+             let documentosLista = [];
 
-  addPolicyDocumentCheck(docsBD, documento){
-    docsBD.push(
-      <tr align="left">
-        <td>
-          <input
-            checked
-            type="checkbox"
-            value={this.state.documentosBD[documento]}
-            onChange={this.onChangeSelectedDocuments} />
-        </td>
-        <td class="round">
-          <div>
-            <h6>{this.state.documentosBD[documento]}</h6>
-            <input type="file" name="file" id="file" class="inputfile" />
-            <label for="file">Agregar</label>
-          </div>
-        </td>
-      </tr>
-    );
-  }
+             documentosGraficos.push(
+               <div>
+                 <input type="checkbox"/>
+                 <label>&nbsp;&nbsp;{"Seleccionar documentos requeridos"}
+                  <input class="marcarbuttom" type="button" value="Marcar todo"/>
+                </label>
+               </div>
+             );
 
-  addDocument(docsBD, documento){
-    docsBD.push(
-      <tr align="left">
-        <td>
-          <input
-            type="checkbox"
-            value={this.state.documentosBD[documento]}
-            onChange={this.onChangeSelectedDocuments} />
-        </td>
-        <td class="round">
-          <div>
-            <h6>{this.state.documentosBD[documento]}</h6>
-          </div>
-        </td>
-      </tr>
-    );
-  }
+             for(let k in documentos)
+             {
+               let memberDoc = this.isDocumentMember(this.state.documentosBD[k]);
+               if (documentos[k]==="Póliza de seguro") {
+                 if (memberDoc) {
+                   this.addPolicyDocumentCheck(documentosGraficos, k, documentos);
+                 }
+                 else {
+                   this.addPolicyDocument(documentosGraficos, k, documentos);
+                 }
+               } else {
+                 if (memberDoc) {
+                   this.addDocumentCheck(documentosGraficos, k, documentos);
+                 }
+                 else {
+                   this.addDocument(documentosGraficos, k, documentos);
+                 }
 
-  addDocumentCheck(docsBD, documento){
-    docsBD.push(
-      <tr align="left">
-        <td>
-          <input
-            checked
-            type="checkbox"
-            value={this.state.documentosBD[documento]}
-            onChange={this.onChangeSelectedDocuments} />
-        </td>
-        <td class="round">
-          <div>
-            <h6>{this.state.documentosBD[documento]}</h6>
-          </div>
-        </td>
-      </tr>
-    );
-  }
+               }
 
-  muestraDocumentos(docsBD) {;
-    for(var documento in this.state.documentosBD) {
-      let memberDoc = this.isDocumentMember(this.state.documentosBD[documento]);
-      if(this.state.documentosBD[documento] === 'Póliza de seguro') {
-        if (memberDoc) {
-          this.addPolicyDocumentCheck(docsBD, documento);
-        }
-        else {
-          this.addPolicyDocument(docsBD, documento);
-        }
-      }
-      else {
-        if (memberDoc) {
-          this.addDocumentCheck(docsBD, documento);
-        }
-        else {
-          this.addDocument(docsBD, documento);
-        }
-      }
+                 documentosLista.push(documentos[k]);
+             }
+             this.setState({
+                 documentosBD: documentosGraficos,
+                 listaDocumentosEscogidos: documentosLista
+             });
+         });
+     }
+
+     static onChangeCheckBox(e) {
+       const button = document.getElementById("file" + e.target.id);
+       button.disabled = !button.disabled;
+     }
+
+
+
+     addPolicyDocument(documentosGraficos, k, documentos){
+       documentosGraficos.push(
+           <div className={"containerdoc"}>
+
+
+             <label className={"lbldoc"}>
+                   <input
+                     type="checkbox"
+                     value={documentos[k]}
+                     onChange={this.onChangeSelectedDocuments} />
+
+                    &nbsp;&nbsp;{documentos[k]}
+
+                   <input type="file" name={k} id={"file" + k.toString()} className="inputfile" accessKey={documentos[k]}
+
+                          onChange={this.onChangeFileButton}/>
+                   <label htmlFor={"file" + k.toString()}>Adjuntar</label>
+               </label>
+               <label className={"docname"} id={"name" + k.toString()}>&nbsp;</label>
+               <br/>
+               <progress max={100} value={0} id={"bar" + k.toString()}>0%</progress>
+               <br/>
+           </div>
+       );
+     }
+
+     addPolicyDocumentCheck(documentosGraficos, k, documentos){
+       documentosGraficos.push(
+           <div className={"containerdoc"}>
+
+             <label className={"lbldoc"}>
+                   <input
+                     checked
+                     type="checkbox"
+                     value={documentos[k]}
+                     onChange={this.onChangeSelectedDocuments} />
+
+                    &nbsp;&nbsp;{documentos[k]}
+
+                   <input type="file" name={k} id={"file" + k.toString()} className="inputfile" accessKey={documentos[k]}
+
+                          onChange={this.onChangeFileButton}/>
+                   <label htmlFor={"file" + k.toString()}>Adjuntar</label>
+               </label>
+               <label className={"docname"} id={"name" + k.toString()}>&nbsp;</label>
+               <br/>
+               <progress max={100} value={0} id={"bar" + k.toString()}>0%</progress>
+               <br/>
+           </div>
+       );
+     }
+
+     addDocument(documentosGraficos, k, documentos){
+       documentosGraficos.push(
+           <div className={"containerdoc"}>
+
+             <label className={"lbldoc"}>
+                 <input
+                   type="checkbox"
+                   value={documentos[k]}
+                   onChange={this.onChangeSelectedDocuments} />
+                &nbsp;&nbsp;{documentos[k]}
+
+               </label>
+               <label className={"docname"} id={"name" + k.toString()}>&nbsp;</label>
+               <br/>
+
+           </div>
+       );
+     }
+
+     addDocumentCheck(documentosGraficos, k, documentos){
+       documentosGraficos.push(
+           <div className={"containerdoc"}>
+
+
+             <label className={"lbldoc"}>
+
+             <input
+               checked
+               type="checkbox"
+               value={documentos[k]}
+               onChange={this.onChangeSelectedDocuments} />
+
+             &nbsp;&nbsp;{documentos[k]}
+
+               </label>
+               <label className={"docname"} id={"name" + k.toString()}>&nbsp;</label>
+               <br/>
+
+           </div>
+       );
+     }
+
+
+
+         onChangeSelectedDocuments(e) {
+             if (e.target.checked) { // activa check (agrega a habilidadesSeleccionadas)
+                 this.props.documents.push(e.target.value);
+             } else { // desactiva check (elimina de  habilidadesSeleccionadas)
+                 this.deleteSelectedDocument(e.target.value);
+             }
+         }
+
+         deleteSelectedDocument(doc) {
+             for (var k in this.props.documents) {
+                 if (doc === this.props.documents[k]) {
+                     this.props.documents.splice(k, 1); // elimina de  documento seleccionado
+                 }
+             }
+         }
+
+         isDocumentMember(doc) {
+             return this.props.documents.includes(doc);
+         }
+
+muestraDocumentos(docsBD){
+
+
+  for(var documento in this.state.documentosBD){
+
+    if (documento==0) {
+      docsBD.push(
+        <div>
+          <h6>{this.state.documentosBD[documento]}</h6>
+          <input type="file" name="file" id="file" class="inputfile" />
+          <label for="file">Agregar</label>
+        </div>
+      );
+    } else {
+      docsBD.push(
+        <h6>{this.state.documentosBD[documento]}</h6>
+      );
     }
   }
+}
 
-  onChangeSelectedDocuments(e) {
-      if (e.target.checked) { // activa check (agrega a habilidadesSeleccionadas)
-          this.props.documents.push(e.target.value);
-      } else { // desactiva check (elimina de  habilidadesSeleccionadas)
-          this.deleteSelectedDocument(e.target.value);
-      }
-  }
+actualizaDocsSeleccionados(e){
 
-  deleteSelectedDocument(doc) {
-      for (var k in this.props.documents) {
-          if (doc === this.props.documents[k]) {
-              this.props.documents.splice(k, 1); // elimina de  documento seleccionado
-          }
-      }
-  }
+}
 
-  isDocumentMember(doc) {
-      return this.props.documents.includes(doc);
-  }
-
-  render() {
+  render(){
 
     const docsBD = [];
-    this.muestraDocumentos(docsBD);
+    this.mostrarDocumentos();
+
       return(
           <div className="container">
 
-            <table align="right" width="800">
-              <tr data-tip data-for='table-tooltip'>
-                <th>
-                  <input type="checkbox"/>
-                </th>
-                <th>
-                  Seleccionar documentos requeridos
-                  <input class="marcarbuttom" type="button" value="Marcar todo"/>
-                </th>
-              </tr>
-              {docsBD.map((doc)=>{
-                return <tr align="left">
-                          {doc}
-                        </tr>
-              })}
-            </table>
+            <div>
+              <br/>
+                {this.state.documentosBD}
+              <br/>
+            </div>
             <ReactTooltip id='table-tooltip' type='info' effect='solid'>
               <span>
                 <h4> ¿A cuáles documentos hace referencia? </h4>
@@ -196,34 +269,11 @@ export default class KDocumentos extends Component {
               </span>
             </ReactTooltip>
             <div className="offset-6">
-                <div className="col-1 offset-6">
-                    <button 
-                        id="navigationButton" 
-                        data-tip data-for='btn-tooltip'
-                        className="btn btn-dafault btn-md" 
-                        onClick={ this.props.anterior }
-                    >
-                        Anterior
-                    </button>
-                </div>
-                <ReactTooltip id='btn-tooltip' type='warning' effect='solid' place="right">
-                    <span>Regresá a la sección de selección de habilidades</span>
-                </ReactTooltip>
-                <div className="col-3 offset-6">
-                    <button 
-                        id="navigationButton" 
-                        data-tip data-for='btn-tooltip2'
-                        className="btn btn-primary btn-md" 
-                        onClick={ this.props.siguiente }
-                    >
-                        Siguiente
-                    </button>
-                </div>
-                <ReactTooltip id='btn-tooltip2' type='info' effect='solid' place="right">
-                    <span>Continuá configurando tu voluntariado</span>
-                </ReactTooltip>
+                <input class="btn btn-default" float="left" type="button" onClick={ this.props.anterior } value="Anterior"/>
+                <input class="btn btn-primary" float="right" type="button" onClick={ this.props.siguiente } value="Siguiente"/>
             </div>
           </div>
+
       );
   }
 }
