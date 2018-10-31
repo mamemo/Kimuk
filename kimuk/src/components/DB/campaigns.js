@@ -4,30 +4,28 @@ import * as uid from "uid";
 export {leer_campanas, insertar_actualizar_habilidades_campana, insertar_actualizar_encargados_campana, insertar_actualizar_campana,
 eliminar_habilidad_campana, eliminar_campana, actualizar_campana, actualizar_encargado_campana, eliminar_encargado_campana,
 leer_encargados_camapanas, leer_habilidades_camapana, eliminar_campanas_en_construccion, insertar_actualizar_encargado_general_campana,
-insertar_campana_construccion}
+insertar_campana_construccion, insertar_actualizar_encargados_lista, insertar_actualizar_habilidades_campana_lista}
 
 function insertar_actualizar_campana(Id, nombre, descripcion, fecha_ejecucion, hora, lugar,
                                      fecha_limite, limite_registro, limite_voluntarios, terminos_condiciones) {
-    console.log(terminos_condiciones);
-    
-    firebase.database().ref('Campanas/' + Id).update(
-        {
 
-            Nombre: nombre,
-            Descripcion: descripcion,
-            Fecha_ejecucion: fecha_ejecucion,
-            Hora: hora,
-            Lugar: lugar,
-            Fecha_limite: fecha_limite,
-            Limite_registro: limite_registro,
-            Limite_voluntarios: limite_voluntarios,
-            terminos_condiciones: terminos_condiciones,
-            estado: "Activa"
-        }).then(function () {
-            alert("Campaña creada exitosamente");
-        }).catch(function (error) {
-            alert("Error al insertar la campana\n" + error );
-        });
+    return new Promise(resolve => {
+        firebase.database().ref('Campanas/' + Id).update(
+            {
+                Nombre: nombre,
+                Descripcion: descripcion,
+                Fecha_ejecucion: fecha_ejecucion,
+                Hora: hora,
+                Lugar: lugar,
+                Fecha_limite: fecha_limite,
+                Limite_registro: limite_registro,
+                Limite_voluntarios: limite_voluntarios,
+                terminos_condiciones: terminos_condiciones,
+                estado: "Activa"
+            }).then(function () {
+            resolve("Campaña creada exitosamente");
+        })
+    });
 }
 
 
@@ -95,14 +93,28 @@ function leer_campanas(Id_campana)
 
 
 function insertar_actualizar_habilidades_campana(Id_campana, nombre_habilidad){
-    const Id_habilidad = uid();
-    const db = firebase.database().ref('Campanas/' + Id_campana + "/Habilidades");
-    db.child(Id_habilidad).set(nombre_habilidad).then(function () {
-        // alert("La habilidad ha sido insertada");
-    }).catch(function (error) {
-        alert("Error al insertar la habilidad\n" + error);
-    })
+    return new Promise(resolve => {
+        const Id_habilidad = uid();
+        const db = firebase.database().ref('Campanas/' + Id_campana + "/Habilidades");
+        db.child(Id_habilidad).set(nombre_habilidad).then(function () {
+            resolve("La habilidad ha sido insertada");
+        })
+    });
 }
+
+async function insertar_actualizar_habilidades_campana_lista(Id_campana, habilidades)
+{
+    /*
+     let skills = [];
+       for(let skill in this.state.skills) {
+         insertar_actualizar_habilidades_campana(this.state.id, this.state.skills[skill]);
+       }
+     */
+    for(let skill in habilidades)
+        await insertar_actualizar_habilidades_campana(Id_campana, habilidades[skill]);
+}
+
+
 
 
 function eliminar_habilidad_campana(Id_campana, Id_habilidad) {
@@ -133,16 +145,17 @@ function leer_habilidades_camapana(Id_campana) {
 function insertar_actualizar_encargado_general_campana(Id_campana, Id_encargado ,nombre_encargado, apellidos_encargado,
                                                 correo_electronico_encargado, telefono_encargado){
 
-    firebase.database().ref('Campanas/' + Id_campana + "/EncargadoGeneral/" + Id_encargado).update({
-        nombre: nombre_encargado,
-        apellidos: apellidos_encargado,
-        correo_electronico: correo_electronico_encargado,
-        telefono: telefono_encargado
-    }).then(function () {
-        alert("Encargado general insertado");
-    }).catch(function (error) {
-        alert("Error al insertar el encargado general\n" + error);
-    })
+    return new Promise(resolve => {
+        firebase.database().ref('Campanas/' + Id_campana + "/EncargadoGeneral/" + Id_encargado).update({
+            nombre: nombre_encargado,
+            apellidos: apellidos_encargado,
+            correo_electronico: correo_electronico_encargado,
+            telefono: telefono_encargado
+        }).then(function () {
+            resolve("Encargado general insertado");
+        })
+    });
+
 }
 
 
@@ -197,18 +210,28 @@ function leer_encargado_general_camapanas(Id_campana) {
 
 function insertar_actualizar_encargados_campana(Id_campana, nombre_encargado, apellidos_encargado,
     correo_electronico_encargado, telefono_encargado){
-    let Id_encargado = uid();
-    firebase.database().ref('Campanas/' + Id_campana + "/Encargados/" + Id_encargado).update({
-    nombre: nombre_encargado,
-    apellidos: apellidos_encargado,
-    correo_electronico: correo_electronico_encargado,
-    telefono: telefono_encargado
-    }).then(function () {
-        alert("El encargado ha sido insertado");
-    }).catch(function (error) {
-        alert("Error al insertar encargado\n" + error);
-    })
+    return new Promise(resolve => {
+        let Id_encargado = uid();
+        firebase.database().ref('Campanas/' + Id_campana + "/Encargados/" + Id_encargado).update({
+            nombre: nombre_encargado,
+            apellidos: apellidos_encargado,
+            correo_electronico: correo_electronico_encargado,
+            telefono: telefono_encargado
+        }).then(function () {
+            resolve("El encargado ha sido insertado");
+        })
+    });
 }
+
+
+async function insertar_actualizar_encargados_lista(Id_campana, encargados) {
+    for(let k in encargados)
+        await insertar_actualizar_encargados_campana(Id_campana, encargados[k][0], encargados[k][1],
+                                                    encargados[k][2], encargados[k][3]);
+}
+
+
+
 
 function actualizar_encargado_campana(Id_campana, Id_encargado, llave_valor, nuevo_valor) {
     if(llave_valor !== "Key") {

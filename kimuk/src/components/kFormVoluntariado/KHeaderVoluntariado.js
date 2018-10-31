@@ -28,8 +28,9 @@ export default class KHeaderVoluntariado extends Component {
           <div className="thumbnail">
             <img
               id="profile-img"
-              src={require('../../media/image1-icon.png')}
+              src={(this.props.url === "") ?  require('../../media/image1-icon.png') : this.props.url}
               className={'img-responsive'}
+              accept="image/*"
               width="200"
               height="200" />
           </div>
@@ -60,7 +61,7 @@ export default class KHeaderVoluntariado extends Component {
                 type="file"
                 style={{display: 'none'}}
                 value={this.props.image}
-                onChange={this.props.handler}
+                onChange={this.props.handlerImage}
               />
           </label>
           <input
