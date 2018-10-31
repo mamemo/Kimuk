@@ -19,11 +19,14 @@ export function insertar_documento_storage_campana(id_campana, tipo_documento, a
 
 
 export function insertar_url_nombre_documento_campana(id_campana, tipo_documento, nombre_archivo) {
+
+    return new Promise(resolve => {
         crear_url_documento_campana(id_campana, tipo_documento, nombre_archivo).then(result => {
             const db = firebase.database().ref('Campanas/' + id_campana + "/DocumentosURL/");
             db.child(tipo_documento).set(result).then( function () {
                 insertar_nombre_documento_campana(id_campana, tipo_documento, nombre_archivo).then(result => {
                     alert("El documento se ha subido exitosamente");
+                    resolve("El documento se ha subido exitosamente");
                 }).catch( function (error) {
                     alert("Error\n" + error + "\nPor favor suba el archivo nuevamente.");
                 })
@@ -33,13 +36,14 @@ export function insertar_url_nombre_documento_campana(id_campana, tipo_documento
         }).catch( function (error) {
             alert("Error\n" + error + "\nPor favor suba el archivo nuevamente.");
         });
+    });
 }
 
 
 export function insertar_nombre_documento_campana(id_campana, tipo_documento, nombre_archivo){
     return new Promise(resolve => {
         const db = firebase.database().ref('Campanas/' + id_campana + '/Documentos/');
-        db.child(tipo_documento).set(nombre_archivo).then( function () {
+        db.child(tipo_documento).set(tipo_documento).then( function () {
             resolve("Nombre del documento insertado exitosamente");
         });
     });
@@ -52,23 +56,6 @@ export function crear_url_documento_campana(id_campana, tipo_documento, nombre_a
     });
 }
 
-
-export function eliminar_documento_campana(id_campana, tipo_documento, nombre) {
-    const desertRef = firebase.storage().ref().child(id_campana + "/" + tipo_documento + "/" + nombre);
-    desertRef.delete().then( function() {
-        eliminar_url_documento_campana(id_campana, tipo_documento).then(result => {
-            eliminar_nombre_documento_campana(id_campana, tipo_documento).then(result => {
-                alert("El documento ha sido eliminado");
-            }).catch( function(error) {
-                alert("Error\n" + error.message);
-            });
-        }).catch( function(error) {
-            alert("Error\n" + error.message);
-        });
-    }).catch( function(error) {
-        alert("Error\n" + error.message);
-    });
-}
 
 
 export function eliminar_url_documento_campana(id_campana, tipo_documento) {
@@ -94,7 +81,7 @@ export function eliminar_nombre_documento_campana(id_campana, tipo_documento) {
 export function leer_url_documento_campana(id_campana, tipo_documento){
     return new Promise(resolve => {
         const ref = firebase.database().ref("Campanas/" + id_campana + "/DocumentosURL/" + tipo_documento);
-        ref.once('value', function(snapshot) {
+        ref.on('value', function(snapshot) {
             resolve(snapshot.val());
         },  function (errorObject) {
             alert("Error en la lectura del url del documento" + errorObject.code + "\n" + errorObject.message);
@@ -105,7 +92,7 @@ export function leer_url_documento_campana(id_campana, tipo_documento){
 
 export function leer_documentos_campana(id_campana) {
     return new Promise(resolve => {
-        const ref = firebase.database().ref("Campanas/" + id_campana + "/DocumentosURL");
+        const ref = firebase.database().ref("Campanas/" + id_campana + "/Documentos/");
         ref.once('value', function (snapshot) {
             resolve(snapshot.val());
         }).catch(function (errorObject) {

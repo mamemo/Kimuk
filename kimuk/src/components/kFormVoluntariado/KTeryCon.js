@@ -7,7 +7,21 @@ import ReactTooltip from 'react-tooltip'
 export default class KTeryCon extends Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      haventContain: true
+    };
+
+    this.updateButtonCrear = this.updateButtonCrear.bind(this);
+  }
+
+  updateButtonCrear(event) {
+    console.log("CACA");
+    if (event.target.value !== "") {
+      var varDisabled = false;
+    } else {
+      var varDisabled = true;
+    }
+    this.setState({haventContain: varDisabled});
   }
 
   /*
@@ -25,7 +39,10 @@ export default class KTeryCon extends Component {
              name="termsAndConditions"
              placeholder="Agrega los términos y condiciones que posee tu voluntariado"
              value={this.props.tyc}
-             onChange={this.props.handler}
+             onChange={(event) => {
+              this.props.handler(event);
+              this.updateButtonCrear(event);
+             }}
              className="form-control"
              rows="10" />
          </div>
@@ -55,6 +72,7 @@ export default class KTeryCon extends Component {
                   id="navigationButton"
                   data-tip data-for='btn-tooltip2'
                   className="btn btn-primary btn-md"
+                  disabled={this.state.haventContain}
                   onClick={this.props.insertInDB}>Crear</button>
             </div>
             <ReactTooltip id='btn-tooltip2' type='warning' effect='solid' place="bottom">
