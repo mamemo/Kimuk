@@ -73,17 +73,33 @@ export default class KHabilidades extends Component {
         let habilidades = [];
         if (habilidad === "") { // muestra todas las habilidades
             for(var k in this.state.habilidadesBD) {
-                habilidades.push( <div className="text-left"><input type="checkbox"
-                name="habilidadesBD" onChange={this.onChangeHabilidadesSeleccionadas}
-                value={this.state.habilidadesBD[k]}/> {this.state.habilidadesBD[k]}</div> );
+                habilidades.push( <div className="flex-item">
+                                    <label className="container_checkbox">
+                                      {this.state.habilidadesBD[k]}
+                                      <input type="checkbox"
+                                             name="habilidadesBD"
+                                             className="checkbox"
+                                             onChange={this.onChangeHabilidadesSeleccionadas}
+                                             value={this.state.habilidadesBD[k]}/>
+                                      <span class="checkmark"></span>
+                                    </label>
+                                 </div> );
             }
         } else { // muestra habilidades segun input
             for (var k in this.state.habilidadesBD) {
                 if (this.state.habilidadesBD[k].replace(/\s+/g, ' ').toLowerCase()
                         .indexOf(habilidad.replace(/\s+/g, ' ').toLowerCase()) > -1) {
-                    habilidades.push( <div className="text-left"><input type="checkbox"
-                    name="habilidadesBD" onChange={this.onChangeHabilidadesSeleccionadas}
-                    value={this.state.habilidadesBD[k]}/> {this.state.habilidadesBD[k]}</div> );
+                    habilidades.push( <div className="flex-item">
+                                        <label className="container_checkbox">
+                                          {this.state.habilidadesBD[k]}
+                                          <input type="checkbox"
+                                                 name="habilidadesBD"
+                                                 className="checkbox"
+                                                 onChange={this.onChangeHabilidadesSeleccionadas}
+                                                 value={this.state.habilidadesBD[k]}/>
+                                         <span class="checkmark"></span>
+                                       </label>
+                                     </div> );
                 }
             }
         }
@@ -93,8 +109,13 @@ export default class KHabilidades extends Component {
     muestraHabilidadesSeleccionadas() {
         let habilidades = [];
         for(var k in this.props.habilidades) {
-            habilidades.push( <div className="text-left"><button onClick={this.onClickHabilidadSeleccionada}
-                value={this.props.habilidades[k]}> {this.props.habilidades[k]} </button> </div> );
+            habilidades.push( <div className="text-left">
+                                <button className="button button2"
+                                        onClick={this.onClickHabilidadSeleccionada}
+                                        value={this.props.habilidades[k]}>
+                                        {this.props.habilidades[k]}
+                                </button>
+                              </div> );
         }
         this.setState({habSeleccionadas: habilidades});
     }
@@ -165,14 +186,13 @@ export default class KHabilidades extends Component {
     render() {
         return (
             <div className="container">
-                <label>
-                    <input
-                        type="text"
-                        value={this.state.valueBuscar}
-                        placeholder='Busca habilidades específicas'
-                        onChange={this.updateValueBuscar}
-                    />
-                </label>
+
+                <input
+                    type="text"
+                    value={this.state.valueBuscar}
+                    placeholder='Busca habilidades específicas'
+                    onChange={this.updateValueBuscar}
+                />
                 <button
                     onClick={this.onClickBuscar}
                     data-tip data-for='btn-tooltip-botonBuscar'
@@ -181,11 +201,11 @@ export default class KHabilidades extends Component {
                 </button>
                 <ReactTooltip id='btn-tooltip-botonBuscar' type='info' effect='solid' placement="down" place="left">
                     <span>
-                        Escribí la habilidad que querés buscar.
+                        Busca habilidades específicas.
                         <br />
-                        Para ver todas las habilidades presioná 
+                        Para ver todas las habilidades presiona
                         <br/>
-                        el botón buscar con la entrada de texto vacía.
+                        el botón buscar, con la entrada de texto vacía.
                     </span>
                 </ReactTooltip>
                 <button
@@ -198,14 +218,14 @@ export default class KHabilidades extends Component {
                     <span>Si no encontrás la habilidad deseada podés agregarla con este botón a nuestra base de datos</span>
                 </ReactTooltip>
                 <div>
-                <h5>Habilidades</h5>
-                    <div>
+                <h5 className="card-title"> Habilidades </h5>
+                    <div className="container_habilidades1">
                         {this.state.habBD}
                     </div>
                 </div>
                 <div>
-                <h5>Habilidades seleccionadas</h5>
-                    <div>
+                <h5 className="card-title"> Habilidades seleccionadas </h5>
+                    <div className="container_habilidades2">
                         {this.state.habSeleccionadas}
                     </div>
                 </div>
