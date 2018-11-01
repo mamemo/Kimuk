@@ -11,6 +11,7 @@ leer_habilidades_voluntario}
 function insertar_actualizar_voluntarios_camapana(Id_campana, Id_voluntario, Tipo_identificacion, Nombre, Primer_apellido, Segundo_apellido, Fecha_nacimiento,
                                                   Genero, Estado_civil, Ocupacion, Provincia, Canton, Distrito, Direccion, Correo_electronico,
                                                   Telefono_uno, Telefono_dos, Fecha_registro, Estado_solicitud) {
+    var resul = true;
     firebase.database().ref('Campanas/' + Id_campana + "/Voluntarios/" + Id_voluntario).update({
         Tipo_identificacion:  Tipo_identificacion,
         Nombre:  Nombre,
@@ -30,10 +31,13 @@ function insertar_actualizar_voluntarios_camapana(Id_campana, Id_voluntario, Tip
         Fecha_registro: Fecha_registro,
         Estado_solicitud: Estado_solicitud
     }).then(function () {
-        alert("");
+        resul = true;
+        return resul;
     }).catch(function (error) {
-        alert("Error al registrar el voluntario\n" + error);
+        resul = false;
+        return resul;
     })
+    return resul;
 }
 
 

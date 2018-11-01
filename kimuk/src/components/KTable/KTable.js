@@ -145,10 +145,10 @@ export default class KTable extends Component {
 
     switch (evt.target.name) {
       case 'Aprobados':
-        newRows = this.filterItemsState('Aprobados');
+        newRows = this.filterItemsState('Aprobado');
         break;
       case 'No Aprobados':
-        newRows = this.filterItemsState('No Aprobados');
+        newRows = this.filterItemsState('No Aprobado');
         break;
       case 'Todos':
         newRows = this.props.rows;
@@ -157,10 +157,10 @@ export default class KTable extends Component {
         newRows = this.filterItemsState('Selección');
         break;
       case 'Pendientes':
-        newRows = this.filterItemsState('Pendientes');
+        newRows = this.filterItemsState('Pendiente');
         break;
       case 'Aprobados para seguro':
-        newRows = this.filterItemsState('Aprobados para seguro');
+        newRows = this.filterItemsState('Aprobado para seguro');
         break;
 
       default:
