@@ -1,7 +1,21 @@
 import React, { Component } from 'react';
 import '../style/color.css';
-import { Modal, Button } from 'react-bootstrap';
+import { Button } from 'react-bootstrap';
 import KDocumentosCuerpo from './KDocumentosCuerpo'
+import Modal from 'react-modal';
+import ReactTooltip from 'react-tooltip'
+
+const customStyles = {
+    content : {
+        top                   : '50%',
+        left                  : '50%',
+        right                 : 'auto',
+        bottom                : 'auto',
+        height                : '500px',
+        transform             : 'translate(-50%, -50%)',
+        overflow              : 'auto'
+    }
+};
 
 export default class KModalDocumentos extends Component {
   constructor(props, context) {
@@ -31,14 +45,17 @@ export default class KModalDocumentos extends Component {
           Si
         </Button>
 
-        <Modal show={this.state.show} onHide={this.handleClose} animation={false}>
-            <Modal.Header>
-              <Modal.Title>
-                <p>Documentos</p>
-              </Modal.Title>
-            </Modal.Header>
-            <Modal.Body>
-              <KDocumentosCuerpo
+        <Modal
+            isOpen={this.state.show}
+            onRequestClose={this.closeModal}
+            style={customStyles}>
+
+            <div class="card-header">
+              Selecciona los documentos deseadas
+            </div>
+
+            <br/>
+            <KDocumentosCuerpo
 
               campana = {{
                 id:this.props.campana.id,
@@ -49,13 +66,39 @@ export default class KModalDocumentos extends Component {
                siguiente = {this.props.siguiente}
                anterior =  {this.props.anterior}
 
-               handler = {this.props.handler}/>
+               handler = {this.props.handler} />
 
-            </Modal.Body>
-            <Modal.Footer>
-              <Button className="btn btn-primary" type="submit" onClick={this.props.siguiente}> Guardar Documentos</Button>
-              <Button onClick={this.handleClose}>Cancelar</Button>
-            </Modal.Footer>
+            <br/> <br/>
+
+            <div className="container_button">
+              <div className="flex-item">
+                <button
+                    className="btn btn-primary"
+                    data-tip data-for='btn-tooltip-Aceptar'
+                    onClick={this.props.siguiente}
+                >
+                    Aceptar
+                </button>
+                <ReactTooltip id='btn-tooltip-Aceptar' type='info' effect='solid' place="right">
+                    <span>Guardá tus documentos y continuá configurando tu voluntariado</span>
+                </ReactTooltip>
+              </div>
+
+              <div className="flex-item">
+                <button
+                    className="btn btn-default"
+                    onClick={this.handleClose}
+                    data-tip data-for='btn-tooltip-CancelarBtn'
+                >
+                    Cancelar
+                </button>
+                <ReactTooltip id='btn-tooltip-CancelarBtn' type='warning' effect='solid' place="top">
+                    <span>Descartá todos los documentos seleccionados</span>
+                </ReactTooltip>
+              </div>
+
+           </div>
+
         </Modal>
       </div>
     );

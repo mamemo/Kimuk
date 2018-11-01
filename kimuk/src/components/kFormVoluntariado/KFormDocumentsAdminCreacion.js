@@ -10,13 +10,13 @@ import 'react-confirm-alert/src/react-confirm-alert.css';
 
 
 const question = {
-    title: '¿A cuáles documentos hace referencia?',
+    title: '¿A cuáles  hace referencia?',
     question: '¿Deseas seleccionar documentos requeridos?',
     description: 'Adjunta documentos como pólizas de seguro.'
         +' También puedes solicitar a los posibles voluntarios documentos como: cédula de identidad, hoja de delincuencia, curriculum vitae, etc.'
 };
 
-export default class KHabilidades extends Component {
+export default class KFormDocumentsAdminCreacion extends Component {
     confirmacionAccion = (titulo, mensaje) => {
         confirmAlert({
             title: titulo,
