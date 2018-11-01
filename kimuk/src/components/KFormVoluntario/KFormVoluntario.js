@@ -87,14 +87,14 @@ export default class KFormVoluntario extends Component {
         switch(this.state.step){
             case 1:
                 pasos=
-                    <div>
-                        <ul class="list-group-horizontal">
-                            <li class="list-group-item active">Informacion del voluntariado</li>
-                            <li class="list-group-item">Habilidades</li>
-                            <li class="list-group-item">Documentos</li>
-                            <li class="list-group-item">Terminos y condiciones</li>
-                        </ul>
-                    </div>;
+                  <div className="step-progressBar">
+                      <ul className="progressbar">
+                          <li className="active">Información del voluntariado</li>
+                            <li>Habilidades</li>
+                            <li>Documentos</li>
+                            <li>Términos y condiciones</li>
+                      </ul>
+                  </div>;
                 return (<div className="container text-center" >
                     <div>
                         <br/>
@@ -106,12 +106,12 @@ export default class KFormVoluntario extends Component {
                 </div>);
             case 2:
                 pasos=
-                    <div>
-                        <ul class="list-group-horizontal">
-                            <li class="list-group-item active">Informacion del voluntariado</li>
-                            <li class="list-group-item active">Habilidades</li>
-                            <li class="list-group-item">Documentos</li>
-                            <li class="list-group-item">Terminos y condiciones</li>
+                    <div className="step-progressBar">
+                        <ul className="progressbar">
+                            <li className="active">Información del voluntariado</li>
+                            <li className="active">Habilidades</li>
+                            <li>Documentos</li>
+                            <li>Términos y condiciones</li>
                         </ul>
                     </div>;
                 return (<div className="container text-center" >
@@ -125,12 +125,12 @@ export default class KFormVoluntario extends Component {
                 </div>);
             case 3:
                 pasos=
-                    <div>
-                        <ul class="list-group-horizontal">
-                            <li class="list-group-item active">Informacion del voluntariado</li>
-                            <li class="list-group-item active">Habilidades</li>
-                            <li class="list-group-item active">Documentos</li>
-                            <li class="list-group-item">Terminos y condiciones</li>
+                    <div className="step-progressBar">
+                        <ul className="progressbar">
+                            <li className="active">Información del voluntariado</li>
+                            <li className="active">Habilidades</li>
+                            <li className="active">Documentos</li>
+                            <li>Términos y condiciones</li>
                         </ul>
                     </div>;
                 return (<div className="container text-center" >
@@ -144,12 +144,12 @@ export default class KFormVoluntario extends Component {
                 </div>);
             case 4:
                 pasos=
-                    <div>
-                        <ul class="list-group-horizontal">
-                            <li class="list-group-item active">Informacion del voluntariado</li>
-                            <li class="list-group-item active">Habilidades</li>
-                            <li class="list-group-item active">Documentos</li>
-                            <li class="list-group-item active">Terminos y condiciones</li>
+                    <div className="step-progressBar">
+                        <ul className="progressbar">
+                            <li className="active">Información del voluntariado</li>
+                            <li className="active">Habilidades</li>
+                            <li className="active">Documentos</li>
+                            <li className="active">Términos y condiciones</li>
                         </ul>
                     </div>;
                 return (<div className="container text-center" >
@@ -159,7 +159,7 @@ export default class KFormVoluntario extends Component {
                         {info}
                         {pasos}
                     </div>
-                    <KTeryCon voluntario={this.state} tyc={this.state.campana[5]} anterior={this.anterior} siguiente={this.siguiente}/>
+                    <KTeryCon voluntario={this.state} campana={this.state.campana} tyc={this.state.campana[5]} anterior={this.anterior} siguiente={this.siguiente}/>
                 </div>)
 
         }

@@ -11,6 +11,7 @@ export default class KModalInfo extends Component {
   render() {
     return (
 
+      <div className="container">
       <form className="form_container">
 
         <section>
@@ -41,17 +42,6 @@ export default class KModalInfo extends Component {
             <label>Nombre</label>
               <input type="text" className="name_input" placeholder={this.props.volunteerInfo.Nombre}/>
             </div>
-            
-            <div className="form_field">
-              <label>1er Apellido<br/></label>
-              <input type="text" className="name_input" placeholder={this.props.volunteerInfo.Primer_apellido}/>
-            </div>
-
-            <div className="form_field">
-              <label>2do Apellido<br/></label>
-              <input type="text" className="name_input" placeholder={this.props.volunteerInfo.Segundo_apellido}/>
-            </div>
-
 
           </div>
 
@@ -76,28 +66,6 @@ export default class KModalInfo extends Component {
               <option>Casado</option>
               <option>Soltero</option>
             </select>
-          </div>
-
-          <div className="form_field">
-            <label>Ocupación</label>
-            <div className="radio_group">
-              <div className="radio_button">
-                <input type="radio" name="ocupacion" className="radio_input"/>
-                <label>Trabajo</label>
-              </div>
-              <div className="radio_button">
-                <input type="radio" name="ocupacion" className="radio_input"/>
-                <label>Estudio</label>
-              </div>
-              <div className="radio_button">
-                <input type="radio" name="ocupacion" className="radio_input"/>
-                <label>Ambas</label>
-              </div>
-              <div className="radio_button">
-                <input type="radio" name="ocupacion" className="radio_input"/>
-                <label>Ninguna</label>
-              </div>
-            </div>
           </div>
         </section>
 
@@ -142,7 +110,7 @@ export default class KModalInfo extends Component {
         <section>
 
           <div>
-            <h5>Información de contacto</h5>
+            <h5>Contacto</h5>
             <hr></hr>
           </div>
 
@@ -163,12 +131,13 @@ export default class KModalInfo extends Component {
 
         </section>
 
-        <div>
+      </form>
+
+      <div className="btn_group">
           <button>Guardar</button>
           <button>Cancelar</button>
-        </div>
-
-      </form>
+      </div>
+      </div>
     )
   }
 }

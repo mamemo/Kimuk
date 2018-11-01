@@ -32,8 +32,9 @@ export default class KHeaderVoluntariado extends Component {
 
             <img
               id="profile-img"
-              src={require('../../media/image1-icon.png')}
-              className="align-self-center mr-3"
+              src={(this.props.url === "") ?  require('../../media/image1-icon.png') : this.props.url}
+              className={'img-responsive'}
+              accept="image/*"
               width="150"
               height="150" />
 
@@ -58,8 +59,7 @@ export default class KHeaderVoluntariado extends Component {
                 className="form-control input-lg"
                 type={this.state.inputType}
                 value={this.props.image}
-                onChange={this.handleHiddenInput}
-                readonly
+                onChange={this.props.handlerImage}
               />
 
           </div>
