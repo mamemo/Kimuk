@@ -159,7 +159,7 @@ export default class KFormVoluntario extends Component {
                         {info}
                         {pasos}
                     </div>
-                    <KTeryCon voluntario={this.state} tyc={this.state.campana[5]} anterior={this.anterior} siguiente={this.siguiente}/>
+                    <KTeryCon voluntario={this.state} campana={this.state.campana} tyc={this.state.campana[5]} anterior={this.anterior} siguiente={this.siguiente}/>
                 </div>)
 
         }

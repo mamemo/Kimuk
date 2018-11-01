@@ -23,6 +23,12 @@ import {
   insertar_actualizar_encargados_lista,
   insertar_actualizar_habilidades_campana_lista
 } from '../DB/campaigns';
+import {
+    enviar_correo,
+    enviar_correo_voluntariado,
+    enviar_correo_voluntario_confirmacion,
+    enviar_correo_voluntario_aceptado
+  } from '../kEmail/KEmail';
          
 
 export default class KFormVoluntariado extends Component {
@@ -236,6 +242,12 @@ export default class KFormVoluntariado extends Component {
                 insertar_actualizar_encargados_lista(this.state.id, this.state.encargados).then( result => {
                     insertar_actualizar_habilidades_campana_lista(this.state.id, this.state.skills).then(result => {
                         alert("Campaña " + this.state.volName + " creada con éxito.\n\nSe envió al correo electrónico " + this.state.email + " y a los administradores los links de registro de voluntariado y administración de voluntariado.");
+                        enviar_correo_voluntariado(this.state.email, this.state.volName, this.state.name, this.state.id); // correo a creador
+
+                        // Correo a administradores
+                        for (var i = 0 ; i < this.state.encargados.length ; i++) {
+                            enviar_correo_voluntariado(this.state.encargados[i][2], this.state.volName, this.state.encargados[i][0], this.state.id);
+                        }
                         window.location.href ="http://localhost:3000";
                     }).catch(function (error) {
                         alert("Error al insertar habilidad\n" + error + "\nRevise información ingresada en el sistema y vuelva a intentar.\n\nEn caso de no funcionar recargue la página");
