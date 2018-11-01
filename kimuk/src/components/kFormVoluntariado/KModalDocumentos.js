@@ -27,8 +27,6 @@ export default class KModalDocumentos extends Component {
   render() {
     return (
       <div>
-        <p>Agregar Documemntos</p>
-
         <Button className="btn btn-primary btn-md" id="navigationButton" onClick={this.handleShow}>
           Si
         </Button>

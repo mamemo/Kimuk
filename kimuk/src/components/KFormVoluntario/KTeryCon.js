@@ -3,7 +3,13 @@ import './KFormVoluntario.css';
 import '../style/color.css';
 import {insertar_actualizar_voluntarios_camapana, insertar_actualizar_habilidades_voluntarios,
     actualizar_voluntarios_campana, eliminar_voluntario} from '../DB/volunteers';
-import ReactTooltip from 'react-tooltip'
+import ReactTooltip from 'react-tooltip';
+import {
+    enviar_correo,
+    enviar_correo_voluntariado,
+    enviar_correo_voluntario_confirmacion,
+    enviar_correo_voluntario_aceptado
+  } from '../kEmail/KEmail';
 
 export default class KTeryCon extends Component {
     constructor(props){
@@ -21,7 +27,7 @@ export default class KTeryCon extends Component {
         var resul = insertar_actualizar_voluntarios_camapana(this.props.voluntario.Id_campana,
             this.props.voluntario.id,this.props.voluntario.tipo_id,this.props.voluntario.nombre,
             this.props.voluntario.apellido_1,this.props.voluntario.apellido_2,
-            this.props.voluntario.f_nacimiento,this.props.voluntario.genero,
+            this.props.voluntario.f_nacimiento.toString(),this.props.voluntario.genero,
             this.props.voluntario.estado_civil,this.props.voluntario.ocupacion,
             this.props.voluntario.provincia,this.props.voluntario.canton,this.props.voluntario.distrito,
             this.props.voluntario.direccion_exacta,this.props.voluntario.correo,
@@ -31,12 +37,12 @@ export default class KTeryCon extends Component {
         for (let habilidad in this.props.voluntario.habilidades) {
             if (insertar_actualizar_habilidades_voluntarios(this.props.voluntario.Id_campana,
                 this.props.voluntario.id, habilidad, this.props.voluntario.habilidades[habilidad])) {
-                //alert("Ha ocurrido un error al registrar el voluntario");
                 alert("Tuvimos un error registrandote.\n\nRevisá la información que ingresaste y vuelvé a intentar.\nSi el problema sigue recargá la página");
                 return;
             }
         }
         if (resul === true) { // si se inserto correctamente
+            enviar_correo_voluntario_confirmacion(this.props.voluntario.correo,this.props.campana[0], this.props.voluntario.nombre);
             alert("¡Felicidades!\n\nAcabás de ser registrado en el voluntariado.\nVas a recibir notificaciones por el email: " + this.props.voluntario.correo);
             window.window.location.href ="http://localhost:3000";
         } else { // Error al insertar

@@ -15,7 +15,6 @@ export default class KTeryCon extends Component {
   }
 
   updateButtonCrear(event) {
-    console.log("CACA");
     if (event.target.value !== "") {
       var varDisabled = false;
     } else {
