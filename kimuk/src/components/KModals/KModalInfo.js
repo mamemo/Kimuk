@@ -11,7 +11,7 @@ export default class KModalInfo extends Component {
   render() {
     return (
 
-      <div className="container">
+      <div className="container-form">
       <form className="form_container">
 
         <section>
@@ -37,7 +37,7 @@ export default class KModalInfo extends Component {
           </div>
 
           <div className="group_line">
-          
+
             <div className="form_field">
             <label>Nombre</label>
               <input type="text" className="name_input" placeholder={this.props.volunteerInfo.Nombre}/>
@@ -49,7 +49,7 @@ export default class KModalInfo extends Component {
             <label>Fecha de Nacimiento</label>
             <input type="date" placeholder={this.props.volunteerInfo.Fecha_nacimiento}/>
           </div>
-          
+
           <div className="form_field">
             <label>Género</label>
             <select>

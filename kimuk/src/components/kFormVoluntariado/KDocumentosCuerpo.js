@@ -15,7 +15,7 @@ export default class KDocumentosCuerpo extends Component {
             listaDocumentosCampana: [],
             listaDocumentosRestantes: [],
             nombresDocumentos: [],
-
+            
             listaDocsMarcarTodos: [],
 
 
