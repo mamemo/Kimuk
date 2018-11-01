@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import '../style/color.css';
-import '../KModals/KModalAddAdmin.css';
+import './KFormVoluntariado.css';
 import Modal from 'react-modal';
 import KHabilidadesCuerpo from './KHabilidadesCuerpo';
 import ReactTooltip from 'react-tooltip'
@@ -44,59 +44,84 @@ export default class KModalHabilidades extends Component
 
     render(){
         return (
-            <div className={"container"}>
+            <div className="container_button">
+
+              <div className="flex-item">
+
                 <button
-                    type="button"
+                    id="navigationButton"
+                    className="btn btn-default"
+                    data-tip data-for='btn-tooltip'
+                    onClick={this.props.siguiente}
+                >
+                    No
+                </button>
+                <ReactTooltip id='btn-tooltip' type='warning' effect='solid' place="top">
+                    <span>Si no querés seleccionar habilidades para tu voluntariado dale click aquí</span>
+                </ReactTooltip>
+
+              </div>
+
+              <div className="flex-item">
+
+                <button
+                    id="navigationButton"
+                    className="btn btn-primary"
                     data-tip data-for='btn-tooltip-Si'
-                    className="btn btn-primary btn-md"
                     onClick={this.openModal}
                 >
-                    Sí
+                    Si
                 </button>
-                <ReactTooltip id='btn-tooltip-Si' type='info' effect='solid' place="bottom">
+                <ReactTooltip id='btn-tooltip-Si' type='info' effect='solid' place="top">
                     <span>Si querés seleccionar habilidades para tu voluntariado dale click aquí</span>
                 </ReactTooltip>
-                <Modal
-                    isOpen={this.state.modalIsOpen}
-                    onRequestClose={this.closeModal}
-                    style={customStyles}>
-                    <h6> Seleccioná las habilidades que necesitás</h6>
-                    <br/>
-                    <KHabilidadesCuerpo habilidades={this.props.habilidades}/>
-                    <br/> <br/>
-                    <button
-                        className="inside"
-                        data-tip data-for='btn-tooltip-Aceptar'
-                        onClick={this.props.siguiente}
-                    >
-                        Aceptar
-                    </button>
-                    <ReactTooltip id='btn-tooltip-Aceptar' type='info' effect='solid' place="right">
-                        <span>Guardá tus habilidades y continuá configurando tu voluntariado</span>
-                    </ReactTooltip>
-                    <button
-                        className="outside"
-                        onClick={this.borraHabilidadesSeleccionadas}
-                        data-tip data-for='btn-tooltip-CancelarBtn'
-                    >
-                        Cancelar
-                    </button>
-                    <ReactTooltip id='btn-tooltip-CancelarBtn' type='warning' effect='solid' place="top">
-                        <span>Descartá todas las habilidades seleccionadas</span>
-                    </ReactTooltip>
-                    <button
-                        type="button"
-                        className="close"
-                        aria-label="Close"
-                        data-tip data-for='btn-tooltip-CancelarX'
-                        onClick={this.borraHabilidadesSeleccionadas}
-                    >
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                    <ReactTooltip id='btn-tooltip-CancelarX' type='warning' effect='solid' place="left">
-                        <span>Descartá todas las habilidades seleccionadas</span>
-                    </ReactTooltip>
-                </Modal>
+
+              </div>
+
+              <Modal
+                  isOpen={this.state.modalIsOpen}
+                  onRequestClose={this.closeModal}
+                  style={customStyles}>
+
+                  <div class="card-header">
+                    Selecciona las habilidades deseadas
+                  </div>
+
+                  <br/>
+                  <KHabilidadesCuerpo habilidades={this.props.habilidades}/>
+                  <br/> <br/>
+
+                  <div className="container_button">
+                    <div className="flex-item">
+                      <button
+                          className="btn btn-primary"
+                          data-tip data-for='btn-tooltip-Aceptar'
+                          onClick={this.props.siguiente}
+                      >
+                          Aceptar
+                      </button>
+                      <ReactTooltip id='btn-tooltip-Aceptar' type='info' effect='solid' place="right">
+                          <span>Guardá tus habilidades y continuá configurando tu voluntariado</span>
+                      </ReactTooltip>
+                    </div>
+
+                    <div className="flex-item">
+                      <button
+                          className="btn btn-default"
+                          onClick={this.borraHabilidadesSeleccionadas}
+                          data-tip data-for='btn-tooltip-CancelarBtn'
+                      >
+                          Cancelar
+                      </button>
+                      <ReactTooltip id='btn-tooltip-CancelarBtn' type='warning' effect='solid' place="top">
+                          <span>Descartá todas las habilidades seleccionadas</span>
+                      </ReactTooltip>
+                    </div>
+
+                 </div>
+
+              </Modal>
+
             </div>
         );
     }

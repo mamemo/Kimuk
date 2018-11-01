@@ -16,7 +16,7 @@ import { insertar_campana_construccion,
          insertar_actualizar_encargado_general_campana,
          insertar_actualizar_encargados_campana,
          insertar_actualizar_habilidades_campana } from '../DB/campaigns';
-         
+
 
 export default class KFormVoluntariado extends Component {
     constructor(props){
@@ -147,7 +147,7 @@ export default class KFormVoluntariado extends Component {
      */
      insertNewCampaign() {
        console.log(this.state.termsAndConditions);
-       
+
        // Insert new campaign in DB
        let campaign = insertar_actualizar_campana(this.state.id, this.state.volName, this.state.description,
                                                   this.state.startDate.toString(), this.state.time.toString(),
@@ -184,12 +184,12 @@ export default class KFormVoluntariado extends Component {
         switch(this.state.step){
             case 1:
                 pasos=
-                <div>
-                    <ul class="list-group-horizontal">
-                        <li class="list-group-item active">Información del voluntariado</li>
-                        <li class="list-group-item">Habilidades</li>
-                        <li class="list-group-item">Documentos</li>
-                        <li class="list-group-item">Terminos y condiciones</li>
+                <div className="step-progressBar">
+                    <ul className="progressbar">
+                        <li className="active">Información del voluntariado</li>
+                        <li>Habilidades</li>
+                        <li>Documentos</li>
+                        <li>Terminos y condiciones</li>
                     </ul>
                 </div>;
                 return (<div className="container" >
@@ -222,12 +222,12 @@ export default class KFormVoluntariado extends Component {
                         </div>)
             case 2:
                 pasos=
-                <div>
-                    <ul class="list-group-horizontal">
-                        <li class="list-group-item active">Información del voluntariado</li>
-                        <li class="list-group-item active">Habilidades</li>
-                        <li class="list-group-item">Documentos</li>
-                        <li class="list-group-item">Terminos y condiciones</li>
+                <div className="step-progressBar">
+                    <ul className="progressbar">
+                        <li className="active">Información del voluntariado</li>
+                        <li className="active">Habilidades</li>
+                        <li>Documentos</li>
+                        <li>Terminos y condiciones</li>
                     </ul>
                 </div>;
                 return (<div className="container" >
@@ -253,12 +253,12 @@ export default class KFormVoluntariado extends Component {
                         </div>)
             case 3:
                 pasos=
-                <div>
-                    <ul class="list-group-horizontal">
-                        <li class="list-group-item active">Información del voluntariado</li>
-                        <li class="list-group-item active">Habilidades</li>
-                        <li class="list-group-item active">Documentos</li>
-                        <li class="list-group-item">Terminos y condiciones</li>
+                <div className="step-progressBar">
+                    <ul className="progressbar">
+                        <li className="active">Información del voluntariado</li>
+                        <li className="active">Habilidades</li>
+                        <li className="active">Documentos</li>
+                        <li>Terminos y condiciones</li>
                     </ul>
                 </div>;
                 return (<div className="container" >
@@ -280,32 +280,33 @@ export default class KFormVoluntariado extends Component {
                         </div>)
             case 4:
                 pasos=
-                <div>
-                    <ul class="list-group-horizontal">
-                        <li class="list-group-item active">Información del voluntariado</li>
-                        <li class="list-group-item active">Habilidades</li>
-                        <li class="list-group-item active">Documentos</li>
-                        <li class="list-group-item active">Terminos y condiciones</li>
+                <div className="step-progressBar">
+                    <ul className="progressbar">
+                        <li className="active">Información del voluntariado</li>
+                        <li className="active">Habilidades</li>
+                        <li className="active">Documentos</li>
+                        <li className="active">Terminos y condiciones</li>
                     </ul>
                 </div>;
-                return (<div className="container" >
-                            <div>
-                            <br/>
-                            <h2 className="text-left">Crear voluntariado</h2>
-                            {pasos}
-                            </div>
-                            <div className="relative">
-                              <div className="absolute">
-                                <KHeaderVoluntariado />
-                                <KTeryCon
-                                  tyc={this.state.termsAndConditions}
-                                  anterior={this.anterior}
-                                  siguiente={this.siguiente}
-                                  handler={this.handleInputChange}
-                                  insertInDB={this.insertNewCampaign} />
-                              </div>
-                            </div>
-                        </div>)
+
+      return (<div className="container" >
+                  <div>
+                  <br/>
+                  <h2 className="text-left">Crear voluntariado</h2>
+                  {pasos}
+                  </div>
+                  <div className="relative">
+                    <div className="absolute">
+                      <KHeaderVoluntariado />
+                      <KTeryCon
+                        tyc={this.state.termsAndConditions}
+                        anterior={this.anterior}
+                        siguiente={this.siguiente}
+                        handler={this.handleInputChange}
+                        insertInDB={this.insertNewCampaign} />
+                    </div>
+                  </div>
+              </div>)
 
         }
 

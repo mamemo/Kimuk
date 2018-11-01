@@ -35,43 +35,39 @@ export default class KHabilidades extends Component {
 
     render() {
         return (
-            <div className="container">
-                <div className="row">
+            <div className="container_habilidades1">
+
+                <div className="flex-item-hab">
+
+                  <div className="text-center">
+
                     <KFormPregunta
                         title={question.title}
                         question={question.question}
                         description={question.description} />
 
+                  </div>
+
                 </div>
-                <div className="row">
-                    <div className="col-1 offset-2">
-                        <button
-                            id="navigationButton"
-                            className="btn btn-secundary"
-                            data-tip data-for='btn-tooltip'
-                            onClick={this.props.siguiente}
-                        >
-                            No
-                        </button>
-                        <ReactTooltip id='btn-tooltip' type='warning' effect='solid' place="right">
-                            <span>Si no querés seleccionar habilidades para tu voluntariado dale click aquí</span>
-                        </ReactTooltip>
-                        <button
-                            id="navigationButton"
-                            data-tip data-for='btn-tooltip2'
-                            className="btn btn-default btn-md"
-                            onClick={this.props.anterior}
-                        >
-                            Anterior
-                        </button>
-                        <ReactTooltip id='btn-tooltip2' type='info' effect='solid' place="bottom">
-                            <span>Regresá a la sección de información del voluntariado</span>
-                        </ReactTooltip>
-                    </div>
-                    <div className="col-1 offset-6">
-                        <KModalHabilidades habilidades={this.props.skills} siguiente={this.props.siguiente} />
-                    </div>
-                </div>
+
+                <KModalHabilidades habilidades={this.props.skills} siguiente={this.props.siguiente} />
+
+                <div className="flex-item">
+
+                  <button
+                      id="navigationButton"
+                      data-tip data-for='btn-tooltip2'
+                      className="btn btn-default"
+                      onClick={this.props.anterior}
+                  >
+                      Anterior
+                  </button>
+                  <ReactTooltip id='btn-tooltip2' type='info' effect='solid' place="bottom">
+                      <span>Regresá a la sección de información del voluntariado</span>
+                  </ReactTooltip>
+
+               </div>
+
             </div>
         );
     }

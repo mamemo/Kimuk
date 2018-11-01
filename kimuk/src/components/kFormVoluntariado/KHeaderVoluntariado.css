@@ -1,0 +1,19 @@
+.flex-container {
+  margin: 5em 0 0 0;
+  padding: 0;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  align-items: baseline;
+}
+
+.flex-item {
+	padding: 5px;
+	margin: 10px;
+}
+
+.flex-item-name {
+	padding: 5px;
+  width: 70%;
+}
