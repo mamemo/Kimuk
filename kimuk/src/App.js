@@ -75,6 +75,13 @@ class App extends Component {
             <KFormVoluntario url = {url[len]}/>
           </div>
         );
+        case "Test":
+            return (
+                <div className="App">
+                    <KNav ir={this.ir}/>
+
+                </div>
+            );
 
       default:
         return (
