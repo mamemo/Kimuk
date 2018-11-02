@@ -11,6 +11,7 @@ import {InCampanasKFormVoluntario, InHabilidadesGraficasKFormVoluntario, InEcarg
 import KInfoVoluntariado from '../KInfoVoluntariado/KInfoVoluntariado';
 import moment from 'moment';
 import * as database from "../DB/documentsAdmin";
+import KFormDocumentsSubidaVoluntario from "../KComponentsDocuments/KFormDocumentsSubidaVoluntario";
 
 export default class KFormVoluntario extends Component {
 
@@ -18,7 +19,7 @@ export default class KFormVoluntario extends Component {
         super(props);
         // TODO: Cuando se vaya a abrir esto, pasar el id de la campaña -> this.Id_campana = props.Id_campana;
         this.state = {
-            step: 1,
+            step: 3,
             tipo_id: "",
             id: "",
             nombre: "",
@@ -151,7 +152,9 @@ export default class KFormVoluntario extends Component {
                         {info}
                         {pasos}
                     </div>
-                    <KDocumentos  anterior={this.anterior} siguiente={this.siguiente}/>
+                    <KFormDocumentsSubidaVoluntario campana={{id: this.state.Id_campana}} voluntario={{cedula: this.state.id}}
+                                                    anterior={this.anterior} siguiente={this.siguiente}/>
+
                 </div>);
             case 4:
                 pasos=
