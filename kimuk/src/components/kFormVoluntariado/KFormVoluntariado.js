@@ -103,10 +103,13 @@ export default class KFormVoluntariado extends Component {
         const idCampana = this.state.id;
         const call = this.cargarURLFoto;
         const task = database.insertar_documento_storage_campana(this.state.id, tipoDocumento, e.target.files[0]);
+
+        const progressBar = document.getElementById("barimg");
+
         task.on('state_changed',
 
             function progress(snapshot) {  // Update progress bar
-
+                progressBar.value = 100 * (snapshot.bytesTransferred / snapshot.totalBytes);
             },
 
             function error(err) { // possible errors

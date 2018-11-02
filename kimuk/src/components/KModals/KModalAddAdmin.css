@@ -31,6 +31,7 @@ table {
 
   table.formacion {
       position: relative;
+      border: none;
       border-spacing: 20px;
       width: 85%;
       font-size: 14px;
@@ -112,7 +113,7 @@ table {
       position: relative;
       color: #55C0E0;
       left: 10px;
-      bottom: 368px;
+      bottom: 416px;
       border: none;
       font-size: 20px;
   }
@@ -123,7 +124,7 @@ table {
 
   h7 {
       color: #55C0E0;
-      bottom: 395px;
+      bottom: 442px;
       background:#D9EDF8;
       position: absolute;
       width: 541px;
