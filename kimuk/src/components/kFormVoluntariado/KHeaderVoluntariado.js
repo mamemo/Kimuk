@@ -44,16 +44,20 @@ export default class KHeaderVoluntariado extends Component {
 
               <label className="btn btn-link">
                   Agregar imagen al voluntariado
+
                   <input
                     id="image-file"
                     name="volImage"
                     type="file"
                     style={{display: 'none'}}
                     value={this.props.image}
-                    onChange={this.props.handler}
+                    onChange={this.props.handlerImage}
                   />
 
               </label>
+
+
+              <progress className={"tres"} max={100} id={"barimg"}>0%</progress>
 
               <input
                 className="form-control input-lg"
