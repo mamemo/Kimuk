@@ -10,6 +10,7 @@ import {InCampanasKFormVoluntario, InHabilidadesGraficasKFormVoluntario, InEcarg
     VisualizacionEncargados, InHabilidadesCodigosKFormVoluntario} from '../DB/add-onns';
 import KInfoVoluntariado from '../KInfoVoluntariado/KInfoVoluntariado';
 import moment from 'moment';
+import * as database from "../DB/documentsAdmin";
 
 export default class KFormVoluntario extends Component {
 
@@ -40,7 +41,8 @@ export default class KFormVoluntario extends Component {
             campana: {},
             encargados: {},
             campana_habilidades_graficas: {},
-            Id_campana: props.url
+            Id_campana: props.url,
+            imgURL: ""
         };
         this.siguiente=this.siguiente.bind(this);
         this.anterior=this.anterior.bind(this);
@@ -74,6 +76,14 @@ export default class KFormVoluntario extends Component {
                     encargados: in_encargados,
                     campana_habilidades_graficas: in_campana_habilidades_graficas
                 });
+
+                database.leer_url_documento_campana(this.state.Id_campana, "Foto").then(result => {
+                    this.setState({
+                        imgURL: result
+                    });
+                })
+
+
             } else {
                 window.location.href = "http://localhost:3000";
             }
@@ -82,7 +92,8 @@ export default class KFormVoluntario extends Component {
 
     render(){
       let pasos;
-        const info=<KInfoVoluntariado campana={this.state.campana} vis_encargados={VisualizacionEncargados(this.state.encargados)}/>;
+        const info=<KInfoVoluntariado campana={this.state.campana} vis_encargados={VisualizacionEncargados(this.state.encargados)}
+                                      url={this.state.imgURL}/>;
 
         switch(this.state.step){
             case 1:
