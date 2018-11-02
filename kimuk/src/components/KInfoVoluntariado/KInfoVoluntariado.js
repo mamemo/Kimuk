@@ -17,7 +17,7 @@ export default class KInfoVoluntariado extends Component {
                     <div className="col-4">
                         <div className="thumbnail">
                             <img
-                                src={require('../../media/image1-icon.png')}
+                                src={(this.props.url === "") ?  require('../../media/image1-icon.png') : this.props.url}
                                 className={'img-responsive'}
                                 width="200"
                                 height="200"/>
