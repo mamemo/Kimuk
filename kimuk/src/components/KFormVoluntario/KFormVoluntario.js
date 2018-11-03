@@ -152,7 +152,7 @@ export default class KFormVoluntario extends Component {
                         {info}
                         {pasos}
                     </div>
-                    <KFormDocumentsSubidaVoluntario campana={{id: this.state.Id_campana}} voluntario={{cedula: this.state.id}}
+                    <KFormDocumentsSubidaVoluntario campana={{id: this.state.Id_campana}} voluntario={{cedula: "116760644"}}
                                                     anterior={this.anterior} siguiente={this.siguiente}/>
 
                 </div>);

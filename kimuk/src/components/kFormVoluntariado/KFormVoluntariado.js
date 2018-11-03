@@ -56,7 +56,11 @@ export default class KFormVoluntariado extends Component {
             skills: [],
             documents: [],
             id: uid(),
-            imgURL: ""
+            imgURL: "",
+            subioCod: false,
+            documentCod: "",
+            subio: false,
+            document: ""
         }
         this.handleInputChange = this.handleInputChange.bind(this);
         this.handleInputChangeImage = this.handleInputChangeImage.bind(this);
@@ -141,12 +145,24 @@ export default class KFormVoluntariado extends Component {
      *  un un boolean indica que se subio el archivo
      * de la poliza
      */
-    handleDocument(doc)
+    handleDocument(doc, tipoDoc)
     {
+        if(tipoDoc === "Póliza de seguro")
+        {
         this.setState({
             subio: true,
             document: doc
         })
+        }
+        else{
+            if(tipoDoc === "Código de conducta")
+            {
+                this.setState({
+                    subioCod: true,
+                    documentCod: doc
+                })
+            }
+        }
     }
 
   /**
@@ -372,7 +388,10 @@ export default class KFormVoluntariado extends Component {
                                 <KFormDocumentsAdminCreacion
                                   campana={{id: this.state.id,
                                   subio: this.state.subio,
-                                  document: this.state.document}}
+                                  document: this.state.document,
+                                      subioCod:this.state.subioCod,
+                                      documentCod:this.state.documentCod
+                                  }}
                                   anterior={this.anterior}
                                   siguiente={this.siguiente}
                                   handler={this.handleDocument}
