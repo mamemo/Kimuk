@@ -124,7 +124,13 @@ export default class KInfoVoluntariado extends Component {
 
         <div className="form-group">
 
-         <label for="description" className="col-2 col-form-label"> Descripción </label>
+         <label
+          for="description"
+          className="col-2 col-form-label"
+          data-tip data-for='must-tooltip'>
+          Descripción
+          <span id="must-tooltip" className = "red"> * </ span>
+        </label>
 
          <div className="col-sm-10">
 
@@ -145,7 +151,13 @@ export default class KInfoVoluntariado extends Component {
 
         <div className="form-group">
 
-          <label for="address" className="col-2 col-form-label"> Lugar </label>
+          <label
+           for="description"
+           className="col-2 col-form-label"
+           data-tip data-for='must-tooltip'>
+           Lugar
+           <span id="must-tooltip" className = "red"> * </ span>
+          </label>
 
           <div className="col-sm-10">
 
@@ -166,11 +178,20 @@ export default class KInfoVoluntariado extends Component {
 
         <div className="form-group">
 
-          <label className="col-6 col-form-label">Fecha del voluntariado</label>
+          <label className="col-6 col-form-label" data-tip data-for='must-tooltip'>
+            Fecha del voluntariado
+            <span
+              id="must-tooltip"
+              className = "red"> *
+            </ span>
+          </label>
 
           <div className="col-sm-5">
 
-            <div id="datetime_picker_wrapper" className="time_picker_wrapper">
+            <div
+              id="datetime_picker_wrapper"
+              className="time_picker_wrapper"
+              data-tip data-for='date-tooltip'>
 
               <DatePicker
                 name="startDate"
@@ -181,11 +202,29 @@ export default class KInfoVoluntariado extends Component {
 
             </div>
 
+            <ReactTooltip id='date-tooltip' type='info' effect='solid'>
+              <span>
+                Seleccionar la fecha a realizarse el voluntariado.
+              </span>
+            </ReactTooltip>
+
           </div>
 
         </div>
 
         <div className="form-group">
+
+          <ReactTooltip id='checkbox-tooltip' type='info' effect='solid'>
+            <span>
+              Seleccionar la fecha límite de recepción de solicitudes de
+              <br />
+              inscripción de voluntarios en la campaña. Inicialmente las
+              <br />
+              campañas no poseen fecha límite de inscripción.
+              <br />
+              Es opcional.
+            </span>
+          </ReactTooltip>
 
           <div className="col-sm-5">
 
@@ -200,19 +239,9 @@ export default class KInfoVoluntariado extends Component {
               checked={this.props.campana.registrationDeadline}
               onChange={this.props.handleCheckoxChange} />
 
-            <ReactTooltip id='checkbox-tooltip' type='info' effect='solid'>
-              <span>
-                Seleccionar la fecha límite de recepción de solicitudes de
-                <br />
-                inscripción de voluntarios en la campaña. Inicialmente las
-                <br />
-                campañas no poseen fecha límite de inscripción.
-              </span>
-            </ReactTooltip>
-
           </div>
 
-          <div className="col-sm-5">
+          <div className="col-sm-5" data-tip data-for='checkbox-tooltip'>
 
             <div id="datetime_picker_wrapper" className="time_picker_wrapper">
 
@@ -233,14 +262,17 @@ export default class KInfoVoluntariado extends Component {
 
         <div className="form-group">
 
-          <label className="col-6 col-form-label">
+          <label className="col-6 col-form-label" data-tip data-for='must-tooltip'>
             Hora de inicio del voluntariado
+            <span
+              id="must-tooltip"
+              className = "red"> *
+            </ span>
           </label>
 
-          <div className="col-sm-5">
+          <div className="col-sm-5" data-tip data-for='time-tooltip'>
 
             <TimeInput
-              data-tip data-for='time-tooltip'
               mode='12h'
               cancelLabel='Cancelar'
               onChange={this.props.handleTimeChange}
@@ -258,16 +290,19 @@ export default class KInfoVoluntariado extends Component {
 
         </div>
 
-        <label className="col-4 col-form-label" >
+        <label
+          className="col-4 col-form-label"
+          data-tip data-for='numeric-tooltip'>
+
           Cantidad máxima de voluntarios
         </label>
 
         <div className="col-sm-3">
           <input
+            data-tip data-for='numeric-tooltip'
             min="0"
             name="numberOfGuests"
             type="number"
-            data-tip data-for='numeric-tooltip'
             className="form-control"
             value={this.props.campana.numberOfVolunteers}
             onChange={this.props.handlerNumeric} />
@@ -319,11 +354,17 @@ export default class KInfoVoluntariado extends Component {
               data-tip data-for='identification-tooltip'
             />
 
+
             <ReactTooltip id='identification-tooltip' type='info' effect='solid'>
               <span>Digite la identificación sin espacios en blanco ni guiones.</span>
             </ReactTooltip>
 
           </div>
+          <span
+            id="must-tooltip"
+            className = "red"
+            data-tip data-for='must-tooltip'> *
+          </ span>
 
           <div className="errorMsg">{this.state.errors.identification}</div>
 
@@ -334,7 +375,7 @@ export default class KInfoVoluntariado extends Component {
           <label className="sr-only" for="name"> Nombre </label>
 
           <div className="col-sm-10">
-          
+
             <input
               id="name"
               name="name"
@@ -434,6 +475,11 @@ export default class KInfoVoluntariado extends Component {
   render(){
     return (
       <div className="container">
+        <span
+          id="must-tooltip"
+          className = "red"
+          data-tip data-for='must-tooltip'> * Campos Obligatorios
+        </ span>
         {this.volunteeringFormData()}
         {this.volunteeringManagerFormData()}
         <KModalAddAdmin manager={this.props.campana}/>
