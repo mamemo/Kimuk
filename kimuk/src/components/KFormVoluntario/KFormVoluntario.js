@@ -10,6 +10,8 @@ import {InCampanasKFormVoluntario, InHabilidadesGraficasKFormVoluntario, InEcarg
     VisualizacionEncargados, InHabilidadesCodigosKFormVoluntario} from '../DB/add-onns';
 import KInfoVoluntariado from '../KInfoVoluntariado/KInfoVoluntariado';
 import moment from 'moment';
+import * as database from "../DB/documentsAdmin";
+import KFormDocumentsSubidaVoluntario from "../KComponentsDocuments/KFormDocumentsSubidaVoluntario";
 
 export default class KFormVoluntario extends Component {
 
@@ -17,7 +19,7 @@ export default class KFormVoluntario extends Component {
         super(props);
         // TODO: Cuando se vaya a abrir esto, pasar el id de la campaña -> this.Id_campana = props.Id_campana;
         this.state = {
-            step: 1,
+            step: 3,
             tipo_id: "",
             id: "",
             nombre: "",
@@ -40,7 +42,8 @@ export default class KFormVoluntario extends Component {
             campana: {},
             encargados: {},
             campana_habilidades_graficas: {},
-            Id_campana: props.url
+            Id_campana: props.url,
+            imgURL: ""
         };
         this.siguiente=this.siguiente.bind(this);
         this.anterior=this.anterior.bind(this);
@@ -74,6 +77,14 @@ export default class KFormVoluntario extends Component {
                     encargados: in_encargados,
                     campana_habilidades_graficas: in_campana_habilidades_graficas
                 });
+
+                database.leer_url_documento_campana(this.state.Id_campana, "Foto").then(result => {
+                    this.setState({
+                        imgURL: result
+                    });
+                })
+
+
             } else {
                 window.location.href = "http://localhost:3000";
             }
@@ -82,7 +93,8 @@ export default class KFormVoluntario extends Component {
 
     render(){
       let pasos;
-        const info=<KInfoVoluntariado campana={this.state.campana} vis_encargados={VisualizacionEncargados(this.state.encargados)}/>;
+        const info=<KInfoVoluntariado campana={this.state.campana} vis_encargados={VisualizacionEncargados(this.state.encargados)}
+                                      url={this.state.imgURL}/>;
 
         switch(this.state.step){
             case 1:
@@ -140,7 +152,9 @@ export default class KFormVoluntario extends Component {
                         {info}
                         {pasos}
                     </div>
-                    <KDocumentos  anterior={this.anterior} siguiente={this.siguiente}/>
+                    <KFormDocumentsSubidaVoluntario campana={{id: this.state.Id_campana}} voluntario={{cedula: this.state.id}}
+                                                    anterior={this.anterior} siguiente={this.siguiente}/>
+
                 </div>);
             case 4:
                 pasos=
