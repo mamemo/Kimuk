@@ -36,9 +36,12 @@ function insertar_actualizar_voluntarios_camapana(Id_campana, Id_voluntario, Tip
     }).catch(function (error) {
         resul = false;
         return resul;
-    })
+    });
     return resul;
 }
+
+
+
 
 
 function actualizar_voluntarios_campana(Id_campana, Id_voluntario, llave_valor, nuevo_valor) {
@@ -89,6 +92,7 @@ function leer_voluntarios(Id_campana, Id_voluntario) {
             });
         });
 }
+
 
 
 function insertar_actualizar_habilidades_voluntarios(Id_campana, Id_voluntario, Id_habilidad, nombre_habilidad) {
@@ -219,3 +223,5 @@ function leer_contacto_emergencia_voluntario(Id_campana, Id_voluntario) {
     });
     });
 }
+
+

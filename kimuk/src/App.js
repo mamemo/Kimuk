@@ -16,7 +16,7 @@ class App extends Component {
     super();
     this.state ={
         link:1
-    }
+    };
     this.ir=this.ir.bind(this);
   }
   ir(nlink){
@@ -27,8 +27,8 @@ class App extends Component {
 
 
   render() {
-    const url=window.location.href.split("/")
-    const len=url.length-1
+    const url=window.location.href.split("/");
+    const len=url.length-1;
     switch (url[len]) {
       case "":
         return (
@@ -75,13 +75,6 @@ class App extends Component {
             <KFormVoluntario url = {url[len]}/>
           </div>
         );
-        case "Test":
-            return (
-                <div className="App">
-                    <KNav ir={this.ir}/>
-
-                </div>
-            );
 
       default:
         return (

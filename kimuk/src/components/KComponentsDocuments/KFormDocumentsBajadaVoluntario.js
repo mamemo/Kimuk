@@ -1,5 +1,5 @@
 import React, {Component} from "react";
-import * as database from "../DB/documentosVolunteer";
+import * as database from "../DB/documentsVolunteer";
 import "./formDocuments.css";
 
 export default class KFormDocumentsBajadaVoluntario extends Component {

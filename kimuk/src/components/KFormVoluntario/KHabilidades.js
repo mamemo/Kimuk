@@ -27,15 +27,23 @@ export default class KHabilidades extends Component {
     }
     render(){
         const tab=[];
-        let habs = this.props.habilidades;
-        var nhabs = Math.ceil(this.props.habilidades.length / 2);
-        
-       for(var i = 0; i < nhabs ; i++){
-            const hab=[];   
-            for (var k = i*2; k < i+2 ; k++) { 
-                hab.push( <td><div className="text-left a"><input type="checkbox" name="habilidades" value={this.props.habilidades[k]} onChange={this.guardar_info} defaultChecked={this.props.voluntario.habilidades.includes(this.props.habilidades[k])}/> {this.props.habilidades[k]}</div></td>);
+        if(this.props.habilidades != null) {
+            let habs = this.props.habilidades;
+            var nhabs = Math.ceil(this.props.habilidades.length / 2);
+
+            for (var i = 0; i < nhabs; i++) {
+                const hab = [];
+                for (var k = i * 2; k < i + 2; k++) {
+                    hab.push(<td>
+                        <div className="text-left a"><input type="checkbox" name="habilidades"
+                                                            value={this.props.habilidades[k]}
+                                                            onChange={this.guardar_info}
+                                                            defaultChecked={this.props.voluntario.habilidades.includes(this.props.habilidades[k])}/> {this.props.habilidades[k]}
+                        </div>
+                    </td>);
+                }
+                tab.push(<tr>{hab}</tr>)
             }
-            tab.push(<tr>{hab}</tr>)
         }
         return(
             <div className="container">
@@ -47,13 +55,13 @@ export default class KHabilidades extends Component {
                     </div>
                 </div>
                 <div className="row">
-                    <div className="col-6 offset-3">  
+                    <div className="col-6 offset-3">
                         <table>
                             {tab}
                         </table>
-                        
+
                         <br/>
-                        <br/>  
+                        <br/>
                     </div>
                 </div>
                 <div className="row">
