@@ -72,15 +72,50 @@ export default class KDocumentosCuerpo extends Component {
                         );
 
 
-                } else if (documentos[k] !== "Foto") {
-                    listaDocumentosCampana.push(
-                        <div className={"containerdoc"}>
-                            <input className={"checkdoc"} type={"checkbox"} name={documentos[k]} id={"checkCamp" + k.toString()}
-                                   onChange={this.onChangeCheckBoxDocumentosCampana} checked={true}/>
-                            <label className={"lbldoc"}>&nbsp;&nbsp;{documentos[k]}</label>
-                            <br/>
-                        </div>
-                    );
+                } else {
+                    if (documentos[k] === "Código de conducta") {
+
+                        let nombreDoc = "";
+                        let progress = 0;
+                        if(this.props.campana.subioCod)
+                        {
+                            nombreDoc = this.props.campana.documentCod;
+                            progress = 100;
+                        }
+
+                        listaDocumentosCampana.push(
+                            <div className={"containerdoc"}>
+                                <input className={"checkdoc"} type={"checkbox"} name={documentos[k]} id={"checkCamp" + k.toString()}
+                                       onChange={this.onChangeCheckBoxDocumentosCampana} checked={true}/>
+                                <label className={"lbldoc"}>&nbsp;&nbsp;{documentos[k]}
+
+                                    <input type="file" name={k} id={"file" + k.toString()} className="uploadbutton"
+                                           accessKey={documentos[k]}
+                                           onChange={this.onChangeFileUploadButton}/>
+                                    <label htmlFor={"file" + k.toString()}>Adjuntar</label>
+
+                                </label>
+                                <label className={"docname"} id={"name" + k.toString()}>&nbsp;{nombreDoc}</label>
+                                <br/>
+                                <progress className={"dos"} max={100} value={progress} id={"bar" + k.toString()}>0%</progress>
+                            </div>
+                        );
+
+
+                    }
+                    else {
+                        if (documentos[k] !== "Foto") {
+                            listaDocumentosCampana.push(
+                                <div className={"containerdoc"}>
+                                    <input className={"checkdoc"} type={"checkbox"} name={documentos[k]}
+                                           id={"checkCamp" + k.toString()}
+                                           onChange={this.onChangeCheckBoxDocumentosCampana} checked={true}/>
+                                    <label className={"lbldoc"}>&nbsp;&nbsp;{documentos[k]}</label>
+                                    <br/>
+                                </div>
+                            );
+                        }
+                    }
                 }
             }
 
@@ -176,10 +211,10 @@ export default class KDocumentosCuerpo extends Component {
     onChangeFileUploadButton(e){
         try {
             const tipoDocumento = e.target.accessKey;
-            this.props.handler(e.target.files[0].name);
+            this.props.handler(e.target.files[0].name, tipoDocumento);
             const nombreArchivo = e.target.files[0].name;
             const idCampana = this.props.campana.id;
-            // TODO -> Primer parametro cambiar a this.props.campana.id
+
             const task = database.insertar_documento_storage_campana(this.props.campana.id, tipoDocumento, e.target.files[0]);
             const progressBar = document.getElementById("bar" + e.target.name);
             document.getElementById("name" + e.target.name).innerHTML = e.target.files[0].name;  // File name label

@@ -67,7 +67,10 @@ export default class KFormDocumentsAdminCreacion extends Component {
                         campana = {{
                           id:this.props.campana.id,
                           subio:this.props.campana.subio,
-                          document:this.props.campana.document
+                          document:this.props.campana.document,
+
+                            subioCod:this.props.campana.subioCod,
+                            documentCod:this.props.campana.documentCod
                          }}
                          siguiente = {this.props.siguiente}
                          anterior =  {this.props.anterior}
