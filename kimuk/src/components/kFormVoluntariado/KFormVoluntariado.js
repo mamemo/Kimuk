@@ -60,7 +60,8 @@ export default class KFormVoluntariado extends Component {
             subioCod: false,
             documentCod: "",
             subio: false,
-            document: ""
+            document: "",
+            admin_pass: uid()
         }
         this.handleInputChange = this.handleInputChange.bind(this);
         this.handleInputChangeImage = this.handleInputChangeImage.bind(this);
@@ -252,7 +253,7 @@ export default class KFormVoluntariado extends Component {
         insertar_actualizar_campana(this.state.id, this.state.volName, this.state.description,
             this.state.startDate.toString(), this.state.time.toString(),
             this.state.address, this.state.finishDate.toString(), "",
-            this.state.numberOfVolunteers, this.state.termsAndConditions).then(result => {
+            this.state.numberOfVolunteers, this.state.termsAndConditions, this.state.admin_pass).then(result => {
 
             insertar_actualizar_encargado_general_campana(this.state.id, this.state.identification,
                 this.state.name, this.state.lastname,
