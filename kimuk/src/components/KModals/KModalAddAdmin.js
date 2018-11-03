@@ -59,17 +59,17 @@ export default class KModalAddAdmin extends Component
         //let fields = this.state.fields;
         let errors = {};
         let formIsValid = true;
-    
+
         if (!nuevoNombre) {
           formIsValid = false;
           errors["name"] = "*Por favor ingrese nombre del encargado.";
         }
-    
+
         if (!nuevoApellidos) {
           formIsValid = false;
           errors["lastname"] = "*Por favor ingresar apellidos del encargado.";
         }
-    
+
         if (typeof nuevoNombre !== "undefined" &&
             typeof nuevoApellidos !== "undefined") {
           if (!nuevoNombre.match(/^[a-zA-Z ]*$/) &&
@@ -79,12 +79,12 @@ export default class KModalAddAdmin extends Component
             errors["lastname"] = "*Por favor introduzca solo caracteres del alfabeto.";
           }
         }
-    
+
         if (!nuevoCorreo) {
           formIsValid = false;
           errors["email"] = "*Por favor ingrese correo electrónico del encargado.";
         }
-    
+
         if (typeof nuevoCorreo !== "undefined") {
           //regular expression for email validation
           const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
@@ -93,19 +93,19 @@ export default class KModalAddAdmin extends Component
             errors["email"] = "*Por favor, introduzca una dirección de correo electrónico válida.";
           }
         }
-    
+
         if (!nuevoTelefono) {
           formIsValid = false;
           errors["tel"] = "*Por favor ingrese número de teléfono del encargado.";
         }
-    
+
         if (typeof nuevoTelefono !== "undefined") {
           if (!nuevoTelefono.match(/^[0-9]{8}$/)) {
             formIsValid = false;
             errors["tel"] = "*Por favor, introduzca un número de teléfono válido.";
           }
         }
-    
+
         this.setState({errors: errors});
         return formIsValid;
     }
@@ -152,6 +152,8 @@ export default class KModalAddAdmin extends Component
                 </button>
             </table>);
         }
+        console.log("Encargados!!!");
+        console.log(encargados);
         this.setState({
             listaEncargadosGrafica: encargados
         });
