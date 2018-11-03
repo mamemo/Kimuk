@@ -1,6 +1,8 @@
 import firebase from "firebase";
 
-export {insertar_documento_storage_voluntario, insertar_url_nombre_documento_voluntario}
+export {insertar_documento_storage_voluntario, insertar_url_nombre_documento_voluntario,
+leer_documentos_voluntario, insertar_nombre_documento_voluntario, eliminar_url_documento_voluntario,
+crear_url_documento_voluntario, eliminar_documento_voluntario, eliminar_nombre_documento_voluntario, leer_url_documento_voluntario}
 
 
 function insertar_documento_storage_voluntario(id_campana, id_voluntario, tipo_documento, archivo) {

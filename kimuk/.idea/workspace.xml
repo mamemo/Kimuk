@@ -2,13 +2,14 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="d9f7f50a-1104-4749-8cea-b77eeebf01cd" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/components/KComponentsDocuments/formDocumentsSubida.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/DB/volunteers.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/DB/volunteers.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/KComponentsDocuments/KFormDocumentsBajadaVoluntario.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/KComponentsDocuments/KFormDocumentsBajadaVoluntario.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/KComponentsDocuments/KFormDocumentsSubidaVoluntario.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/KComponentsDocuments/KFormDocumentsSubidaVoluntario.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/DB/documentsVolunteer.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/DB/documentsVolunteer.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/KFormVoluntario/KFormVoluntario.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/KFormVoluntario/KFormVoluntario.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/KFormVoluntario/KHabilidades.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/KFormVoluntario/KHabilidades.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/kFormVoluntariado/KDocumentosCuerpo.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/kFormVoluntariado/KDocumentosCuerpo.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/kFormVoluntariado/KFormDocumentsAdminCreacion.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/kFormVoluntariado/KFormDocumentsAdminCreacion.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/kFormVoluntariado/KFormVoluntariado.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/kFormVoluntariado/KFormVoluntariado.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/kFormVoluntariado/KModalDocumentos.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/kFormVoluntariado/KModalDocumentos.js" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -86,48 +87,36 @@
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
           <entry key="css" value="108" />
-          <entry key="js" value="4051" />
+          <entry key="js" value="4421" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
           <entry key="CSS" value="108" />
-          <entry key="JavaScript" value="4051" />
+          <entry key="JavaScript" value="4421" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
         <counts>
           <entry key="css" value="10" />
-          <entry key="js" value="35" />
+          <entry key="js" value="46" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.open">
         <counts>
           <entry key="CSS" value="10" />
-          <entry key="JavaScript" value="35" />
+          <entry key="JavaScript" value="46" />
         </counts>
       </usages-collector>
     </session>
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/App.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="433">
-              <caret line="74" column="23" selection-start-line="74" selection-start-column="23" selection-end-line="74" selection-end-column="23" />
-              <folding>
-                <element signature="e#0#41#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/components/KFormVoluntario/KFormVoluntario.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="420">
-              <caret line="21" column="19" selection-start-line="21" selection-start-column="19" selection-end-line="21" selection-end-column="19" />
+            <state>
+              <caret lean-forward="true" />
               <folding>
                 <element signature="e#0#41#0" expanded="true" />
               </folding>
@@ -136,10 +125,10 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/components/KComponentsDocuments/KFormDocumentsBajadaVoluntario.js">
+        <entry file="file://$PROJECT_DIR$/src/components/kFormVoluntariado/KDocumentosCuerpo.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="360">
-              <caret line="18" column="36" lean-forward="true" selection-start-line="18" selection-start-column="36" selection-end-line="18" selection-end-column="36" />
+            <state relative-caret-position="-3606">
+              <caret line="84" selection-start-line="84" selection-end-line="84" />
               <folding>
                 <element signature="e#0#39#0" expanded="true" />
               </folding>
@@ -148,41 +137,31 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/components/KFormVoluntario/KHabilidades.js">
+        <entry file="file://$PROJECT_DIR$/src/components/KComponentsDocuments/KFormDocumentsBajadaVoluntario.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1580">
-              <caret line="82" column="60" lean-forward="true" selection-start-line="82" selection-start-column="60" selection-end-line="82" selection-end-column="60" />
+            <state relative-caret-position="20">
+              <caret line="1" column="45" selection-start-line="1" selection-start-column="45" selection-end-line="1" selection-end-column="45" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/components/KComponentsDocuments/KFormDocumentsSubidaVoluntario.js">
+        <entry file="file://$PROJECT_DIR$/src/components/DB/documentsVolunteer.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="4140">
-              <caret line="406" selection-start-line="406" selection-end-line="406" />
+            <state relative-caret-position="80">
+              <caret line="4" column="130" selection-start-line="4" selection-start-column="130" selection-end-line="4" selection-end-column="130" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/components/KFormVoluntario/KFormVoluntario.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="293">
+              <caret line="32" column="23" lean-forward="true" selection-start-line="32" selection-start-column="23" selection-end-line="32" selection-end-column="23" />
               <folding>
-                <element signature="e#0#29#0" expanded="true" />
-                <element signature="e#3496#4819#0" />
-                <element signature="e#4852#5027#0" />
-                <element signature="e#9467#9918#0" />
-                <element signature="e#9959#10413#0" />
-                <element signature="e#10446#10900#0" />
-                <element signature="e#11453#11469#0" />
-                <element signature="e#11485#12530#0" />
-                <element signature="e#15774#15790#0" />
-                <element signature="e#13223#16563#0" />
-                <element signature="e#15782#16511#0" />
+                <element signature="e#0#41#0" expanded="true" />
               </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/components/DB/volunteers.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="349">
-              <caret line="218" column="36" lean-forward="true" selection-start-line="218" selection-start-column="36" selection-end-line="218" selection-end-column="36" />
             </state>
           </provider>
         </entry>
@@ -207,8 +186,10 @@
       <find>Remover todos</find>
       <find>check</find>
       <find>this.props</find>
-      <find>emergencia</find>
       <find>nhabs</find>
+      <find>emergencia</find>
+      <find>document</find>
+      <find>subio</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -229,21 +210,25 @@
         <option value="$PROJECT_DIR$/src/base.js" />
         <option value="$PROJECT_DIR$/src/components/DB/campaigns.js" />
         <option value="$PROJECT_DIR$/src/components/KFormVoluntario/KTeryCon.js" />
-        <option value="$PROJECT_DIR$/src/App.js" />
         <option value="$PROJECT_DIR$/src/components/kFormVoluntariado/KHeaderVoluntariado.js" />
         <option value="$PROJECT_DIR$/src/components/kFormVoluntariado/KHeaderVoluntariado.css" />
         <option value="$PROJECT_DIR$/src/components/KModals/KModalAddAdmin.css" />
         <option value="$PROJECT_DIR$/src/components/KInfoVoluntariado/KInfoVoluntariado.js" />
         <option value="$PROJECT_DIR$/src/components/KAdmin/KAdmin.js" />
         <option value="$PROJECT_DIR$/src/components/KComponentsDocuments/formDocuments.css" />
-        <option value="$PROJECT_DIR$/src/components/KComponentsDocuments/KFormDocumentsBajadaVoluntario.js" />
-        <option value="$PROJECT_DIR$/src/components/kFormVoluntariado/KFormVoluntariado.js" />
         <option value="$PROJECT_DIR$/src/components/KComponentsDocuments/formDocumentsSubida.css" />
         <option value="$PROJECT_DIR$/src/components/KModals/KModalAddAdmin.js" />
         <option value="$PROJECT_DIR$/src/components/DB/volunteers.js" />
         <option value="$PROJECT_DIR$/src/components/KComponentsDocuments/KFormDocumentsSubidaVoluntario.js" />
         <option value="$PROJECT_DIR$/src/components/KFormVoluntario/KHabilidades.js" />
+        <option value="$PROJECT_DIR$/src/components/kFormVoluntariado/KModalDocumentos.js" />
+        <option value="$PROJECT_DIR$/src/components/kFormVoluntariado/KFormDocumentsAdminCreacion.js" />
+        <option value="$PROJECT_DIR$/src/components/kFormVoluntariado/KDocumentosCuerpo.js" />
+        <option value="$PROJECT_DIR$/src/components/kFormVoluntariado/KFormVoluntariado.js" />
         <option value="$PROJECT_DIR$/src/components/KFormVoluntario/KFormVoluntario.js" />
+        <option value="$PROJECT_DIR$/src/components/KComponentsDocuments/KFormDocumentsBajadaVoluntario.js" />
+        <option value="$PROJECT_DIR$/src/components/DB/documentsVolunteer.js" />
+        <option value="$PROJECT_DIR$/src/App.js" />
       </list>
     </option>
   </component>
@@ -382,12 +367,12 @@
       <workItem from="1537243647201" duration="6138000" />
       <workItem from="1537322234107" duration="989000" />
       <workItem from="1537323272960" duration="5738000" />
-      <workItem from="1541126121382" duration="17961000" />
+      <workItem from="1541126121382" duration="19684000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="32245000" />
+    <option name="totallyTimeSpent" value="33968000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -559,15 +544,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/components/kFormVoluntariado/KFormDocumentsAdminCreacion.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1020">
-          <folding>
-            <element signature="e#0#41#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/components/kFormVoluntariado/formDocuments.css">
       <provider selected="true" editor-type-id="text-editor">
         <state>
@@ -579,16 +555,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="363">
           <caret line="30" lean-forward="true" selection-start-line="30" selection-end-line="30" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/components/kFormVoluntariado/KDocumentosCuerpo.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-9">
-          <caret line="170" column="5" selection-start-line="170" selection-start-column="5" selection-end-line="170" selection-end-column="5" />
-          <folding>
-            <element signature="e#0#39#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -666,33 +632,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/App.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="433">
-          <caret line="74" column="23" selection-start-line="74" selection-start-column="23" selection-end-line="74" selection-end-column="23" />
-          <folding>
-            <element signature="e#0#41#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/components/DB/documentsAdmin.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="414">
-          <caret line="94" column="79" selection-start-line="94" selection-start-column="79" selection-end-line="94" selection-end-column="79" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/components/kFormVoluntariado/KFormVoluntariado.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="400">
-          <caret line="37" column="18" selection-start-line="37" selection-start-column="18" selection-end-line="37" selection-end-column="18" />
-          <folding>
-            <element signature="e#0#41#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/components/KComponentsDocuments/formDocumentsSubida.css">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="20">
@@ -706,30 +645,6 @@
           <caret line="207" column="28" lean-forward="true" selection-start-line="207" selection-start-column="28" selection-end-line="207" selection-end-column="28" />
           <folding>
             <element signature="e#0#41#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/components/DB/documentsVolunteer.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="383">
-          <caret line="99" column="9" selection-start-line="99" selection-start-column="9" selection-end-line="99" selection-end-column="9" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/components/DB/volunteers.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="349">
-          <caret line="218" column="36" lean-forward="true" selection-start-line="218" selection-start-column="36" selection-end-line="218" selection-end-column="36" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/components/KComponentsDocuments/KFormDocumentsBajadaVoluntario.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="360">
-          <caret line="18" column="36" lean-forward="true" selection-start-line="18" selection-start-column="36" selection-end-line="18" selection-end-column="36" />
-          <folding>
-            <element signature="e#0#39#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -761,10 +676,88 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/DB/volunteers.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="363">
+          <caret line="218" column="36" lean-forward="true" selection-start-line="218" selection-start-column="36" selection-end-line="218" selection-end-column="36" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/kFormVoluntariado/KModalDocumentos.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="334">
+          <caret line="74" column="23" selection-start-line="74" selection-start-column="23" selection-end-line="74" selection-end-column="23" />
+          <folding>
+            <element signature="e#0#41#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/DB/documentsAdmin.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="280">
+          <caret line="14" column="69" selection-start-line="14" selection-start-column="69" selection-end-line="14" selection-end-column="69" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/kFormVoluntariado/KFormVoluntariado.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="120">
+          <caret line="37" column="18" lean-forward="true" selection-start-line="37" selection-start-column="18" selection-end-line="37" selection-end-column="18" />
+          <folding>
+            <element signature="e#0#41#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/kFormVoluntariado/KFormDocumentsAdminCreacion.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="480">
+          <caret line="72" column="70" selection-start-line="72" selection-start-column="70" selection-end-line="72" selection-end-column="70" />
+          <folding>
+            <element signature="e#0#41#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/components/KFormVoluntario/KFormVoluntario.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="420">
-          <caret line="21" column="19" selection-start-line="21" selection-start-column="19" selection-end-line="21" selection-end-column="19" />
+        <state relative-caret-position="293">
+          <caret line="32" column="23" lean-forward="true" selection-start-line="32" selection-start-column="23" selection-end-line="32" selection-end-column="23" />
+          <folding>
+            <element signature="e#0#41#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/DB/documentsVolunteer.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="80">
+          <caret line="4" column="130" selection-start-line="4" selection-start-column="130" selection-end-line="4" selection-end-column="130" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/KComponentsDocuments/KFormDocumentsBajadaVoluntario.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="20">
+          <caret line="1" column="45" selection-start-line="1" selection-start-column="45" selection-end-line="1" selection-end-column="45" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/kFormVoluntariado/KDocumentosCuerpo.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-3606">
+          <caret line="84" selection-start-line="84" selection-end-line="84" />
+          <folding>
+            <element signature="e#0#39#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/App.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret lean-forward="true" />
           <folding>
             <element signature="e#0#41#0" expanded="true" />
           </folding>

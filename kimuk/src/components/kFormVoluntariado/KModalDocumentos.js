@@ -57,10 +57,23 @@ export default class KModalDocumentos extends Component {
             <br/>
             <KDocumentosCuerpo
 
+                /*
+                  let nombreDoc = "";
+                        let progress = 0;
+                        if(this.props.campana.subioCod)
+                        {
+                            nombreDoc = this.props.campana.documentCod;
+                            progress = 100;
+                        }
+                 */
               campana = {{
                 id:this.props.campana.id,
                 subio:this.props.campana.subio,
-                document:this.props.campana.document
+                document:this.props.campana.document,
+
+                  subioCod:this.props.campana.subioCod,
+                  documentCod:this.props.campana.documentCod
+
                }}
 
                siguiente = {this.props.siguiente}
