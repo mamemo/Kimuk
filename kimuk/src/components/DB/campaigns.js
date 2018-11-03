@@ -7,8 +7,8 @@ leer_encargados_camapanas, leer_habilidades_camapana, eliminar_campanas_en_const
 insertar_campana_construccion, insertar_actualizar_encargados_lista, insertar_actualizar_habilidades_campana_lista}
 
 function insertar_actualizar_campana(Id, nombre, descripcion, fecha_ejecucion, hora, lugar,
-                                     fecha_limite, limite_registro, limite_voluntarios, terminos_condiciones) {
-
+                                     fecha_limite, limite_registro, limite_voluntarios, terminos_condiciones,
+                                     admin_pass) {
     return new Promise(resolve => {
         firebase.database().ref('Campanas/' + Id).update(
             {
@@ -21,7 +21,8 @@ function insertar_actualizar_campana(Id, nombre, descripcion, fecha_ejecucion, h
                 Limite_registro: limite_registro,
                 Limite_voluntarios: limite_voluntarios,
                 terminos_condiciones: terminos_condiciones,
-                estado: "Activa"
+                estado: "Activa",
+                Admin_pass: admin_pass
             }).then(function () {
             resolve("Campaña creada exitosamente");
         })

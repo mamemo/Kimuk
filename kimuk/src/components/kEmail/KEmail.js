@@ -16,7 +16,7 @@ function enviar_correo_voluntariado(correo,campana,name,id){
     html=html+"<p>Si querés que las personas se inscriban compartí el siguiente enlace:</p>";
     html=html+"<a href='https://kimuk-backend.firebaseapp.com/voluntario/"+id+"'>https://kimuk-backend.firebaseapp.com/voluntario/"+id+"</a>";
     html=html+"<p>Si querés administrar el voluntariado "+campana+" ingresá en el siguiente enlace:</p>";
-    html=html+"<a href='https://kimuk-backend.firebaseapp.com/admin/"+id+"'>https://kimuk-backend.firebaseapp.com/admin/"+id+"</a>";
+    html=html+"<a href='https://kimuk-backend.firebaseapp.com/admin/"+id+"?p="+admin_pass+"'>https://kimuk-backend.firebaseapp.com/admin/"+id+"?p="+admin_pass+"</a>";
     enviar_correo(correo,asunto,mensaje,html);
 }
 

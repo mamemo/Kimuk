@@ -11,22 +11,21 @@ export default class KAdmin extends Component {
 
 	constructor(props) {
 		super(props);
-		this.state = {id_campana : props.url,
-									campana : null,
-									encargados : {},
-									voluntarios : {},
-			imgURL: ""
-								};
+		let id = props.url.split("?p=");
+		this.state = {id_campana : id[0],
+					  	admin_pass: id[1],
+						campana : null,
+						encargados : {},
+						voluntarios : {},
+						imgURL: ""
+					};
 		
 	}
 
 
 	componentDidMount(){
 		leer_campanas(this.state.id_campana).then(result => {
-
-
-
-			if(result){
+			if(result && this.state.admin_pass && this.state.admin_pass === result.Admin_pass){
 				let in_campana = InCampanasKFormVoluntario(result);
 				let in_encargados = InEcargadosKFormVoluntario(result);
 				let in_voluntarios = {};
