@@ -3,7 +3,7 @@ import './KFormVoluntariado.css';
 import '../style/color.css';
 import '../style/general.css';
 import './KHeaderVoluntariado.css'
-import { Glyphicon } from 'react-bootstrap';
+import ReactTooltip from 'react-tooltip'
 
 export default class KHeaderVoluntariado extends Component {
   constructor(props) {
@@ -65,14 +65,13 @@ export default class KHeaderVoluntariado extends Component {
                 value={this.props.image}
                 onChange={this.props.handlerImage}
               />
-
           </div>
 
         </div>
 
         <div className="flex-item-name">
 
-          <div className="input-group input-group-lg">
+          <div className="input-group input-group-lg" data-tip data-for='must-tooltip'>
 
             <input
               name="volName"
@@ -82,11 +81,20 @@ export default class KHeaderVoluntariado extends Component {
               placeholder="Nombre del voluntariado"
               value={this.props.name}
               onChange={this.props.handler} />
-
           </div>
 
         </div>
 
+        <span
+          id="must-tooltip"
+          className = 'red'> *
+        </ span>
+
+        <ReactTooltip id='must-tooltip' type='error' effect='solid'>
+          <span>
+            Campo Obligatorio
+          </span>
+        </ReactTooltip>
       </div>
     );
   }

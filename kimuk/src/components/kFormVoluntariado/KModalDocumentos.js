@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import '../style/color.css';
+import './KModalDocumentos.css'
 import { Button } from 'react-bootstrap';
 import KDocumentosCuerpo from './KDocumentosCuerpo'
 import Modal from 'react-modal';
@@ -48,7 +49,8 @@ export default class KModalDocumentos extends Component {
         <Modal
             isOpen={this.state.show}
             onRequestClose={this.closeModal}
-            style={customStyles}>
+            style={customStyles}
+            ariaHideApp={false}>
 
             <div class="card-header">
               Selecciona los documentos deseadas
