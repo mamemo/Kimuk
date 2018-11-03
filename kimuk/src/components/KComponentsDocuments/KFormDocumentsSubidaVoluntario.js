@@ -1,6 +1,6 @@
 import "./formDocuments.css";
 import React, {Component} from "react";
-import * as databaseVoluntario from "../DB/documentosVolunteer";
+import * as databaseVoluntario from "../DB/documentsVolunteer";
 import * as database from "../DB/documentsAdmin"
 
 
@@ -21,6 +21,7 @@ export default class KFormDocumentsSubidaVoluntario extends Component {
             let listaDocumentosCampana = [];
             let consecutivo = 0;
             for(let k in documentos) {
+                if(documentos[k] !== "Foto") {
                     listaDocumentosCampana.push(
                         <div className={"containerdoc"}>
                             <input className={"checkdoc"} type={"checkbox"} name={documentos[k]} id={consecutivo}
@@ -34,10 +35,11 @@ export default class KFormDocumentsSubidaVoluntario extends Component {
                             </label>
                             <label className={"docname"} id={"name" + k.toString()}>&nbsp;</label>
                             <br/>
-                            <progress  max={100} value={0} id={"bar" + k.toString()}>0%</progress>
+                            <progress max={100} value={0} id={"bar" + k.toString()}>0%</progress>
                         </div>
                     );
                     consecutivo += 1;
+                }
             }
             this.setState({
                 listaDocumentosCampana: listaDocumentosCampana,
@@ -88,11 +90,28 @@ export default class KFormDocumentsSubidaVoluntario extends Component {
     render() {
         return (
             <div className="container text-center">
+                <br/>
+                <br/>
+                <h1>Subir documentos</h1>
                 <div>
                     <br/>
                     {this.state.listaDocumentosCampana}
                     <br/>
                 </div>
+
+                <div className="row">
+                    <div className="col-1 offset-2">
+                        <button className="btn btn-info" onClick={ this.props.anterior }>anterior</button>
+                    </div>
+                    <div className="col-1 offset-6">
+                        <button className="btn btn-primary" onClick={ this.props.siguiente }>continuar</button>
+                    </div>
+                    <br/>
+                    <br/>
+                    <br/>
+                    <br/>
+                </div>
+
             </div>
         );
     }
