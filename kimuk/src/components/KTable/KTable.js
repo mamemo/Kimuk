@@ -17,6 +17,8 @@ export default class KTable extends Component {
 
     this.updateInputValue = this.updateInputValue.bind(this);
     this.filtrarEstado = this.filtrarEstado.bind(this);
+
+    this.voluntariosSeleccionados = [];
   }
 
   filterItemsSearchBar = (query) => {
@@ -58,10 +60,35 @@ export default class KTable extends Component {
     confirmAlert({
       customUI: ({onClose}) => {
         return(
-          <KModalInfo volunteerInfo={userJson}/>
+          <div>
+            <KModalInfo volunteerInfo={userJson}/>
+
+            <div>
+              <button onClick={()=>{
+                onClose();
+              }}>Guardar</button>
+              <button onClick={()=>{
+                onClose();
+              }}>Cancelar</button>
+            </div>
+          </div>
+          
         );
       }
     });
+  }
+
+  handleCheck(userJson){
+    if(this.voluntariosSeleccionados.includes(userJson)){
+      this.voluntariosSeleccionados = this.voluntariosSeleccionados.filter((value, index, arr) => {
+        return value != userJson;
+      });
+    }
+    else{
+      this.voluntariosSeleccionados.push(userJson);
+    }
+
+    console.log(this.voluntariosSeleccionados);
   }
 
   createTable = () => {
@@ -78,7 +105,7 @@ export default class KTable extends Component {
                         <td>{voluntarios[i].Ocupacion}</td>
                         <td>{voluntarios[i].Fecha_registro}</td>
                         <td><button onClick={this.createModal.bind(this, voluntarios[i])}>Editar información</button></td>
-                        <td><input type="checkbox" className="checkbox"/></td>
+                        <td><input type="checkbox" className="checkbox" onChange/></td>
                       </tr>);
       }
     }
