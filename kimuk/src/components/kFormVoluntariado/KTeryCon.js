@@ -8,17 +8,30 @@ export default class KTeryCon extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      haventContain: true
+      haventContain: !this.hayTextoEnTyC()
     };
-
+    
+    this.hayTextoEnTyC = this.hayTextoEnTyC.bind(this);
     this.updateButtonCrear = this.updateButtonCrear.bind(this);
+  }
+  /**
+   * Verifica si hay texto guardado en 
+   * la variable de entrada tyc
+   */
+  hayTextoEnTyC () {
+    if (this.props.tyc !== "") {
+      return true;
+    } else {
+      return false;
+    }
   }
 
   updateButtonCrear(event) {
+    var varDisabled;
     if (event.target.value !== "") {
-      var varDisabled = false;
+      varDisabled = false;
     } else {
-      var varDisabled = true;
+      varDisabled = true;
     }
     this.setState({haventContain: varDisabled});
   }

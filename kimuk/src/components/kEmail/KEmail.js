@@ -28,8 +28,8 @@ function enviar_correo_voluntariado(correo,campana,name,id,admin_pass) {
  */
 function enviar_correo_voluntario_confirmacion(correo,campana, name) {
     var mensaje="";
-    var asunto="Kimuk - Confirmación de inscripción - " + campana;
-    var html=name+" acabás de ser registrado como voluntario de " + campana + ". Si el administrador te acepta para el voluntariado vas a recibir una notificación por correo electrónico.";
+    var asunto="Kimuk - Solicitud de ingreso al voluntariado - " + campana;
+    var html=name+" acabás de hacer una solicitud de ingreso al voluntario " + campana + ". Si el administrador te acepta para el voluntariado vas a recibir una notificación por correo electrónico.";
     enviar_correo(correo,asunto,mensaje,html);
 }
 
