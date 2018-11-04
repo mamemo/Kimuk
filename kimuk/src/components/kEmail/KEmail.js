@@ -9,7 +9,7 @@ async function enviar_correo(correo,asunto,mensaje,html){
  * @param {correo} correo 
  * @param {campana} nombreDeCampana
  */
-function enviar_correo_voluntariado(correo,campana,name,id){
+function enviar_correo_voluntariado(correo,campana,name,id,admin_pass){
     var asunto="Kimuk - Enlaces de inscripción y administración - " + campana;
     var mensaje="";
     var html="Hola " + name + " acabás de crear el voluntariado "+campana;    
