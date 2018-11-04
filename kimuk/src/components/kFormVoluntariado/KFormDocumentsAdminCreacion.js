@@ -49,13 +49,6 @@ export default class KFormDocumentsAdminCreacion extends Component {
                         <button
                             id="navigationButton"
                             className="btn btn-default btn-md"
-                            onClick={this.props.siguiente}
-                        >
-                            No
-                        </button>
-                        <button
-                            id="navigationButton"
-                            className="btn btn-default btn-md"
                             onClick={this.props.anterior}
                         >
                             Anterior
