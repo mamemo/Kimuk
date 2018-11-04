@@ -343,6 +343,12 @@ export default class KInfoVoluntariado extends Component {
 
           <div className="col-sm-10">
 
+            <span
+              id="must-tooltip"
+              className = "red"
+              data-tip data-for='must-tooltip'> *
+            </ span>
+
             <input
               id="identification"
               name="identification"
@@ -359,12 +365,9 @@ export default class KInfoVoluntariado extends Component {
               <span>Digite la identificación sin espacios en blanco ni guiones.</span>
             </ReactTooltip>
 
+
           </div>
-          <span
-            id="must-tooltip"
-            className = "red"
-            data-tip data-for='must-tooltip'> *
-          </ span>
+
 
           <div className="errorMsg">{this.state.errors.identification}</div>
 
@@ -375,6 +378,12 @@ export default class KInfoVoluntariado extends Component {
           <label className="sr-only" for="name"> Nombre </label>
 
           <div className="col-sm-10">
+
+            <span
+              id="must-tooltip"
+              className = "red"
+              data-tip data-for='must-tooltip'> *
+            </ span>
 
             <input
               id="name"
@@ -398,6 +407,12 @@ export default class KInfoVoluntariado extends Component {
 
           <div className="col-sm-10">
 
+            <span
+              id="must-tooltip"
+              className = "red"
+              data-tip data-for='must-tooltip'> *
+            </ span>
+
             <input
               id="lastname"
               name="lastname"
@@ -419,6 +434,12 @@ export default class KInfoVoluntariado extends Component {
           <label className="sr-only" for="email"> Correo Electrónico </label>
 
           <div className="col-sm-10">
+
+            <span
+              id="must-tooltip"
+              className = "red"
+              data-tip data-for='must-tooltip'> *
+            </ span>
 
             <input
               id="email"
@@ -446,6 +467,12 @@ export default class KInfoVoluntariado extends Component {
           <label className="sr-only" for="tel"> Teléfono </label>
 
           <div className="col-sm-10">
+
+          <span
+            id="must-tooltip"
+            className = "red"
+            data-tip data-for='must-tooltip'> *
+          </ span>
 
             <input
               id="tel"
@@ -475,11 +502,15 @@ export default class KInfoVoluntariado extends Component {
   render(){
     return (
       <div className="container">
-        <span
-          id="must-tooltip"
-          className = "red"
-          data-tip data-for='must-tooltip'> * Campos Obligatorios
-        </ span>
+
+        <div className="span-div">
+
+          <span id="must-tooltip" className = "red">
+            * Campos Obligatorios
+          </ span>
+
+        </div>
+
         {this.volunteeringFormData()}
         {this.volunteeringManagerFormData()}
         <KModalAddAdmin manager={this.props.campana}/>
