@@ -132,11 +132,6 @@ export default class KModalInfo extends Component {
         </section>
 
       </form>
-
-      <div className="btn_group">
-          <button>Guardar</button>
-          <button>Cancelar</button>
-      </div>
       </div>
     )
   }
