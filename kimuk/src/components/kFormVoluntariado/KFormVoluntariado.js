@@ -61,7 +61,9 @@ export default class KFormVoluntariado extends Component {
             documentCod: "",
             subio: false,
             document: "",
-            admin_pass: uid()
+            admin_pass: uid(),
+            listo: false,
+            popup: []
         }
         this.handleInputChange = this.handleInputChange.bind(this);
         this.handleInputChangeImage = this.handleInputChangeImage.bind(this);
@@ -75,8 +77,9 @@ export default class KFormVoluntariado extends Component {
         this.anterior = this.anterior.bind(this);
         this.insertNewCampaign = this.insertNewCampaign.bind(this);
         this.cargarURLFoto = this.cargarURLFoto.bind(this);
-
         this.handleDocument = this.handleDocument.bind(this);
+        this.showPopUp = this.showPopUp.bind(this);
+        this.handlerPopUp = this.handlerPopUp.bind(this);
     }
 
     /*
@@ -98,8 +101,9 @@ export default class KFormVoluntariado extends Component {
    */
     handleInputChangeImage(e) {
       try {
-        if (e.target.files[0].size > 5000000){
-            alert("Error\nEl archivo supera los 5MB, por favor suba un archivo por debajo de 5MB");
+        if (e.target.files[0].size > 5000000) {
+            this.showPopUp("Error subiendo el archivo", 
+                        "El archivo supera los 5MB, por favor suba un archivo por debajo de 5MB");
             return;
         }
 
@@ -118,7 +122,8 @@ export default class KFormVoluntariado extends Component {
             },
 
             function error(err) { // possible errors
-                alert("Error\n" + err.message + "\nPor favor suba el archivo nuevamente.");
+                this.showPopUp("Error subiendo el archivo", 
+                        "Por favor suba el archivo nuevamente.\n\n" + err.message);
             },
 
             function complete() { // Lets me know when the file has been uploaded
@@ -128,7 +133,7 @@ export default class KFormVoluntariado extends Component {
             }
         )
       } catch (err) {
-          alert("ERROR " + err);
+        this.showPopUp("Error", err);
           return;
       }
     }
@@ -245,11 +250,28 @@ export default class KFormVoluntariado extends Component {
         });
     }
 
+    handlerPopUp() {
+        this.setState({listo: false});
+    }
+
+
+    showPopUp(tNotificacion, msj){
+        let pop = [];
+        pop.push(<KModalInfoAccion tipoNotificacion={tNotificacion} 
+            mensaje={msj}
+            handler={this.handlerPopUp}  />);
+
+        this.setState({
+            popup: pop,
+            listo: true
+        });
+    }
+
     /*
      * Insert: new campaign, general manager, other managers, skills
      * and documents to the DB
      */
-    insertNewCampaign() {
+    insertNewCampaign() {        
         insertar_actualizar_campana(this.state.id, this.state.volName, this.state.description,
             this.state.startDate.toString(), this.state.time.toString(),
             this.state.address, this.state.finishDate.toString(), "",
@@ -261,25 +283,30 @@ export default class KFormVoluntariado extends Component {
 
                 insertar_actualizar_encargados_lista(this.state.id, this.state.encargados).then( result => {
                     insertar_actualizar_habilidades_campana_lista(this.state.id, this.state.skills).then(result => {
-                        alert("Campaña " + this.state.volName + " creada con éxito.\n\nSe envió al correo electrónico " + this.state.email + " y a los administradores los links de registro de voluntariado y administración de voluntariado.");
+                        
                         enviar_correo_voluntariado(this.state.email, this.state.volName, this.state.name, this.state.id, this.state.admin_pass); // correo a creador
-
                         // Correo a administradores
                         for (var i = 0 ; i < this.state.encargados.length ; i++) {
                             enviar_correo_voluntariado(this.state.encargados[i][2], this.state.volName, this.state.encargados[i][0], this.state.id, this.state.admin_pass);
                         }
-                        window.location.href ="http://localhost:3000";
+                        this.showPopUp("Creación de campaña", 
+                            "Campaña " + this.state.volName + " creada con éxito.\n\nSe envió al correo electrónico " 
+                            + this.state.email + " y a los administradores los links de registro de voluntariado y administración de voluntariado.");
                     }).catch(function (error) {
-                        alert("Error al insertar habilidad\n" + error + "\nRevise información ingresada en el sistema y vuelva a intentar.\n\nEn caso de no funcionar recargue la página");
+                        this.showPopUp("Error al insertar habilidad", 
+                        "Error al insertar habilidad\n" + error + "\nRevise información ingresada en el sistema y vuelva a intentar.\n\nEn caso de no funcionar recargue la página");
                     })
                 }).catch(function (error) {
-                    alert("Error al insertar encargado\n" + error + "\n\nRevise información ingresada en el sistema y vuelva a intentar.\n\nEn caso de no funcionar recargue la página");
+                    this.showPopUp("Error al insertar encargado", 
+                    "Error al insertar encargado\n" + error + "\n\nRevise información ingresada en el sistema y vuelva a intentar.\n\nEn caso de no funcionar recargue la página");
                 })
             }).catch(function (error) {
-                alert("Error al insertar el encargado general\n" + error + "\n\nRevise información ingresada en el sistema y vuelva a intentar.\n\nEn caso de no funcionar recargue la página");
+                this.showPopUp("Error al insertar el encargado general", 
+                "Error al insertar el encargado general\n" + error + "\n\nRevise información ingresada en el sistema y vuelva a intentar.\n\nEn caso de no funcionar recargue la página");
             })
         }).catch(function (error) {
-            alert("Error al insertar la campana\n" + error + "\n\nRevise información ingresada en el sistema y vuelva a intentar.\n\nEn caso de no funcionar recargue la página");
+            this.showPopUp("Error al insertar la campana", 
+            "Error al insertar la campana\n" + error + "\n\nRevise información ingresada en el sistema y vuelva a intentar.\n\nEn caso de no funcionar recargue la página");
         });
     }
 
@@ -432,10 +459,12 @@ export default class KFormVoluntariado extends Component {
                                   handler={this.handleInputChange}
                                   insertInDB={this.insertNewCampaign}
                                   estado={this.state}/>
+
+                                {(this.state.listo) ? this.state.popup : void(0)}
+
                               </div>
                             </div>
                         </div>)
-
         }
 
 

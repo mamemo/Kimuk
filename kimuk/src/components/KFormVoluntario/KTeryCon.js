@@ -4,6 +4,7 @@ import '../style/color.css';
 import {insertar_actualizar_voluntarios_camapana, insertar_actualizar_habilidades_voluntarios,
     actualizar_voluntarios_campana, eliminar_voluntario} from '../DB/volunteers';
 import ReactTooltip from 'react-tooltip';
+import KModalInfoAccion from '../KModals/KModalInfoAccion'
 import {
     enviar_correo,
     enviar_correo_voluntariado,
@@ -15,13 +16,35 @@ export default class KTeryCon extends Component {
     constructor(props){
         super(props);
         this.state = {
-            noAceptaTyC: true
+            noAceptaTyC: true,
+            listo: false,
+            popup: []
         }
         this.registrar=this.registrar.bind(this);
         this.guardar_info=this.guardar_info.bind(this);
+        this.showPopUp = this.showPopUp.bind(this);
+        this.handlerPopUp = this.handlerPopUp.bind(this);
         this.updateButtonContinuar_Acepta = this.updateButtonContinuar_Acepta.bind(this);
         this.updateButtonContinuar_noAcepta = this.updateButtonContinuar_noAcepta.bind(this);
     }
+
+    handlerPopUp() {
+        this.setState({listo: false});
+    }
+
+
+    showPopUp(tNotificacion, msj){
+        let pop = [];
+        pop.push(<KModalInfoAccion tipoNotificacion={tNotificacion} 
+            mensaje={msj}
+            handler={this.handlerPopUp}  />);
+
+        this.setState({
+            popup: pop,
+            listo: true
+        });
+    }
+
     registrar() {
         const d = new Date();
         var resul = insertar_actualizar_voluntarios_camapana(this.props.voluntario.Id_campana,
@@ -37,16 +60,18 @@ export default class KTeryCon extends Component {
         for (let habilidad in this.props.voluntario.habilidades) {
             if (insertar_actualizar_habilidades_voluntarios(this.props.voluntario.Id_campana,
                 this.props.voluntario.id, habilidad, this.props.voluntario.habilidades[habilidad])) {
-                alert("Tuvimos un error registrandote.\n\nRevisá la información que ingresaste y vuelvé a intentar.\nSi el problema sigue recargá la página");
+                this.showPopUp("Error en el registro", 
+                "Tuvimos un error registrandote.\n\nRevisá la información que ingresaste y vuelvé a intentar.\nSi el problema sigue recargá la página");
                 return;
             }
         }
         if (resul === true) { // si se inserto correctamente
             enviar_correo_voluntario_confirmacion(this.props.voluntario.correo,this.props.campana[0], this.props.voluntario.nombre);
-            alert("¡Felicidades!\n\nAcabás de ser registrado en el voluntariado.\nVas a recibir notificaciones por el email: " + this.props.voluntario.correo);
-            window.window.location.href ="http://localhost:3000";
+            this.showPopUp("Voluntario registrado", 
+                "¡Felicidades!\n\nAcabás de hacer una solicitud de registro en el voluntariado.\nSi el administrador del voluntariado te acepta vas a ser notificado.\nVas a recibir notificaciones por el email: " + this.props.voluntario.correo);
         } else { // Error al insertar
-            alert("Tuvimos un error registrandote.\n\nRevisá la información que ingresaste y vuelvé a intentar.\nSi el problema sigue recargá la página");
+            this.showPopUp("Error en el registro", 
+                "Tuvimos un error registrandote.\n\nRevisá la información que ingresaste y vuelvé a intentar.\nSi el problema sigue recargá la página");
         }
     }
     guardar_info(e){
@@ -114,6 +139,7 @@ export default class KTeryCon extends Component {
                         >
                             Confirmar
                         </button> 
+                    {(this.state.listo) ? this.state.popup : void(0)}
                     </div>
                     <ReactTooltip id='btn-tooltip2' type='warning' effect='solid' place="bottom">
                         <span>Termina la inscripición</span>
