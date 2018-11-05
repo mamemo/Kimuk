@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import '../style/color.css';
-import './KModalAddAdmin.css';
+import './KModalInfoAccion.css';
 import Modal from 'react-modal';
-import ReactTooltip from 'react-tooltip'
 
 const customStyles = {
     content : {
@@ -10,9 +9,7 @@ const customStyles = {
         left                  : '50%',
         right                 : 'auto',
         bottom                : 'auto',
-        height                : '500px',
         transform             : 'translate(-50%, -50%)',
-        overflow              : 'auto'
     }
 };
 
@@ -21,10 +18,12 @@ export default class KModalHabilidades extends Component
     constructor(props) {
         super(props);
         this.state = {
-            modalIsOpen: true
+            modalIsOpen: true,
+            mensajeUsuario: []
         };
         this.openModal = this.openModal.bind(this);
         this.closeModal = this.closeModal.bind(this);
+        this.muestraMensaje = this.muestraMensaje.bind(this);
     }
 
     openModal() {
@@ -33,6 +32,25 @@ export default class KModalHabilidades extends Component
 
     closeModal() {
         this.setState({modalIsOpen: false});
+        this.props.handler();
+    }
+
+    muestraMensaje() {
+        var resul = [];
+        var arrayMensaje = this.props.mensaje.split("\n");
+        for (var i = 0 ; i < arrayMensaje.length ; i++) {
+            if (arrayMensaje[i] === "") {
+                resul.push(<br/>);
+            } else {
+                resul.push(arrayMensaje[i]);
+                resul.push(<br/>);
+            }
+        }
+        this.setState({mensajeUsuario: resul});
+    }
+
+    componentDidMount () {
+        this.muestraMensaje();
     }
 
     render(){
@@ -43,26 +61,23 @@ export default class KModalHabilidades extends Component
                     isOpen={this.state.modalIsOpen}
                     onRequestClose={this.closeModal}
                     style={customStyles}>
-                    <h6>{this.props.text}</h6>
-                    <br/>
-                    <h4>{this.props.text}</h4>
+                    <h4 className="card-header">{this.props.tipoNotificacion}</h4>
                     <br/> <br/>
-                    <button
-                        className="inside"
-                        data-tip data-for='btn-tooltip-Aceptar'
-                        onClick={this.closeModal}
-                    >
-                        Aceptar
-                    </button>
-                    <button
-                        type="button"
-                        className="close"
-                        aria-label="Close"
-                        data-tip data-for='btn-tooltip-CancelarX'
-                        onClick={this.closeModal}
-                    >
-                        <span aria-hidden="true">&times;</span>
-                    </button>
+                    { this.state.mensajeUsuario }
+                    <br/> <br/>
+                    <div className={"container_modalInfoAccion"}>
+                        <button
+                            className="btn btn-primary"
+                            onClick={() => {
+                                this.closeModal();
+                                if (this.props.tipoNotificacion.toLowerCase().indexOf("error") === -1) {
+                                    window.location.href ="http://localhost:3000";
+                                }
+                            }}
+                        >
+                                Aceptar
+                            </button>
+                    </div>
                 </Modal>
             </div>
         );
