@@ -12,7 +12,7 @@ export default class KFormDocumentsBajadaVoluntario extends Component {
     }
 
     componentDidMount(){
-        database.leer_documentos_voluntario(this.props.campana.id, this.props.voluntario.cedula).then(result => {
+        database.leer_documentos_voluntario(this.props.campana, this.props.voluntario.cedula).then(result => {
             let documentos = result;
             let listaDocumentos = [];
             let consecutivo = 0;
