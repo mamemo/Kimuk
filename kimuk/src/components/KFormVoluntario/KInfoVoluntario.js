@@ -170,11 +170,20 @@ export default class KInfoVoluntario extends Component {
         return(
             <div className="container text-left">
 
+              <ReactTooltip id='must-tooltip' type='error' effect='solid'>
+                <span>
+                  Campo Obligatorio
+                </span>
+              </ReactTooltip>
+
               <h3> Información personal </h3>
               <hr />
               <div className="form-group">
 
-                <label className="col-6 col-form-label">Tipo de identificación</label>
+                <label className="col-6 col-form-label" data-tip data-for='must-tooltip'>
+                  Tipo de identificación
+                  <span id="must-tooltip" className = "red"> * </ span>
+                </label>
 
                 <div className="col-sm-5">
 
@@ -196,7 +205,10 @@ export default class KInfoVoluntario extends Component {
 
               <div className="form-group">
 
-                <label className="col-6 col-form-label">Identificación | Número de residencia:</label>
+                <label className="col-6 col-form-label" data-tip data-for='must-tooltip'>
+                  Identificación | Número de residencia:
+                  <span id="must-tooltip" className = "red"> * </ span>
+                </label>
 
                 <div className="col-sm-5">
 
@@ -221,7 +233,10 @@ export default class KInfoVoluntario extends Component {
 
               <div className="form-group">
 
-                <label className="col-6 col-form-label">Nombre: </label>
+                <label className="col-6 col-form-label" data-tip data-for='must-tooltip'>
+                  Nombre:
+                  <span id="must-tooltip" className = "red"> * </ span>
+                </label>
 
                 <div className="col-sm-5">
 
@@ -240,7 +255,10 @@ export default class KInfoVoluntario extends Component {
 
               <div className="form-group">
 
-                <label className="col-6 col-form-label">Primer apellido: </label>
+                <label className="col-6 col-form-label" data-tip data-for='must-tooltip'>
+                  Primer apellido:
+                  <span id="must-tooltip" className = "red"> * </ span>
+                </label>
 
                 <div className="col-sm-5">
 
@@ -259,7 +277,10 @@ export default class KInfoVoluntario extends Component {
 
               <div classname="form-group">
 
-                  <label className="col-6 col-form-label">Segundo apellido: </label>
+                  <label className="col-6 col-form-label" data-tip data-for='must-tooltip'>
+                    Segundo apellido:
+                    <span id="must-tooltip" className = "red"> * </ span>
+                  </label>
 
                   <div className="col-sm-5">
 
@@ -278,7 +299,10 @@ export default class KInfoVoluntario extends Component {
 
               <div className="form-group">
 
-                <label className="col-6 col-form-label">Fecha de nacimiento:</label>
+                <label className="col-6 col-form-label" data-tip data-for='must-tooltip'>
+                  Fecha de nacimiento:
+                  <span id="must-tooltip" className = "red"> * </ span>
+                </label>
 
                 <div className="col-sm-5">
 
@@ -294,7 +318,10 @@ export default class KInfoVoluntario extends Component {
 
               <div className="form-group">
 
-                <label className="col-6 col-form-label"> Género: </label>
+                <label className="col-6 col-form-label" data-tip data-for='must-tooltip'>
+                  Género:
+                  <span id="must-tooltip" className = "red"> * </ span>
+                </label>
 
                   <div className="col-sm-10">
 
@@ -347,7 +374,10 @@ export default class KInfoVoluntario extends Component {
 
               <div className="form-group">
 
-                <label className="col-6 col-form-label"> Estado civil: </label>
+                <label className="col-6 col-form-label" data-tip data-for='must-tooltip'>
+                  Estado civil:
+                  <span id="must-tooltip" className = "red"> * </ span>
+                </label>
 
                 <div className="col-sm-5">
 
@@ -372,7 +402,10 @@ export default class KInfoVoluntario extends Component {
 
               <div className="form-group">
 
-                <label className="col-6 col-form-label">Ocupación: </label>
+                <label className="col-6 col-form-label" data-tip data-for='must-tooltip'>
+                  Ocupación:
+                  <span id="must-tooltip" className = "red"> * </ span>
+                </label>
 
                 <div className="col-sm-10">
 
@@ -442,7 +475,10 @@ export default class KInfoVoluntario extends Component {
 
               <div className="form-group">
 
-                <label className="col-6 col-form-label"> Provincia: </label>
+                <label className="col-6 col-form-label" data-tip data-for='must-tooltip'>
+                  Provincia:
+                  <span id="must-tooltip" className = "red"> * </ span>
+                </label>
 
                 <div className="col-sm-5">
 
@@ -463,7 +499,10 @@ export default class KInfoVoluntario extends Component {
 
               <div className="form-group">
 
-                <label className="col-6 col-form-label"> Canton: </label>
+                <label className="col-6 col-form-label" data-tip data-for='must-tooltip'>
+                  Canton:
+                  <span id="must-tooltip" className = "red"> * </ span>
+                </label>
 
                 <div className="col-sm-5">
 
@@ -483,7 +522,10 @@ export default class KInfoVoluntario extends Component {
 
               <div className="form-group">
 
-                <label className="col-6 col-form-label"> Distrito: </label>
+                <label className="col-6 col-form-label" data-tip data-for='must-tooltip'>
+                  Distrito:
+                  <span id="must-tooltip" className = "red"> * </ span>
+                </label>
 
                 <div className="col-sm-5">
 
@@ -505,7 +547,10 @@ export default class KInfoVoluntario extends Component {
 
               <div className="form-group">
 
-                <label className="col-6 col-form-label"> Dirección exacta:</label>
+                <label className="col-6 col-form-label" data-tip data-for='must-tooltip'>
+                  Dirección exacta:
+                  <span id="must-tooltip" className = "red"> * </ span>
+                </label>
 
                 <div className="col-sm-10">
 
@@ -529,7 +574,10 @@ export default class KInfoVoluntario extends Component {
 
               <div className="form-group">
 
-                <label className="col-6 col-form-label"> Correo electrónico:</label>
+                <label className="col-6 col-form-label" data-tip data-for='must-tooltip'>
+                  Correo electrónico:
+                  <span id="must-tooltip" className = "red"> * </ span>
+                </label>
 
                 <div className="col-sm-5">
 
@@ -553,7 +601,10 @@ export default class KInfoVoluntario extends Component {
 
               <div className="form-group">
 
-                <label className="col-6 col-form-label">Teléfono 1:</label>
+                <label className="col-6 col-form-label" data-tip data-for='must-tooltip'>
+                  Teléfono 1:
+                  <span id="must-tooltip" className = "red"> * </ span>
+                </label>
 
                 <div className="col-sm-5">
 

@@ -71,8 +71,23 @@ export default class KHabilidades extends Component {
 
     muestraHabilidades(habilidad) {
         let habilidades = [];
+        console.log(this.state.habSeleccionadas);
         if (habilidad === "") { // muestra todas las habilidades
             for(var k in this.state.habilidadesBD) {
+              if(this.props.habilidades.includes(this.state.habilidadesBD[k])){
+                habilidades.push( <div className="flex-item">
+                                    <label className="container_checkbox">
+                                      {this.state.habilidadesBD[k]}
+                                      <input type="checkbox"
+                                             name="habilidadesBD"
+                                             className="checkbox"
+                                             onChange={this.onChangeHabilidadesSeleccionadas}
+                                             value={this.state.habilidadesBD[k]}
+                                             checked = "true"/>
+                                      <span class="checkmark"></span>
+                                    </label>
+                                 </div> );
+              }else{
                 habilidades.push( <div className="flex-item">
                                     <label className="container_checkbox">
                                       {this.state.habilidadesBD[k]}
@@ -84,6 +99,7 @@ export default class KHabilidades extends Component {
                                       <span class="checkmark"></span>
                                     </label>
                                  </div> );
+               }
             }
         } else { // muestra habilidades segun input
             for (var k in this.state.habilidadesBD) {
@@ -103,7 +119,10 @@ export default class KHabilidades extends Component {
                 }
             }
         }
+        this.componentDidMount();
         this.setState({habBD: habilidades});
+
+
     }
 
     muestraHabilidadesSeleccionadas() {

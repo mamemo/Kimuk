@@ -14,7 +14,7 @@ export default class KDocumentos extends Component {
           files: []
         }
       }
-    
+
       onFilesChange = (files) => {
         this.setState({
           files
@@ -22,26 +22,26 @@ export default class KDocumentos extends Component {
           console.log(this.state.files)
         })
       }
-    
+
       onFilesError = (error, file) => {
         console.log('error code ' + error.code + ': ' + error.message)
       }
-    
+
       filesRemoveOne = (file) => {
         this.refs.files.removeFile(file)
       }
-    
+
       filesRemoveAll = () => {
         this.refs.files.removeFiles()
       }
-    
+
       filesUpload = () => {
         const formData = new FormData()
         Object.keys(this.state.files).forEach((key) => {
           const file = this.state.files[key]
           formData.append(key, new Blob([file], { type: file.type }), file.name || 'file')
         })
-    
+
         axios.post(`/files`, formData)
         .then(response => window.alert(`${this.state.files.length} files uploaded succesfully!`))
         .catch(err => window.alert('Error uploading files :('))
@@ -49,7 +49,7 @@ export default class KDocumentos extends Component {
     render(){
         return(
             <div className="">
-                <div className="">  
+                <div className="">
                 <div className="col-6 offset-3">
                 <div>
         <h1>Subir documentos</h1>
@@ -95,20 +95,20 @@ export default class KDocumentos extends Component {
         }
       </div>
                      <br/>
-                    <br/>    
+                    <br/>
                 </div>
                </div>
                 <div className="row">
                     <div className="col-1 offset-2">
-                        <button className="btn btn-info" onClick={ this.props.anterior }>anterior</button> 
+                        <button className="btn btn-default" onClick={ this.props.anterior }>Anterior</button>
                     </div>
                     <div className="col-1 offset-6">
-                        <button className="btn btn-primary" onClick={ this.props.siguiente }>continuar</button> 
+                        <button className="btn btn-primary" onClick={ this.props.siguiente }>Siguiente</button> 
                     </div>
                 </div>
                 <br/>
                 <br/>
-            </div>    
+            </div>
         );
     }
 }

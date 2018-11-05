@@ -1,4 +1,5 @@
 import React, {Component} from "react";
+import './KFormVoluntariado.css';
 import * as database from "../DB/documentsAdmin";
 import "./formDocuments.css";
 import ReactTooltip from 'react-tooltip';
@@ -14,11 +15,9 @@ export default class KDocumentosCuerpo extends Component {
             listaDocumentosCampana: [],
             listaDocumentosRestantes: [],
             nombresDocumentos: [],
-
-            listaDocsMarcarTodos: [],
-
-
         };
+
+
         this.cargarDocumentosCampana = this.cargarDocumentosCampana.bind(this);
         this.cargarDocumentosRestantes = this.cargarDocumentosRestantes.bind(this);
         this.onChangeFileUploadButton = this.onChangeFileUploadButton.bind(this);
@@ -54,8 +53,20 @@ export default class KDocumentosCuerpo extends Component {
 
                         listaDocumentosCampana.push(
                             <div className={"containerdoc"}>
-                                <input className={"checkdoc"} type={"checkbox"} name={documentos[k]} id={"checkCamp" + k.toString()}
-                                       onChange={this.onChangeCheckBoxDocumentosCampana} checked={true}/>
+
+                                <label className="container_checkbox">
+
+                                    <input type="checkbox"
+                                        className="checkdoc"
+                                        name={documentos[k]}
+                                        id={"checkCamp" + k.toString()}
+                                        onChange={this.onChangeCheckBoxDocumentosCampana}
+                                        checked={true}
+                                    />
+                                    <span class="checkmark"></span>
+                                </label>
+
+
                                 <label className={"lbldoc"}>&nbsp;&nbsp;{documentos[k]}
 
                                     <input type="file" name={k} id={"file" + k.toString()} className="uploadbutton"
@@ -84,8 +95,18 @@ export default class KDocumentosCuerpo extends Component {
 
                         listaDocumentosCampana.push(
                             <div className={"containerdoc"}>
-                                <input className={"checkdoc"} type={"checkbox"} name={documentos[k]} id={"checkCamp" + k.toString()}
-                                       onChange={this.onChangeCheckBoxDocumentosCampana} checked={true}/>
+                                <label className="container_checkbox">
+
+                                    <input className={"checkdoc"}
+                                        type={"checkbox"}
+                                        name={documentos[k]}
+                                        id={"checkCamp" + k.toString()}
+                                        onChange={this.onChangeCheckBoxDocumentosCampana}
+                                        checked={true}/>
+
+                                    <span class="checkmark"></span>
+                                </label>
+
                                 <label className={"lbldoc"}>&nbsp;&nbsp;{documentos[k]}
 
                                     <input type="file" name={k} id={"file" + k.toString()} className="uploadbutton"
@@ -106,9 +127,19 @@ export default class KDocumentosCuerpo extends Component {
                         if (documentos[k] !== "Foto") {
                             listaDocumentosCampana.push(
                                 <div className={"containerdoc"}>
-                                    <input className={"checkdoc"} type={"checkbox"} name={documentos[k]}
-                                           id={"checkCamp" + k.toString()}
-                                           onChange={this.onChangeCheckBoxDocumentosCampana} checked={true}/>
+
+                                    <label className="container_checkbox">
+
+                                        <input className={"checkdoc"}
+                                            type={"checkbox"}
+                                            name={documentos[k]}
+                                            id={"checkCamp" + k.toString()}
+                                            onChange={this.onChangeCheckBoxDocumentosCampana}
+                                            checked={true}/>
+
+                                        <span class="checkmark"></span>
+                                    </label>
+
                                     <label className={"lbldoc"}>&nbsp;&nbsp;{documentos[k]}</label>
                                     <br/>
                                 </div>
@@ -119,9 +150,11 @@ export default class KDocumentosCuerpo extends Component {
             }
 
             this.setState({
-                listaDocumentosCampana: listaDocumentosCampana,
-                nombresDocumentos: nombresDocumentos
+                listaDocumentosCampana: listaDocumentosCampana.reverse(),
+                nombresDocumentos: nombresDocumentos.reverse()
             });
+
+
 
         });
     }
@@ -134,9 +167,19 @@ export default class KDocumentosCuerpo extends Component {
                 if(!this.state.nombresDocumentos.includes(documentos[k])) {
                         restoDocumentos.push(
                             <div className={"containerdoc"}>
-                                <input className={"checkdoc"} type={"checkbox"} name={documentos[k]}
-                                       id={"checkDoc" + k.toString()}
-                                       onChange={this.onChangeCheckBoxDocumentosRestantes} checked={false}/>
+                                <label className="container_checkbox">
+
+                                    <input className={"checkdoc"}
+                                        type={"checkbox"}
+                                        name={documentos[k]}
+                                        id={"checkDoc" + k.toString()}
+                                        onChange={this.onChangeCheckBoxDocumentosRestantes}
+                                        checked={false}/>
+
+                                    <span class="checkmark"></span>
+                                </label>
+
+
                                 <label className={"lbldoc"}>&nbsp;&nbsp;{documentos[k]}</label>
                                 <br/>
                             </div>
@@ -147,11 +190,13 @@ export default class KDocumentosCuerpo extends Component {
             this.setState({
                 listaDocumentosRestantes: restoDocumentos
             });
+
+
         });
     }
 
     onClickSeleccionarTodos(){
-      for(let i in this.state.listaDocumentosRestantes){
+        for(let i in this.state.listaDocumentosRestantes){
         database.insertar_nombre_documento_campana(this.props.campana.id,
                                                   this.state.listaDocumentosRestantes[i].props.children[1].props.children[1],
                                                   this.state.listaDocumentosRestantes[i].props.children[1].props.children[1]).then(
@@ -161,6 +206,7 @@ export default class KDocumentosCuerpo extends Component {
         )
 
       }
+
 
     }
 
@@ -241,27 +287,34 @@ export default class KDocumentosCuerpo extends Component {
 
 
     render(){
+
+
         return(
 
             <div className="container text-center">
-                <div>
-                  <label>
-                    <input type="checkbox"
+                <div className="SeleccionDocumentos">
+
+                    <label className="container_checkbox">
+                        &nbsp;&nbsp;{"Seleccionar documentos requeridos"}
+                        <input type="checkbox"
                             name="todosDocumentos"
-                            id="todosDocumentos"
-                            onChange={this.onChangeSeleccionarTodos} />
+                            className="checkbox"
+                            onChange={this.onChangeSeleccionarTodos}
+                        />
+                        <span class="checkmark"></span>
+                    </label>
 
-                    &nbsp;&nbsp;{"Seleccionar documentos requeridos"}
 
-                    <input class="marcarbuttom"
-                            onClick={this.onClickSeleccionarTodos}
-                            type="button"
-                            value="Marcar todo"/>
-                 </label>
                 </div>
                 <div>
+                    <input class="marcarbuttom"
+                           onClick={this.onClickSeleccionarTodos}
+                           type="button"
+                           value="Marcar todo"/>
+                </div>
+
+                <div className="tablasDocumentos">
                     {this.state.listaDocumentosCampana}
-                    <br/>
                     {this.state.listaDocumentosRestantes}
                 </div>
 

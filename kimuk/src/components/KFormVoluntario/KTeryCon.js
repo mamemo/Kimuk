@@ -35,7 +35,7 @@ export default class KTeryCon extends Component {
 
     showPopUp(tNotificacion, msj){
         let pop = [];
-        pop.push(<KModalInfoAccion tipoNotificacion={tNotificacion} 
+        pop.push(<KModalInfoAccion tipoNotificacion={tNotificacion}
             mensaje={msj}
             handler={this.handlerPopUp}  />);
 
@@ -60,17 +60,17 @@ export default class KTeryCon extends Component {
         for (let habilidad in this.props.voluntario.habilidades) {
             if (insertar_actualizar_habilidades_voluntarios(this.props.voluntario.Id_campana,
                 this.props.voluntario.id, habilidad, this.props.voluntario.habilidades[habilidad])) {
-                this.showPopUp("Error en el registro", 
+                this.showPopUp("Error en el registro",
                 "Tuvimos un error registrandote.\n\nRevisá la información que ingresaste y vuelvé a intentar.\nSi el problema sigue recargá la página");
                 return;
             }
         }
         if (resul === true) { // si se inserto correctamente
             enviar_correo_voluntario_confirmacion(this.props.voluntario.correo,this.props.campana[0], this.props.voluntario.nombre);
-            this.showPopUp("Voluntario registrado", 
+            this.showPopUp("Voluntario registrado",
                 "¡Felicidades!\n\nAcabás de hacer una solicitud de registro en el voluntariado.\nSi el administrador del voluntariado te acepta vas a ser notificado.\nVas a recibir notificaciones por el email: " + this.props.voluntario.correo);
         } else { // Error al insertar
-            this.showPopUp("Error en el registro", 
+            this.showPopUp("Error en el registro",
                 "Tuvimos un error registrandote.\n\nRevisá la información que ingresaste y vuelvé a intentar.\nSi el problema sigue recargá la página");
         }
     }
@@ -89,56 +89,66 @@ export default class KTeryCon extends Component {
     render(){
         return(
             <div className="container">
-                <div className="row"> 
-                <div className="col-6 offset-3 border border-dark text-justify">
-                {this.props.tyc}
+              <div className="row">
+                <div className="col-sm-10 text-center">
+                  <textarea
+                     id="termsAndConditions"
+                     name="termsAndConditions"
+                     value={this.props.tyc}
+                     className="form-control"
+                     rows="10"
+                     readonly/>
                 </div>
-                </div>
-                <div className="row"> 
+              </div>
+                <div className="row">
                     <div className="col-4 offset-6 text-left">
-                    <input  type="radio" 
-                            name="tyc" 
-                            value="si" 
-                            defaultChecked={this.props.voluntario.tyc==="si"} 
-                            onChange={(e) => {
-                                this.guardar_info(e);
-                                this.updateButtonContinuar_Acepta();
-                            }}/> Acepto términos y condiciones <br/>
-                    <input 
-                    type="radio" 
-                    name="tyc" 
-                    value="no" 
-                    defaultChecked={this.props.voluntario.tyc==="no"} 
-                    onChange={(e) => {
-                        this.guardar_info(e);
-                        this.updateButtonContinuar_noAcepta();
-                    }}/> No acepto <br/>
-                    <br/>
-                    <br/>
+                    <input
+                      className="checkbox"
+                      type="radio"
+                      name="tyc"
+                      value="si"
+                      defaultChecked={this.props.voluntario.tyc==="si"}
+                      onChange={(e) => {
+                          this.guardar_info(e);
+                          this.updateButtonContinuar_Acepta();
+                      }}/> Acepto términos y condiciones <br/>
+                    <input
+                      className="checkbox"
+                      type="radio"
+                      name="tyc"
+                      value="no"
+                      defaultChecked={this.props.voluntario.tyc==="no"}
+                      onChange={(e) => {
+                          this.guardar_info(e);
+                          this.updateButtonContinuar_noAcepta();
+                      }}/> No acepto
+                      <br/>
+                      <br/>
+                      <br/>
                     </div>
                 </div>
                 <div className="row">
                     <div className="col-1 offset-2">
-                        <button 
-                            className="btn btn-info" 
+                        <button
+                            className="btn btn-default"
                             data-tip data-for='btn-tooltip'
                             onClick={ this.props.anterior }
                         >
                             Anterior
-                        </button> 
+                        </button>
                     </div>
                     <ReactTooltip id='btn-tooltip' type='info' effect='solid' place="bottom">
                         <span>Regresá a la sección de documentos</span>
                     </ReactTooltip>
                     <div className="col-1 offset-6">
-                        <button 
-                            className="btn btn-success" 
+                        <button
+                            className="btn btn-success"
                             data-tip data-for='btn-tooltip2'
                             onClick={ this.registrar }
                             disabled={this.state.noAceptaTyC}
                         >
                             Confirmar
-                        </button> 
+                        </button>
                     {(this.state.listo) ? this.state.popup : void(0)}
                     </div>
                     <ReactTooltip id='btn-tooltip2' type='warning' effect='solid' place="bottom">
@@ -147,7 +157,7 @@ export default class KTeryCon extends Component {
                 </div>
                 <br/>
                 <br/>
-            </div>    
+            </div>
         );
     }
 }
