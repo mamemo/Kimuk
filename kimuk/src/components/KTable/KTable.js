@@ -13,6 +13,8 @@ export default class KTable extends Component {
   constructor(props){
     super(props);
 
+    console.log(this.props.idcampana);
+
     this.state = {
       inputValue: '',
       voluntarios: this.props.rows
@@ -68,7 +70,7 @@ export default class KTable extends Component {
       customUI: ({onClose}) => {
         return(
           <div>
-            <KModalInfo volunteerInfo={userJson}/>
+            <KModalInfo volunteerInfo={userJson} campana={this.props.idcampana}/>
 
             <div>
               <button onClick={()=>{
@@ -125,9 +127,13 @@ export default class KTable extends Component {
 
   abrirDocumentos(voluntario)
   {
-      return(
-          <KFormDocumentsBajadaVoluntario campana={{id: this.props.idcampana}} voluntario={{cedula: voluntario.Cedula}}/>
-      )
+    confirmAlert({
+      customUI: ({onClose}) => {
+        return(
+          <KFormDocumentsBajadaVoluntario campana={this.props.idcampana} voluntario={{cedula: voluntario["Cedula"]}}/>
+        );
+      }
+    });
   }
 
   updateInputValue(evt) {
