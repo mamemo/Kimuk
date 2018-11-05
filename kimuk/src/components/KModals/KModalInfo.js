@@ -6,6 +6,8 @@ export default class KModalInfo extends Component {
   constructor(props){
     super(props);
 
+
+    console.log(this.props.volunteerInfo);
     this.state = {
       estadoSolicitud: "",
 
@@ -44,6 +46,10 @@ export default class KModalInfo extends Component {
     .then((data) => this.setState({ provincias: data}));
   }
 
+
+  handleChange(event){
+    //this.setState({estadoSolicitud: event.target.value})
+  }
 
   render() {
 
@@ -157,7 +163,7 @@ export default class KModalInfo extends Component {
 
           <div className="form_field">
             <label>Dirección exacta</label>
-            <input type="text-long"/>
+            <input type="text-long" placeholder=""/>
           </div>
 
         </section>
