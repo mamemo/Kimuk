@@ -2,6 +2,25 @@ table {
     border-collapse: collapse;
     width: 100%;
   }
+  .container_modalInfoAccion {
+    display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+	justify-content: space-evenly;
+	width: 100%;
+  }
+  .item_modalInfoAccion {
+    position: center;
+  }
+
+  button.inside {
+    position: center;
+    left: 200px;
+    width: 100px;
+    color: white;
+    background: #3D8BCD;
+    border-radius: 10px;
+}
 
   table.title {
     position: relative;
@@ -53,12 +72,14 @@ table {
       display: inline;
       font-size: 15px;
       margin-left: 0.5em;
+      margin-bottom: 1em;
   }
 
   h1.hform {
       position: relative;
       display: inline;
       font-size: 15px;
+      margin-bottom: 1em;
   }
 
   #modalInput {
