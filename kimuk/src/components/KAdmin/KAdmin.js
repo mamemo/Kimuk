@@ -55,7 +55,7 @@ export default class KAdmin extends Component {
 				<div className="page_container">
 					<KInfoVoluntariado campana={this.state.campana} vis_encargados={VisualizacionEncargados(this.state.encargados)}
 					url={this.state.imgURL}/>
-					<KTable rows={this.state.voluntarios} campana={this.state.campana}/>
+					<KTable rows={this.state.voluntarios} campana={this.state.campana} idcampana={this.state.id_campana}/>
 				</div>
 			);
 		} else{

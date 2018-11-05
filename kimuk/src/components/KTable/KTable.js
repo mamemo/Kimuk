@@ -7,6 +7,7 @@ import { confirmAlert } from 'react-confirm-alert'; // Import
 import 'react-confirm-alert/src/react-confirm-alert.css' // Import css
 
 import * as volunteers from '../DB/volunteers';
+import KFormDocumentsBajadaVoluntario from "../KComponentsDocuments/KFormDocumentsBajadaVoluntario";
 
 export default class KTable extends Component {
   constructor(props){
@@ -59,7 +60,7 @@ export default class KTable extends Component {
   }
 
   updateUser(idVoluntario, llave, valor) {
-    volunteers.actualizar_voluntarios_campana(this.props.campana, idVoluntario, "Estado_solicitud", valor);
+    volunteers.actualizar_voluntarios_campana(this.props.idcampana, idVoluntario, "Estado_solicitud", valor);
   }
 
   createModal(userJson) {
@@ -112,6 +113,7 @@ export default class KTable extends Component {
                         <td>{voluntarios[i].Ocupacion}</td>
                         <td>{voluntarios[i].Fecha_registro}</td>
                         <td><button onClick={this.createModal.bind(this, voluntarios[i])}>Editar información</button></td>
+                        <td><button onClick={this.abrirDocumentos.bind(this, voluntarios[i])}>Descargar documentos</button></td>
                         <td><input type="checkbox" className="checkbox" onChange={this.handleCheck.bind(this, voluntarios[i])}/></td>
                       </tr>);
       }
@@ -120,11 +122,21 @@ export default class KTable extends Component {
     return tableBody;
   }
 
+
+  abrirDocumentos(voluntario)
+  {
+      return(
+          <KFormDocumentsBajadaVoluntario campana={{id: this.props.idcampana}} voluntario={{cedula: voluntario.Cedula}}/>
+      )
+  }
+
   updateInputValue(evt) {
     this.setState({
       inputValue: evt.target.value
     });
   }
+
+
 
   convertToCSV(objArray) {
     var array = typeof objArray != 'object' ? JSON.parse(objArray) : objArray;
