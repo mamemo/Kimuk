@@ -6,6 +6,8 @@ import KModalInfo from '../KModals/KModalInfo';
 import { confirmAlert } from 'react-confirm-alert'; // Import
 import 'react-confirm-alert/src/react-confirm-alert.css' // Import css
 
+import * as volunteers from '../DB/volunteers';
+
 export default class KTable extends Component {
   constructor(props){
     super(props);
@@ -54,6 +56,10 @@ export default class KTable extends Component {
     else if(pState == 'Aprobado para seguro'){
       return <td className="aprobado_seguro">{pState}</td>
     }
+  }
+
+  updateUser(idVoluntario, llave, valor) {
+    volunteers.actualizar_voluntarios_campana(this.props.campana, idVoluntario, "Estado_solicitud", valor);
   }
 
   createModal(userJson) {
@@ -105,7 +111,7 @@ export default class KTable extends Component {
                         <td>{voluntarios[i].Ocupacion}</td>
                         <td>{voluntarios[i].Fecha_registro}</td>
                         <td><button onClick={this.createModal.bind(this, voluntarios[i])}>Editar información</button></td>
-                        <td><input type="checkbox" className="checkbox" onChange/></td>
+                        <td><input type="checkbox" className="checkbox" onChange={this.handleCheck.bind(this, voluntarios[i])}/></td>
                       </tr>);
       }
     }
@@ -137,10 +143,7 @@ export default class KTable extends Component {
     return str;
   }
 
-  exportCSVFile(headers, items, fileTitle) {
-      if (headers) {
-          items.unshift(headers);
-      }
+  exportCSVFile(items, fileTitle) {
 
       // Convert Object to JSON
       var jsonObject = JSON.stringify(items);
@@ -231,6 +234,8 @@ export default class KTable extends Component {
           <button name="Pendientes" onClick={evt=>this.filtrarEstado(evt)}>Pendientes</button>
           <button name="Aprobados para seguro" onClick={evt=>this.filtrarEstado(evt)}>Aprobados para seguro</button>
         </div>
+
+        <button onClick={this.exportCSVFile.bind(this, this.voluntariosSeleccionados, "voluntarios")}>Descargar seleccionados</button>
 
 			</div>
     );
