@@ -9,12 +9,19 @@ export default class KModalInfo extends Component {
     console.log(this.props.volunteerInfo);
     this.state = {
       estadoSolicitud: "",
+      nombre: "",
+      primerApellido:"",
+      segundoApellido:"",
+      direccion:"",
+      cedula:"",
 
 
       provincias:"",
       cantones:"",
       distritos:"",
-      errors: {}
+      errors: {},
+
+      cambioEstado: false,
     }
     this.guardar_info=this.guardar_info.bind(this);
     this.cargar_provincias=this.cargar_provincias.bind(this);
@@ -46,8 +53,22 @@ export default class KModalInfo extends Component {
   }
 
 
-  handleChange(event){
-    //this.setState({estadoSolicitud: event.target.value})
+  handleSelectChange = (event) => {
+    this.setState({
+      estadoSolicitud: event.target.value
+    });
+
+    this.setState({
+      cambioEstado: true,
+    });
+  }
+  
+  _onFocus = function(e){
+    e.currentTarget.type = "date";
+  }
+  _onBlur = function(e){
+      e.currentTarget.type = "text";
+      e.currentTarget.placeholder = this.props.volunteerInfo.Fecha_nacimiento;
   }
 
   render() {
@@ -82,14 +103,15 @@ export default class KModalInfo extends Component {
             <div className="form_field">
               <label>Tipo de identificación</label>
               <select>
-                <option value="">Cédula de identidad</option>
-
+                <option value="" selected disabled>Tipo indentificación</option>
+                <option value="cedula_identidad">Cedula identidad</option>
+                <option value="cedula_residencia">Cedula residencia</option>
               </select>
             </div>
 
             <div className="form_field">
               <label>Identificación</label>
-              <input type="number"/>
+              <input disabled type="text" placeholder={this.props.volunteerInfo.Cedula}/>
             </div>
           </div>
 
@@ -97,14 +119,14 @@ export default class KModalInfo extends Component {
 
             <div className="form_field">
             <label>Nombre</label>
-              <input type="text" className="name_input" placeholder={this.props.volunteerInfo.Nombre}/>
+              <input type="text" className="name_input" placeholder={"".concat(this.props.volunteerInfo.Nombre, " ", this.props.volunteerInfo.Primer_apellido, " ", this.props.volunteerInfo.Segundo_apellido)}/>
             </div>
 
           </div>
 
           <div className="form_field">
             <label>Fecha de Nacimiento</label>
-            <input type="date" placeholder={this.props.volunteerInfo.Fecha_nacimiento}/>
+            <input type="date" placeholder={this.props.volunteerInfo.Fecha_nacimiento} onFocus = {this._onFocus} onBlur={this._onBlur}/>
           </div>
 
           <div className="form_field">
@@ -191,7 +213,31 @@ export default class KModalInfo extends Component {
 
         </section>
 
+        <section>
+          <div>
+            <h5>Estado Solicitud</h5>
+            <hr></hr>
+          </div>
+          <select defaultValue={this.props.volunteerInfo.Estado_solicitud} onChange={this.handleSelectChange}>
+            <option value="Pendiente">Pendiente</option>
+            <option value="Aprobado">Aprobado</option>
+            <option value="Denegado">Denegado</option>
+            <option value="Aprobado para seguro">Aprobado para seguro</option>
+          </select>
+        </section>
       </form>
+      <div>
+        <button onClick={()=>{
+          if(this.state.cambioEstado){
+            console.log(this.state.estadoSolicitud);
+            this.props.updateUser(this.props.campana, this.props.volunteerInfo.Cedula, "Estado_solicitud", this.state.estadoSolicitud);
+          }
+          this.props.onClose();
+        }}>Guardar</button>
+        <button onClick={()=>{
+          this.props.onClose();
+        }}>Cancelar</button>
+      </div>
       </div>
     )
   }
