@@ -2,7 +2,6 @@ import React, {Component} from "react";
 import * as database from "../DB/documentsAdmin";
 import "./formDocuments.css";
 import ReactTooltip from 'react-tooltip';
-import KFormPregunta from '../KFormPregunta/KFormPregunta';
 import KHeaderVoluntariado from './KHeaderVoluntariado'
 import KModalDocumentos from './KModalDocumentos';;
 
@@ -15,7 +14,7 @@ export default class KDocumentosCuerpo extends Component {
             listaDocumentosCampana: [],
             listaDocumentosRestantes: [],
             nombresDocumentos: [],
-            
+
             listaDocsMarcarTodos: [],
 
 

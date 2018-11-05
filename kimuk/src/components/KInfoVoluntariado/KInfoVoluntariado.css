@@ -1,12 +1,16 @@
-.header_container{
+.header_container {
+  margin: 5em 0 0 0;
+  padding: 5px 85px ;
   display: flex;
   flex-direction: row;
+  flex-wrap: wrap;
   justify-content: space-evenly;
+  align-items: center;
 }
 
-.info_container{
+.info_container {
+  padding: 5px;
   display: flex;
   flex-direction: column;
   flex-wrap: wrap;
 }
-

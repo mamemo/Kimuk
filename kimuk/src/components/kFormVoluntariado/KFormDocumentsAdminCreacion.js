@@ -7,6 +7,7 @@ import KHeaderVoluntariado from './KHeaderVoluntariado';
 import KModalDocumentos from './KModalDocumentos';
 import { confirmAlert } from 'react-confirm-alert';
 import 'react-confirm-alert/src/react-confirm-alert.css';
+import ReactTooltip from 'react-tooltip'
 
 
 const question = {
@@ -36,51 +37,51 @@ export default class KFormDocumentsAdminCreacion extends Component {
 
     render() {
         return (
-            <div className="container">
-                <div className="row">
-                    <KFormPregunta
-                        title={question.title}
-                        question={question.question}
-                        description={question.description} />
+          <div className="container_habilidades1">
+
+              <div className="flex-item-hab">
+
+                <div className="text-center">
+
+                  <KFormPregunta
+                      title={question.title}
+                      question={question.question}
+                      description={question.description} />
 
                 </div>
-                <div className="row">
-                    <div className="col-1 offset-2">
-                        <button
-                            id="navigationButton"
-                            className="btn btn-default btn-md"
-                            onClick={this.props.siguiente}
-                        >
-                            No
-                        </button>
-                        <button
-                            id="navigationButton"
-                            className="btn btn-default btn-md"
-                            onClick={this.props.anterior}
-                        >
-                            Anterior
-                        </button>
-                    </div>
-                    <div className="col-1 offset-6">
-                        <KModalDocumentos
 
-                        campana = {{
-                          id:this.props.campana.id,
-                          subio:this.props.campana.subio,
-                          document:this.props.campana.document,
+              </div>
 
-                            subioCod:this.props.campana.subioCod,
-                            documentCod:this.props.campana.documentCod
-                         }}
-                         siguiente = {this.props.siguiente}
-                         anterior =  {this.props.anterior}
+              <KModalDocumentos
+                campana = {{
+                    id:this.props.campana.id,
+                    subio:this.props.campana.subio,
+                    document:this.props.campana.document,
+                    subioCod:this.props.campana.subioCod,
+                    documentCod:this.props.campana.documentCod
+                 }}
+                 siguiente = {this.props.siguiente}
+                 anterior =  {this.props.anterior}
+                 handler = {this.props.handler}
+              />
 
-                         handler = {this.props.handler}
+              <div className="flex-item">
 
-                        />
-                    </div>
-                </div>
-            </div>
+                  <button
+                      id="navigationButton"
+                      className="btn btn-default btn-md"
+                      onClick={this.props.anterior}
+                      data-tip data-for='btn-tooltip2'
+                  >
+                      Anterior
+                  </button>
+                  <ReactTooltip id='btn-tooltip2' type='info' effect='solid' place="bottom">
+                      <span>Regresá a la sección de habilidades del voluntariado</span>
+                  </ReactTooltip>
+
+              </div>
+
+          </div>
         );
     }
 }

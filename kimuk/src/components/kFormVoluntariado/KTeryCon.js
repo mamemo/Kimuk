@@ -10,12 +10,12 @@ export default class KTeryCon extends Component {
     this.state = {
       haventContain: !this.hayTextoEnTyC()
     };
-    
+
     this.hayTextoEnTyC = this.hayTextoEnTyC.bind(this);
     this.updateButtonCrear = this.updateButtonCrear.bind(this);
   }
   /**
-   * Verifica si hay texto guardado en 
+   * Verifica si hay texto guardado en
    * la variable de entrada tyc
    */
   hayTextoEnTyC () {
@@ -42,22 +42,31 @@ export default class KTeryCon extends Component {
    */
    termsAndConditions() {
      return (
-       <div>
+       <div className="container-terycon">
+
          <br />
          <div className="form-group">
-          <label for="termsAndConditions"> Términos y condiciones: </label>
-          <textarea
-             id="termsAndConditions"
-             name="termsAndConditions"
-             placeholder="Agrega los términos y condiciones que posee tu voluntariado"
-             value={this.props.tyc}
-             onChange={(event) => {
-              this.props.handler(event);
-              this.updateButtonCrear(event);
-             }}
-             className="form-control"
-             rows="10" />
+
+            <label for="termsAndConditions"> Términos y condiciones: </label>
+
+            <div className="col-sm-10">
+
+              <textarea
+                 id="termsAndConditions"
+                 name="termsAndConditions"
+                 placeholder="Agrega los términos y condiciones que posee tu voluntariado"
+                 value={this.props.tyc}
+                 onChange={(event) => {
+                  this.props.handler(event);
+                  this.updateButtonCrear(event);
+                 }}
+                 className="form-control"
+                 rows="10" />
+
+            </div>
+
          </div>
+
        </div>
      );
    }

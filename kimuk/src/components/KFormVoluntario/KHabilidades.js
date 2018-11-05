@@ -8,8 +8,8 @@ export default class KHabilidades extends Component {
         super();
         this.guardar_info=this.guardar_info.bind(this);
     }
-    guardar_info(e){
-        
+
+    guardar_info(e) {
 
         if(this.props.voluntario[e.target.name].includes(e.target.value)){
             var i=this.props.voluntario[e.target.name].indexOf(e.target.value);
@@ -18,15 +18,17 @@ export default class KHabilidades extends Component {
             }else{
                 this.props.voluntario[e.target.name].splice(i,i);
             }
-                          
+
         }else{
-            this.props.voluntario[e.target.name].push(e.target.value);  
+            this.props.voluntario[e.target.name].push(e.target.value);
         }
-        
-        
+
     }
-    render(){
+
+    render() {
+
         const tab=[];
+
         if(this.props.habilidades != null) {
             let habs = this.props.habilidades;
             var nhabs = Math.ceil(this.props.habilidades.length / 2);
@@ -34,65 +36,94 @@ export default class KHabilidades extends Component {
             for (var i = 0; i < nhabs; i++) {
                 const hab = [];
                 for (var k = i * 2; k < i + 2; k++) {
-                    hab.push(<td>
-                        <div className="text-left a"><input type="checkbox" name="habilidades"
-                                                            value={this.props.habilidades[k]}
-                                                            onChange={this.guardar_info}
-                                                            defaultChecked={this.props.voluntario.habilidades.includes(this.props.habilidades[k])}/> {this.props.habilidades[k]}
-                        </div>
-                    </td>);
+                    hab.push(<div className="button button2">
+                              <input
+                                type="checkbox"
+                                name="habilidades"
+                                className="checkbox"
+                                value={this.props.habilidades[k]}
+                                onChange={this.guardar_info}
+                                defaultChecked={this.props.voluntario.habilidades.includes(this.props.habilidades[k])}/>
+                                {this.props.habilidades[k]}
+                            </div>);
                 }
-                tab.push(<tr>{hab}</tr>)
+                tab.push(hab)
             }
         }
         return(
-            <div className="container">
-                <div className="row">
-                    <div className="col">
-                        <h3>¿Qué son las habilidades?</h3>
-                        <p>Son características que queremos saber si tienes. Selecciona las que crees que van con vos.<br/>
-¡Solo queremos conocerte mejor!</p>     
-                    </div>
-                </div>
-                <div className="row">
-                    <div className="col-6 offset-3">
-                        <table>
-                            {tab}
-                        </table>
+          <div className="container_habilidades1">
 
+              <div className="flex-item-hab">
+
+                <div className="text-center">
+
+                  <div clasName="container">
+
+                    <h2> ¿Qué son las habilidades? </h2>
+
+                    <div class="form-group">
+
+                      <p>
+                        Son características que queremos saber si tienes. Selecciona las que crees que van con vos.
                         <br/>
-                        <br/>
+                        ¡Solo queremos conocerte mejor!
+                      </p>
+
                     </div>
+
+                  </div>
+
                 </div>
-                <div className="row">
-                    <div className="col-1 offset-2">
-                        <button 
-                            className="btn btn-info"
-                            data-tip data-for='btn-tooltip' 
-                            onClick={ this.props.anterior }
-                        >
-                            Anterior
-                        </button> 
-                    </div>
-                    <ReactTooltip id='btn-tooltip' type='warning' effect='solid' place="bottom">
-                        <span>Regresá a la sección de información del voluntario</span>
-                    </ReactTooltip>
-                    <div className="col-1 offset-6">
-                        <button 
-                            className="btn btn-primary"
-                            data-tip data-for='btn-tooltip2'
-                            onClick={ this.props.siguiente }
-                        >
-                            Siguiente
-                        </button> 
-                    </div>
-                    <ReactTooltip id='btn-tooltip2' type='info' effect='solid' place="right">
-                        <span>Continuá configurando tu voluntariado</span>
-                    </ReactTooltip>
+
+              </div>
+
+              <div className="flex-item-hab">
+
+                <h5 className="card-title"> Habilidades deseadas </h5>
+                <hr />
+
+                <div classname="container-hab2">
+
+                  <div className="text-left">
+                    {tab}
+                  </div>
+
                 </div>
-                <br/>
-                <br/>
-            </div>    
+
+              </div>
+
+              <div className="container_button">
+
+                  <div className="flex-item">
+                      <button
+                          className="btn btn-default"
+                          data-tip data-for='btn-tooltip'
+                          onClick={ this.props.anterior }
+                      >
+                          Anterior
+                      </button>
+                  </div>
+
+                  <ReactTooltip id='btn-tooltip' type='warning' effect='solid' place="bottom">
+                      <span>Regresá a la sección de información del voluntario</span>
+                  </ReactTooltip>
+
+                <div className="flex-item">
+                    <button
+                        className="btn btn-primary"
+                        data-tip data-for='btn-tooltip2'
+                        onClick={ this.props.siguiente }
+                    >
+                        Siguiente
+                    </button>
+                </div>
+                <ReactTooltip id='btn-tooltip2' type='info' effect='solid' place="right">
+                    <span>Continuá configurando tu voluntariado</span>
+                </ReactTooltip>
+
+              </div>
+
+          </div>
         );
     }
 }

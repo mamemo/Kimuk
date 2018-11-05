@@ -1,5 +1,6 @@
 import createFragment from "react-addons-create-fragment";
 import React from "react";
+import { FaUser, FaPhone, FaEnvelope } from 'react-icons/fa';
 
 export {InCampanasKFormVoluntario, InHabilidadesGraficasKFormVoluntario, InEcargadosKFormVoluntario,
 VisualizacionEncargados, InHabilidadesCodigosKFormVoluntario, InHabilidadesBD, InVoluntariosKFormAdmin,
@@ -15,13 +16,17 @@ function InCampanasKFormVoluntario(result) {
 }
 
 function InEcargadosKFormVoluntario(result) {
-    let in_encargados = [];
-    for(let encargado in result.Encargados) {
-        let frag = createFragment(result.Encargados[encargado]);
-        frag.unshift(encargado);
-        in_encargados.push(frag);
+    let in_encargado_general = Object.keys(result.EncargadoGeneral).map(key => {
+        return result.EncargadoGeneral[key];
+    });
+    if (result.Encargados){
+        let in_encargados = Object.keys(result.Encargados).map(key => {
+            return result.Encargados[key];
+        });
+        return in_encargado_general.concat(in_encargados);
     }
-    return in_encargados;
+
+    return in_encargado_general;
 }
 
 function InVoluntariosKFormAdmin(result) {
@@ -34,10 +39,15 @@ function InVoluntariosKFormAdmin(result) {
 
 function VisualizacionEncargados(encargados) {
     let output = [];
-    if(encargados instanceof Array) {
-        for(let index in encargados) {
-            output.push(<li>{encargados[index][3] + " " + encargados[index][1] + " - Correo: " + encargados[index][2]}</li>);
-        }
+    for(let index in encargados) {
+        output.push(<li>
+                      <FaUser />
+                      {"  " + encargados[index]["nombre"] + " " + encargados[index]["apellidos"] + " | "}
+                      <FaPhone />
+                      {"  " + encargados[index]["telefono"] + " | "}
+                      <FaEnvelope />
+                      {"  " + encargados[index]["correo_electronico"] + "  "}
+                    </li>);
     }
     return output;
 }
