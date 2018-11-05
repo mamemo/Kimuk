@@ -6,9 +6,14 @@ import KModalInfo from '../KModals/KModalInfo';
 import { confirmAlert } from 'react-confirm-alert'; // Import
 import 'react-confirm-alert/src/react-confirm-alert.css' // Import css
 
+import * as volunteers from '../DB/volunteers';
+import KFormDocumentsBajadaVoluntario from "../KComponentsDocuments/KFormDocumentsBajadaVoluntario";
+
 export default class KTable extends Component {
   constructor(props){
     super(props);
+
+    console.log(this.props.idcampana);
 
     this.state = {
       inputValue: '',
@@ -17,6 +22,8 @@ export default class KTable extends Component {
 
     this.updateInputValue = this.updateInputValue.bind(this);
     this.filtrarEstado = this.filtrarEstado.bind(this);
+
+    this.voluntariosSeleccionados = [];
   }
 
   filterItemsSearchBar = (query) => {
@@ -54,14 +61,44 @@ export default class KTable extends Component {
     }
   }
 
+  updateUser(idVoluntario, llave, valor) {
+    volunteers.actualizar_voluntarios_campana(this.props.idcampana, idVoluntario, "Estado_solicitud", valor);
+  }
+
   createModal(userJson) {
     confirmAlert({
       customUI: ({onClose}) => {
         return(
-          <KModalInfo volunteerInfo={userJson}/>
+          <div>
+            <KModalInfo volunteerInfo={userJson} campana={this.props.idcampana}/>
+
+            <div>
+              <button onClick={()=>{
+                this.updateUser();
+                onClose();
+              }}>Guardar</button>
+              <button onClick={()=>{
+                onClose();
+              }}>Cancelar</button>
+            </div>
+          </div>
+          
         );
       }
     });
+  }
+
+  handleCheck(userJson){
+    if(this.voluntariosSeleccionados.includes(userJson)){
+      this.voluntariosSeleccionados = this.voluntariosSeleccionados.filter((value, index, arr) => {
+        return value != userJson;
+      });
+    }
+    else{
+      this.voluntariosSeleccionados.push(userJson);
+    }
+
+    console.log(this.voluntariosSeleccionados);
   }
 
   createTable = () => {
@@ -78,7 +115,8 @@ export default class KTable extends Component {
                         <td>{voluntarios[i].Ocupacion}</td>
                         <td>{voluntarios[i].Fecha_registro}</td>
                         <td><button onClick={this.createModal.bind(this, voluntarios[i])}>Editar información</button></td>
-                        <td><input type="checkbox" className="checkbox"/></td>
+                        <td><button onClick={this.abrirDocumentos.bind(this, voluntarios[i])}>Descargar documentos</button></td>
+                        <td><input type="checkbox" className="checkbox" onChange={this.handleCheck.bind(this, voluntarios[i])}/></td>
                       </tr>);
       }
     }
@@ -86,11 +124,25 @@ export default class KTable extends Component {
     return tableBody;
   }
 
+
+  abrirDocumentos(voluntario)
+  {
+    confirmAlert({
+      customUI: ({onClose}) => {
+        return(
+          <KFormDocumentsBajadaVoluntario campana={this.props.idcampana} voluntario={{cedula: voluntario["Cedula"]}}/>
+        );
+      }
+    });
+  }
+
   updateInputValue(evt) {
     this.setState({
       inputValue: evt.target.value
     });
   }
+
+
 
   convertToCSV(objArray) {
     var array = typeof objArray != 'object' ? JSON.parse(objArray) : objArray;
@@ -110,10 +162,7 @@ export default class KTable extends Component {
     return str;
   }
 
-  exportCSVFile(headers, items, fileTitle) {
-      if (headers) {
-          items.unshift(headers);
-      }
+  exportCSVFile(items, fileTitle) {
 
       // Convert Object to JSON
       var jsonObject = JSON.stringify(items);
@@ -181,29 +230,34 @@ export default class KTable extends Component {
           value={this.state.inputValue} 
           onChange={evt => this.updateInputValue(evt)}
           placeholder='Buscá un voluntario por Nombre y/o Apellidos'/>
-        <table className="volunteer_table">
-          <thead>
-            <tr>
-              <th></th>
-              <th>Nombre completo</th>
-              <th>Estado</th>
-              <th>Ocupación</th>
-              <th>Fecha de registro</th>
-              <th></th>
-              <th></th>
-            </tr>
-          </thead>
-          {this.createTable()}
-        </table>
 
-        <div>
-          <button name="Aprobados" onClick={evt=>this.filtrarEstado(evt)}>Aprobados</button>
-          <button name="No Aprobados" onClick={evt=>this.filtrarEstado(evt)}>No Aprobados</button>
-          <button name="Todos" onClick={evt=>this.filtrarEstado(evt)}>Todos</button>
-          <button name="Selección" onClick={evt=>this.filtrarEstado(evt)}>Selección</button>
-          <button name="Pendientes" onClick={evt=>this.filtrarEstado(evt)}>Pendientes</button>
-          <button name="Aprobados para seguro" onClick={evt=>this.filtrarEstado(evt)}>Aprobados para seguro</button>
+        <div className="table_container">
+          <table className="volunteer_table">
+            <thead>
+              <tr>
+                <th></th>
+                <th>Nombre completo</th>
+                <th>Estado</th>
+                <th>Ocupación</th>
+                <th>Fecha de registro</th>
+                <th></th>
+                <th></th>
+              </tr>
+            </thead>
+            {this.createTable()}
+          </table>
+
+          <div className="filter_container">
+            <button name="Aprobados" onClick={evt=>this.filtrarEstado(evt)}>Aprobados</button>
+            <button name="No Aprobados" onClick={evt=>this.filtrarEstado(evt)}>No Aprobados</button>
+            <button name="Todos" onClick={evt=>this.filtrarEstado(evt)}>Todos</button>
+            <button name="Selección" onClick={evt=>this.filtrarEstado(evt)}>Selección</button>
+            <button name="Pendientes" onClick={evt=>this.filtrarEstado(evt)}>Pendientes</button>
+            <button name="Aprobados para seguro" onClick={evt=>this.filtrarEstado(evt)}>Aprobados para seguro</button>
+          </div>
         </div>
+
+        <button onClick={this.exportCSVFile.bind(this, this.voluntariosSeleccionados, "voluntarios")}>Descargar seleccionados</button>
 
 			</div>
     );
