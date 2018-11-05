@@ -8,11 +8,15 @@ import KTeryCon from './KTeryCon';
 import {leer_campanas} from "../DB/campaigns";
 import {InCampanasKFormVoluntario, InHabilidadesGraficasKFormVoluntario, InEcargadosKFormVoluntario,
     VisualizacionEncargados, InHabilidadesCodigosKFormVoluntario} from '../DB/add-onns';
+import KInfoVoluntariado from '../KInfoVoluntariado/KInfoVoluntariado';
+import moment from 'moment';
+import * as database from "../DB/documentsAdmin";
+import KFormDocumentsSubidaVoluntario from "../KComponentsDocuments/KFormDocumentsSubidaVoluntario";
 
 export default class KFormVoluntario extends Component {
 
-    constructor(){
-        super();
+    constructor(props){
+        super(props);
         // TODO: Cuando se vaya a abrir esto, pasar el id de la campaña -> this.Id_campana = props.Id_campana;
         this.state = {
             step: 1,
@@ -21,7 +25,7 @@ export default class KFormVoluntario extends Component {
             nombre: "",
             apellido_1: "",
             apellido_2: "",
-            f_nacimiento: "",
+            f_nacimiento: moment(),
             genero: "",
             estado_civil: "",
             ocupacion: "",
@@ -38,14 +42,15 @@ export default class KFormVoluntario extends Component {
             campana: {},
             encargados: {},
             campana_habilidades_graficas: {},
-            Id_campana: 7812303  // props.Id_campana
+            Id_campana: props.url,
+            imgURL: ""
         };
         this.siguiente=this.siguiente.bind(this);
         this.anterior=this.anterior.bind(this);
         this.obtener_datos=this.obtener_datos.bind(this);
     }
     obtener_datos(){
-        leer_campanas(7812303).then((data) => this.setState({datos:data}))
+        leer_campanas(this.state.Id_campana).then((data) => this.setState({datos:data}))
         //console.log(this.state.datos)
         this.dato=this.state.datos;
 
@@ -63,48 +68,45 @@ export default class KFormVoluntario extends Component {
 
     componentDidMount(){
         leer_campanas(this.state.Id_campana).then(result =>  {
-            let in_campana = InCampanasKFormVoluntario(result);
-            let in_encargados = InEcargadosKFormVoluntario(result);
-            let in_campana_habilidades_graficas = InHabilidadesGraficasKFormVoluntario(result);
-            this.setState( {
-                campana: in_campana,
-                encargados: in_encargados,
-                campana_habilidades_graficas: in_campana_habilidades_graficas
-            });
+            if (result){
+                let in_campana = InCampanasKFormVoluntario(result);
+                let in_encargados = InEcargadosKFormVoluntario(result);
+                let in_campana_habilidades_graficas = InHabilidadesGraficasKFormVoluntario(result);
+                this.setState( {
+                    campana: in_campana,
+                    encargados: in_encargados,
+                    campana_habilidades_graficas: in_campana_habilidades_graficas
+                });
+
+                database.leer_url_documento_campana(this.state.Id_campana, "Foto").then(result => {
+                    this.setState({
+                        imgURL: result
+                    });
+                })
+
+
+            } else {
+                window.location.href = "http://localhost:3000";
+            }
         });
     }
 
     render(){
       let pasos;
-        const info=<div className="container text-left">
-            <div className="row" >
-                <div className="col-4">
-                    <img src="" />
-                </div>
-                <div className="col-8">
-                    <h3>{this.state.campana[7]}</h3>
-                    Organizado por:
-                    <ul>{VisualizacionEncargados(this.state.encargados)}</ul>
-                    <h5>{this.state.campana[0]}</h5>
-                    {this.state.campana[1]} {this.state.campana[3]} <br/>
-                    {this.state.campana[6]} <br/>
-                    <hr/>
-                    {this.state.campana[0]} <br/><br/>
-                </div>
-            </div>
-        </div>;
+        const info=<KInfoVoluntariado campana={this.state.campana} vis_encargados={VisualizacionEncargados(this.state.encargados)}
+                                      url={this.state.imgURL}/>;
 
         switch(this.state.step){
             case 1:
                 pasos=
-                    <div>
-                        <ul class="list-group-horizontal">
-                            <li class="list-group-item active">Informacion del voluntariado</li>
-                            <li class="list-group-item">Habilidades</li>
-                            <li class="list-group-item">Documentos</li>
-                            <li class="list-group-item">Terminos y condiciones</li>
-                        </ul>
-                    </div>;
+                  <div className="step-progressBar">
+                      <ul className="progressbar">
+                          <li className="active">Información del voluntariado</li>
+                            <li>Habilidades</li>
+                            <li>Documentos</li>
+                            <li>Términos y condiciones</li>
+                      </ul>
+                  </div>;
                 return (<div className="container text-center" >
                     <div>
                         <br/>
@@ -116,12 +118,12 @@ export default class KFormVoluntario extends Component {
                 </div>);
             case 2:
                 pasos=
-                    <div>
-                        <ul class="list-group-horizontal">
-                            <li class="list-group-item active">Informacion del voluntariado</li>
-                            <li class="list-group-item active">Habilidades</li>
-                            <li class="list-group-item">Documentos</li>
-                            <li class="list-group-item">Terminos y condiciones</li>
+                    <div className="step-progressBar">
+                        <ul className="progressbar">
+                            <li className="active">Información del voluntariado</li>
+                            <li className="active">Habilidades</li>
+                            <li>Documentos</li>
+                            <li>Términos y condiciones</li>
                         </ul>
                     </div>;
                 return (<div className="container text-center" >
@@ -135,12 +137,12 @@ export default class KFormVoluntario extends Component {
                 </div>);
             case 3:
                 pasos=
-                    <div>
-                        <ul class="list-group-horizontal">
-                            <li class="list-group-item active">Informacion del voluntariado</li>
-                            <li class="list-group-item active">Habilidades</li>
-                            <li class="list-group-item active">Documentos</li>
-                            <li class="list-group-item">Terminos y condiciones</li>
+                    <div className="step-progressBar">
+                        <ul className="progressbar">
+                            <li className="active">Información del voluntariado</li>
+                            <li className="active">Habilidades</li>
+                            <li className="active">Documentos</li>
+                            <li>Términos y condiciones</li>
                         </ul>
                     </div>;
                 return (<div className="container text-center" >
@@ -150,16 +152,18 @@ export default class KFormVoluntario extends Component {
                         {info}
                         {pasos}
                     </div>
-                    <KDocumentos  anterior={this.anterior} siguiente={this.siguiente}/>
+                    <KFormDocumentsSubidaVoluntario campana={{id: this.state.Id_campana}} voluntario={{cedula: "116760644"}}
+                                                    anterior={this.anterior} siguiente={this.siguiente}/>
+
                 </div>);
             case 4:
                 pasos=
-                    <div>
-                        <ul class="list-group-horizontal">
-                            <li class="list-group-item active">Informacion del voluntariado</li>
-                            <li class="list-group-item active">Habilidades</li>
-                            <li class="list-group-item active">Documentos</li>
-                            <li class="list-group-item active">Terminos y condiciones</li>
+                    <div className="step-progressBar">
+                        <ul className="progressbar">
+                            <li className="active">Información del voluntariado</li>
+                            <li className="active">Habilidades</li>
+                            <li className="active">Documentos</li>
+                            <li className="active">Términos y condiciones</li>
                         </ul>
                     </div>;
                 return (<div className="container text-center" >
@@ -169,7 +173,7 @@ export default class KFormVoluntario extends Component {
                         {info}
                         {pasos}
                     </div>
-                    <KTeryCon voluntario={this.state} tyc={this.state.campana[9]} anterior={this.anterior} siguiente={this.siguiente}/>
+                    <KTeryCon voluntario={this.state} campana={this.state.campana} tyc={this.state.campana[5]} anterior={this.anterior} siguiente={this.siguiente}/>
                 </div>)
 
         }

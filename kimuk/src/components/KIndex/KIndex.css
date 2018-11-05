@@ -1,3 +1,52 @@
-.index{
+.index {
+    margin-top: 10%;
     height: 500px;
+  }
+  
+  #div-btn-crear-voluntariado {
+    margin-top: 5em;
+  }
+  
+  #quote {
+    font-family: "Times New Roman", Times, serif;
+  }
+  
+  #quote-h3 {
+    font-style: italic;
+  }
+
+  img.bg {
+  /* Set rules to fill background */
+  min-height: 100%;
+  min-width: 1024px;
+	
+  /* Set up proportionate scaling */
+  width: 100%;
+  height: auto;
+	
+  /* Set up positioning */
+  position: fixed;
+  top: 0;
+  left: 0;
+}
+
+@media screen and (max-width: 1024px) { /* Specific to this particular image */
+  img.bg {
+    left: 50%;
+    margin-left: -512px;   /* 50% */
+  }
+}
+
+div.imgFondo {
+  background-image: url("../../media/Fondo index-Size for web(1920x1080).png");
+  background-size: cover;
+  
+  /* Set up positioning */
+  position: fixed;
+  top: auto;
+  left: auto;
+	
+  /* Set up proportionate scaling */
+  width: 100%;
+  height: 100%;
 }

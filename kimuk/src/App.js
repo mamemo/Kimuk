@@ -11,12 +11,12 @@ import {base} from "./base"; // This import MUST remain here, DO NOT DELETE
 
 
 class App extends Component {
-  
+
   constructor(){
     super();
     this.state ={
         link:1
-    }
+    };
     this.ir=this.ir.bind(this);
   }
   ir(nlink){
@@ -24,23 +24,19 @@ class App extends Component {
         link:nlink
     });
   }
-/*
-http://localhost:3000/voluntariado
-http://localhost:3000/voluntario
-http://localhost:3000/info
-http://localhost:3000/admin
-http://localhost:3000/contacto
-*/
+
+
   render() {
-    const url=window.location.href.split("/")
-    console.log(url);
-    switch (url[3]) {
+    const url=window.location.href.split("/");
+    const len=url.length-1;
+    switch (url[len]) {
       case "":
         return (
           <div className="App">
             <KNav ir={this.ir}/>
             <KIndex/>
           </div>);
+      
       case "voluntariado":
         return (
           <div className="App">
@@ -48,18 +44,14 @@ http://localhost:3000/contacto
             <KFormVoluntariado/>
           </div>
         );
-      case "voluntario":
-        return (
-          <div className="App">
-            <KNav ir={this.ir}/>
-            <KFormVoluntario/>
-          </div>
-        );
+      
+    }
+    switch (url[len-1]) {   
       case "admin":
         return (
           <div className="App">
             <KNav ir={this.ir}/>
-            <KAdmin/>
+            <KAdmin url = {url[len]}/>
           </div>
         );
       case "contacto":
@@ -76,8 +68,23 @@ http://localhost:3000/contacto
             <KInfo/>
           </div>
         );
-    }  
-    
+      case "voluntario":
+        return (
+          <div className="App">
+            <KNav ir={this.ir}/>
+            <KFormVoluntario url = {url[len]}/>
+          </div>
+        );
+
+      default:
+        return (
+          <div className="App">
+            <KNav ir={this.ir}/>
+            <KIndex/>
+          </div>);
+    }
+
+
   }
 }
 

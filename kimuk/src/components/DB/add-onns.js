@@ -2,21 +2,16 @@ import createFragment from "react-addons-create-fragment";
 import React from "react";
 
 export {InCampanasKFormVoluntario, InHabilidadesGraficasKFormVoluntario, InEcargadosKFormVoluntario,
-VisualizacionEncargados, InHabilidadesCodigosKFormVoluntario, InHabilidadesBD, InVoluntariosKFormAdmin}
+VisualizacionEncargados, InHabilidadesCodigosKFormVoluntario, InHabilidadesBD, InVoluntariosKFormAdmin,
+InDocumentosBD}
 
 function InCampanasKFormVoluntario(result) {
-    return createFragment({
-        Descripcion: result.Descripcion,
-        Fecha_ejecucion: result.Fecha_ejecucion,
-        Fecha_limite: result.Fecha_limite,
-        Hora: result.Hora,
-        Limite_registro: result.Limite_registro,
-        Limite_voluntarios: result.Limite_voluntarios,
-        Lugar: result.Lugar,
-        Nombre: result.Nombre,
-        Formacion_academica: result.formacion_academica,
-        Terminos_condiciones: result.terminos_condiciones
+    let keys = ["Nombre", "Fecha_ejecucion", "Hora", "Lugar", "Descripcion", "terminos_condiciones"];
+    let content = [];
+    keys.forEach(k => {
+        content.push(result[k]);
     });
+    return content;
 }
 
 function InEcargadosKFormVoluntario(result) {
@@ -31,10 +26,9 @@ function InEcargadosKFormVoluntario(result) {
 
 function InVoluntariosKFormAdmin(result) {
     let content = Object.keys(result.Voluntarios).map(key => {
+        result.Voluntarios[key]["Cedula"] = key;
         return result.Voluntarios[key];
     });
-
-    console.log(content);
     return content;
 }
 
@@ -67,7 +61,15 @@ function InHabilidadesCodigosKFormVoluntario(result)
 function InHabilidadesBD(result) {
     let nombresHabilidades = [];
     for(let k in result){
-        nombresHabilidades.push(result[k].Nombre);      
+        nombresHabilidades.push(result[k].Nombre);
     }
     return nombresHabilidades;
+}
+
+function InDocumentosBD(result) {
+    let documents = [];
+    for(let k in result){
+        documents.push(result[k]);
+    }
+    return documents;
 }

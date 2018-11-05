@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import './KFormVoluntario.css';
 import '../style/color.css';
+import ReactTooltip from 'react-tooltip';
 
 export default class KHabilidades extends Component {
     constructor(){
@@ -25,9 +26,24 @@ export default class KHabilidades extends Component {
         
     }
     render(){
-        const hab=[];
-        for(var k in this.props.habilidades){
-            hab.push( <div className="text-left"><input type="checkbox" name="habilidades" value={this.props.habilidades[k]} onChange={this.guardar_info} defaultChecked={this.props.voluntario.habilidades.includes(this.props.habilidades[k])}/> {this.props.habilidades[k]}</div> );
+        const tab=[];
+        if(this.props.habilidades != null) {
+            let habs = this.props.habilidades;
+            var nhabs = Math.ceil(this.props.habilidades.length / 2);
+
+            for (var i = 0; i < nhabs; i++) {
+                const hab = [];
+                for (var k = i * 2; k < i + 2; k++) {
+                    hab.push(<td>
+                        <div className="text-left a"><input type="checkbox" name="habilidades"
+                                                            value={this.props.habilidades[k]}
+                                                            onChange={this.guardar_info}
+                                                            defaultChecked={this.props.voluntario.habilidades.includes(this.props.habilidades[k])}/> {this.props.habilidades[k]}
+                        </div>
+                    </td>);
+                }
+                tab.push(<tr>{hab}</tr>)
+            }
         }
         return(
             <div className="container">
@@ -39,19 +55,40 @@ export default class KHabilidades extends Component {
                     </div>
                 </div>
                 <div className="row">
-                    <div className="col-6 offset-3">  
-                        {hab}
+                    <div className="col-6 offset-3">
+                        <table>
+                            {tab}
+                        </table>
+
                         <br/>
-                        <br/>  
+                        <br/>
                     </div>
                 </div>
                 <div className="row">
                     <div className="col-1 offset-2">
-                        <button className="btn btn-info" onClick={ this.props.anterior }>anterior</button> 
+                        <button 
+                            className="btn btn-info"
+                            data-tip data-for='btn-tooltip' 
+                            onClick={ this.props.anterior }
+                        >
+                            Anterior
+                        </button> 
                     </div>
+                    <ReactTooltip id='btn-tooltip' type='warning' effect='solid' place="bottom">
+                        <span>Regresá a la sección de información del voluntario</span>
+                    </ReactTooltip>
                     <div className="col-1 offset-6">
-                        <button className="btn btn-primary" onClick={ this.props.siguiente }>continuar</button> 
+                        <button 
+                            className="btn btn-primary"
+                            data-tip data-for='btn-tooltip2'
+                            onClick={ this.props.siguiente }
+                        >
+                            Siguiente
+                        </button> 
                     </div>
+                    <ReactTooltip id='btn-tooltip2' type='info' effect='solid' place="right">
+                        <span>Continuá configurando tu voluntariado</span>
+                    </ReactTooltip>
                 </div>
                 <br/>
                 <br/>
