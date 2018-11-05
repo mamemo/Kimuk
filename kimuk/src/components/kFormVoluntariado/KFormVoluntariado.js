@@ -400,9 +400,9 @@ export default class KFormVoluntariado extends Component {
                 </div>;
                 return (<div className="container" >
                             <div>
-                            <br/>
-                            <h2 className="text-left">Crear voluntariado</h2>
-                            {pasos}
+                                <br/>
+                                <h2 className="text-left">Crear voluntariado</h2>
+                                {pasos}
                             </div>
                             <div className="relative">
                               <div className="absolute">
@@ -439,9 +439,9 @@ export default class KFormVoluntariado extends Component {
                 </div>;
                 return (<div className="container" >
                             <div>
-                            <br/>
-                            <h2 className="text-left">Crear voluntariado</h2>
-                            {pasos}
+                                <br/>
+                                <h2 className="text-left">Crear voluntariado</h2>
+                                {pasos}
                             </div>
                             <div className="relative">
                               <div className="absolute">
