@@ -71,6 +71,7 @@ export default class KTable extends Component {
 
             <div>
               <button onClick={()=>{
+                this.updateUser();
                 onClose();
               }}>Guardar</button>
               <button onClick={()=>{
@@ -211,28 +212,31 @@ export default class KTable extends Component {
           value={this.state.inputValue} 
           onChange={evt => this.updateInputValue(evt)}
           placeholder='Buscá un voluntario por Nombre y/o Apellidos'/>
-        <table className="volunteer_table">
-          <thead>
-            <tr>
-              <th></th>
-              <th>Nombre completo</th>
-              <th>Estado</th>
-              <th>Ocupación</th>
-              <th>Fecha de registro</th>
-              <th></th>
-              <th></th>
-            </tr>
-          </thead>
-          {this.createTable()}
-        </table>
 
-        <div>
-          <button name="Aprobados" onClick={evt=>this.filtrarEstado(evt)}>Aprobados</button>
-          <button name="No Aprobados" onClick={evt=>this.filtrarEstado(evt)}>No Aprobados</button>
-          <button name="Todos" onClick={evt=>this.filtrarEstado(evt)}>Todos</button>
-          <button name="Selección" onClick={evt=>this.filtrarEstado(evt)}>Selección</button>
-          <button name="Pendientes" onClick={evt=>this.filtrarEstado(evt)}>Pendientes</button>
-          <button name="Aprobados para seguro" onClick={evt=>this.filtrarEstado(evt)}>Aprobados para seguro</button>
+        <div className="table_container">
+          <table className="volunteer_table">
+            <thead>
+              <tr>
+                <th></th>
+                <th>Nombre completo</th>
+                <th>Estado</th>
+                <th>Ocupación</th>
+                <th>Fecha de registro</th>
+                <th></th>
+                <th></th>
+              </tr>
+            </thead>
+            {this.createTable()}
+          </table>
+
+          <div className="filter_container">
+            <button name="Aprobados" onClick={evt=>this.filtrarEstado(evt)}>Aprobados</button>
+            <button name="No Aprobados" onClick={evt=>this.filtrarEstado(evt)}>No Aprobados</button>
+            <button name="Todos" onClick={evt=>this.filtrarEstado(evt)}>Todos</button>
+            <button name="Selección" onClick={evt=>this.filtrarEstado(evt)}>Selección</button>
+            <button name="Pendientes" onClick={evt=>this.filtrarEstado(evt)}>Pendientes</button>
+            <button name="Aprobados para seguro" onClick={evt=>this.filtrarEstado(evt)}>Aprobados para seguro</button>
+          </div>
         </div>
 
         <button onClick={this.exportCSVFile.bind(this, this.voluntariosSeleccionados, "voluntarios")}>Descargar seleccionados</button>

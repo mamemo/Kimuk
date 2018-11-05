@@ -26,6 +26,7 @@ function InEcargadosKFormVoluntario(result) {
 
 function InVoluntariosKFormAdmin(result) {
     let content = Object.keys(result.Voluntarios).map(key => {
+        result.Voluntarios[key]["Cedula"] = key;
         return result.Voluntarios[key];
     });
     return content;
