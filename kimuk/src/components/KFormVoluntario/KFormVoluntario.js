@@ -19,7 +19,7 @@ export default class KFormVoluntario extends Component {
         super(props);
         // TODO: Cuando se vaya a abrir esto, pasar el id de la campaña -> this.Id_campana = props.Id_campana;
         this.state = {
-            step: 1,
+            step: 3,
             tipo_id: "",
             id: "",
             nombre: "",
@@ -163,17 +163,20 @@ export default class KFormVoluntario extends Component {
                             <li>Términos y condiciones</li>
                         </ul>
                     </div>;
-                return (<div className="container text-center" >
+                return (<div className="container" >
                     <div>
                         <br/>
-                        <h2>Registro de voluntario</h2>
-                        {info}
+                        <h2 className="text-left">Registro de voluntario</h2>
                         {pasos}
                     </div>
-                    <KFormDocumentsSubidaVoluntario campana={{id: this.state.Id_campana}} voluntario={{cedula: "116760644"}}
-                                                    anterior={this.anterior} siguiente={this.siguiente}/>
-
-                </div>)
+                    <div className="relative">
+                        <div className="absolute">
+                            {info}
+                            <KFormDocumentsSubidaVoluntario campana={{id: this.state.Id_campana}} voluntario={{cedula: "116760644"}}
+                                                            anterior={this.anterior} siguiente={this.siguiente}/>
+                        </div>
+                    </div>
+                </div>);
             case 4:
                 pasos=
                     <div className="step-progressBar">
@@ -184,14 +187,19 @@ export default class KFormVoluntario extends Component {
                             <li className="active">Términos y condiciones</li>
                         </ul>
                     </div>;
-                return (<div className="container text-center" >
+                return (<div className="container" >
                     <div>
                         <br/>
-                        <h2>Registro de voluntario</h2>
-                        {info}
+                        <h2 className="text-left">Registro de voluntario</h2>
                         {pasos}
                     </div>
-                    <KTeryCon voluntario={this.state} campana={this.state.campana} tyc={this.state.campana[5]} anterior={this.anterior} siguiente={this.siguiente}/>
+                    <div className="relative">
+                        <div className="absolute">
+                            {info}
+                            <KTeryCon voluntario={this.state} campana={this.state.campana} tyc={this.state.campana[5]} anterior={this.anterior} siguiente={this.siguiente}/>
+                        </div>
+                    </div>
+
                 </div>)
 
         }
