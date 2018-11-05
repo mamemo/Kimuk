@@ -1,14 +1,71 @@
-import React, { Component } from 'react'
-
+import React, { Component } from 'react';
 import './KModalInfo.css';
 
 export default class KModalInfo extends Component {
   constructor(props){
     super(props);
 
+
     console.log(this.props.volunteerInfo);
+    this.state = {
+      estadoSolicitud: "",
+
+
+      provincias:"",
+      cantones:"",
+      distritos:"",
+      errors: {}
+    }
+    this.guardar_info=this.guardar_info.bind(this);
+    this.cargar_provincias=this.cargar_provincias.bind(this);
   }
+
+  guardar_info(e){
+    if(e.target.name==="provincia"){
+        
+        fetch("https://ubicaciones.paginasweb.cr/provincia/"+e.target.value+"/cantones.json")
+        .then((resp) => resp.json())
+        .then((data) => this.setState({ cantones: data }))
+        this.props.voluntario.canton="";
+        this.props.voluntario.distrito="";
+        this.render();
+    }
+    if(e.target.name==="canton"){
+        fetch("https://ubicaciones.paginasweb.cr/provincia/"+this.props.voluntario.provincia+"/canton/"+e.target.value+"/distritos.json")
+        .then((resp) => resp.json())
+        .then((data) => this.setState({ distritos: data }))
+        this.render();
+    }
+    this.props.voluntario[e.target.name]=e.target.value;
+  }
+
+  cargar_provincias(){
+    fetch("https://ubicaciones.paginasweb.cr/provincias.json")
+    .then((resp) => resp.json())
+    .then((data) => this.setState({ provincias: data}));
+  }
+
+
+  handleChange(event){
+    //this.setState({estadoSolicitud: event.target.value})
+  }
+
   render() {
+
+    this.cargar_provincias();
+    const p= [];
+    const c= [];
+    const d= [];
+    for(var k in this.state.provincias){
+        p.push( <option value={k} >{this.state.provincias[k]}</option>);
+    }
+    for(var k in this.state.cantones){
+        c.push( <option value={k} >{this.state.cantones[k]}</option>);
+    }
+    for(var k in this.state.distritos){
+        d.push( <option value={k} >{this.state.distritos[k]}</option>);
+    }
+
     return (
 
       <div className="container-form">
@@ -62,7 +119,7 @@ export default class KModalInfo extends Component {
 
           <div className="form_field">
             <label>Estado civil</label>
-            <select>
+            <select onChange={this.setState(this.handleChange)}>
               <option>Casado</option>
               <option>Soltero</option>
             </select>
@@ -81,28 +138,31 @@ export default class KModalInfo extends Component {
             <div className="form_field">
               <label>Provincia</label>
               <select>
-                <option>San José</option>
+              <option value="" selected disabled>Provincia</option> 
+                {p}
               </select>
             </div>
 
             <div className="form_field">
               <label>Cantón</label>
               <select>
-                <option>San José</option>
+              <option value="" selected disabled>Canton</option>
+                {c}
               </select>
             </div>
 
             <div className="form_field">
               <label>Distrito</label>
               <select>
-                <option>San José</option>
+              <option value="" selected disabled>Distrito</option>
+                {d}
               </select>
             </div>
           </div>
 
           <div className="form_field">
             <label>Dirección exacta</label>
-            <input type="text-long"/>
+            <input type="text-long" placeholder=""/>
           </div>
 
         </section>
@@ -132,11 +192,6 @@ export default class KModalInfo extends Component {
         </section>
 
       </form>
-
-      <div className="btn_group">
-          <button>Guardar</button>
-          <button>Cancelar</button>
-      </div>
       </div>
     )
   }
