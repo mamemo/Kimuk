@@ -17,7 +17,8 @@ export default class KTable extends Component {
 
     this.state = {
       inputValue: '',
-      voluntarios: this.props.rows
+      voluntarios: this.props.rows,
+      id_campana: this.props.idcampana,
     };
 
     this.updateInputValue = this.updateInputValue.bind(this);
@@ -61,8 +62,8 @@ export default class KTable extends Component {
     }
   }
 
-  updateUser(idVoluntario, llave, valor) {
-    volunteers.actualizar_voluntarios_campana(this.props.idcampana, idVoluntario, "Estado_solicitud", valor);
+  updateUser(idCampana, idVoluntario, llave, valor) {
+    volunteers.actualizar_voluntarios_campana(idCampana, idVoluntario, llave, valor);
   }
 
   createModal(userJson) {
@@ -70,17 +71,7 @@ export default class KTable extends Component {
       customUI: ({onClose}) => {
         return(
           <div>
-            <KModalInfo volunteerInfo={userJson} campana={this.props.idcampana}/>
-
-            <div>
-              <button onClick={()=>{
-                this.updateUser();
-                onClose();
-              }}>Guardar</button>
-              <button onClick={()=>{
-                onClose();
-              }}>Cancelar</button>
-            </div>
+            <KModalInfo volunteerInfo={userJson} campana={this.props.idcampana} updateUser={this.updateUser} onClose={onClose}/>
           </div>
           
         );
@@ -97,8 +88,6 @@ export default class KTable extends Component {
     else{
       this.voluntariosSeleccionados.push(userJson);
     }
-
-    console.log(this.voluntariosSeleccionados);
   }
 
   createTable = () => {
@@ -251,7 +240,6 @@ export default class KTable extends Component {
             <button name="Aprobados" onClick={evt=>this.filtrarEstado(evt)}>Aprobados</button>
             <button name="No Aprobados" onClick={evt=>this.filtrarEstado(evt)}>No Aprobados</button>
             <button name="Todos" onClick={evt=>this.filtrarEstado(evt)}>Todos</button>
-            <button name="Selección" onClick={evt=>this.filtrarEstado(evt)}>Selección</button>
             <button name="Pendientes" onClick={evt=>this.filtrarEstado(evt)}>Pendientes</button>
             <button name="Aprobados para seguro" onClick={evt=>this.filtrarEstado(evt)}>Aprobados para seguro</button>
           </div>
