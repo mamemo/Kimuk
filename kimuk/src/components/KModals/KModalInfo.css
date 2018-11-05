@@ -8,7 +8,6 @@
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
-  overflow: scroll;
   width: 100%;
   height: 100%;
   justify-content: space-around;
@@ -53,6 +52,7 @@
   width: 100%;
   align-content: space-between;
 }
+
 
 .btn_group {
   display: flex;
