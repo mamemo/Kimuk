@@ -393,9 +393,14 @@ export default class KInfoVoluntariado extends Component {
               className="form-control"
               value={this.props.campana.name}
               onChange={this.props.handler}
+              data-tip data-for='name-tooltip'
             />
 
           </div>
+
+          <ReactTooltip id='name-tooltip' type='info' effect='solid'>
+            <span>Ingrese nombre completo.</span>
+          </ReactTooltip>
 
           <div className="errorMsg">{this.state.errors.name}</div>
 
@@ -421,9 +426,14 @@ export default class KInfoVoluntariado extends Component {
               className="form-control"
               value={this.props.campana.lastname}
               onChange={this.props.handler}
+              data-tip data-for='lastname-tooltip'
             />
 
           </div>
+
+          <ReactTooltip id='lastname-tooltip' type='info' effect='solid'>
+            <span>Ingrese uno o los dos apellidos.</span>
+          </ReactTooltip>
 
           <div className="errorMsg">{this.state.errors.lastname}</div>
 
@@ -453,7 +463,7 @@ export default class KInfoVoluntariado extends Component {
             />
 
             <ReactTooltip id='email-tooltip' type='info' effect='solid'>
-              <span>ejemplo@kimuk.com</span>
+              <span>Ingrese correo electrónico válido: ejemplo@kimuk.com</span>
             </ReactTooltip>
 
           </div>
@@ -486,7 +496,11 @@ export default class KInfoVoluntariado extends Component {
             />
 
             <ReactTooltip id='tel-tooltip' type='info' effect='solid'>
-              <span>Digite el número de teléfono sin espacios en blanco ni guiones.</span>
+              <span>
+                Digite el número de teléfono sin espacios en blanco ni guiones:
+                <br />
+                88888888
+              </span>
             </ReactTooltip>
 
           </div>
@@ -522,7 +536,7 @@ export default class KInfoVoluntariado extends Component {
               <button
                 id="navigationButton"
                 className="btn btn-primary btn-md"
-                onClick={ this.submitDataRegistrationForm }
+                onClick={ this.props.siguiente }
                 data-tip data-for='btn-tooltip'> Siguiente
               </button>
               <ReactTooltip id='btn-tooltip' type='warning' effect='solid'>

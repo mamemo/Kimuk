@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import './KAdmin.css';
 import '../style/color.css';
-import KInfoVoluntariado from '../KInfoVoluntariado/KInfoVoluntariado';
 import {leer_campanas} from "../DB/campaigns";
 import {InCampanasKFormVoluntario, InEcargadosKFormVoluntario, InVoluntariosKFormAdmin, VisualizacionEncargados} from "../DB/add-onns";
 import KTable from '../KTable/KTable';
 import * as database from "../DB/documentsAdmin";
+import KInfoVoluntariado from '../KInfoVoluntariado/KInfoVoluntariado';
 
 export default class KAdmin extends Component {
 
@@ -19,7 +19,7 @@ export default class KAdmin extends Component {
 						voluntarios : {},
 						imgURL: ""
 					};
-		
+
 	}
 
 
@@ -49,7 +49,7 @@ export default class KAdmin extends Component {
 		});
 	}
 
-	render() {		
+	render() {
 		if(this.state.campana != null){
 			return (
 				<div className="page_container">
@@ -61,7 +61,7 @@ export default class KAdmin extends Component {
 		} else{
 			return (
 				<div className="page_container">
-				
+
 				</div>
 			);
 		}

@@ -56,9 +56,6 @@ export default class KHeaderVoluntariado extends Component {
 
               </label>
 
-
-              <progress className={"tres"} max={100} id={"barimg"}>0%</progress>
-
               <input
                 className="form-control input-lg"
                 type={this.state.inputType}
@@ -95,6 +92,9 @@ export default class KHeaderVoluntariado extends Component {
             Campo Obligatorio
           </span>
         </ReactTooltip>
+
+        <progress max={100} id={"barimg"}>0%</progress>
+        
       </div>
     );
   }

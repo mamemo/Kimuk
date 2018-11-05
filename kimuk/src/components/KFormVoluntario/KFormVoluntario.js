@@ -49,6 +49,7 @@ export default class KFormVoluntario extends Component {
         this.anterior=this.anterior.bind(this);
         this.obtener_datos=this.obtener_datos.bind(this);
     }
+
     obtener_datos(){
         leer_campanas(this.state.Id_campana).then((data) => this.setState({datos:data}))
         //console.log(this.state.datos)
@@ -92,8 +93,10 @@ export default class KFormVoluntario extends Component {
     }
 
     render(){
+      console.log(this.state.encargados);
       let pasos;
-        const info=<KInfoVoluntariado campana={this.state.campana} vis_encargados={VisualizacionEncargados(this.state.encargados)}
+        const info=<KInfoVoluntariado campana={this.state.campana}
+                                      vis_encargados={VisualizacionEncargados(this.state.encargados)}
                                       url={this.state.imgURL}/>;
 
         switch(this.state.step){
@@ -107,15 +110,22 @@ export default class KFormVoluntario extends Component {
                             <li>Términos y condiciones</li>
                       </ul>
                   </div>;
-                return (<div className="container text-center" >
-                    <div>
-                        <br/>
-                        <h2>Registro de voluntario</h2>
-                        {info}
-                        {pasos}
-                    </div>
-                    <KInfoVoluntario voluntario={this.state} anterior={this.anterior} siguiente={this.siguiente}/>
-                </div>);
+                return (<div className="container" >
+                          <div>
+                            <br/>
+                            <h2 className="text-left">Registro de Voluntario</h2>
+                            {pasos}
+                          </div>
+                            <div className="relative">
+                              <div className="absolute">
+                                {info}
+                                <KInfoVoluntario
+                                  voluntario={this.state}
+                                  anterior={this.anterior}
+                                  siguiente={this.siguiente}/>
+                              </div>
+                            </div>
+                        </div>)
             case 2:
                 pasos=
                     <div className="step-progressBar">
@@ -126,15 +136,23 @@ export default class KFormVoluntario extends Component {
                             <li>Términos y condiciones</li>
                         </ul>
                     </div>;
-                return (<div className="container text-center" >
-                    <div>
-                        <br/>
-                        <h2>Registro de voluntario</h2>
-                        {info}
-                        {pasos}
-                    </div>
-                    <KHabilidades voluntario={this.state} habilidades={this.state.campana_habilidades_graficas} anterior={this.anterior} siguiente={this.siguiente}/>
-                </div>);
+                return (<div className="container" >
+                          <div>
+                            <br/>
+                            <h2 className="text-left">Registro de Voluntario</h2>
+                            {pasos}
+                          </div>
+                            <div className="relative">
+                              <div className="absolute">
+                                {info}
+                                <KHabilidades
+                                  voluntario={this.state}
+                                  habilidades={this.state.campana_habilidades_graficas}
+                                  anterior={this.anterior}
+                                  siguiente={this.siguiente}/>
+                              </div>
+                            </div>
+                        </div>)
             case 3:
                 pasos=
                     <div className="step-progressBar">
@@ -155,7 +173,7 @@ export default class KFormVoluntario extends Component {
                     <KFormDocumentsSubidaVoluntario campana={{id: this.state.Id_campana}} voluntario={{cedula: "116760644"}}
                                                     anterior={this.anterior} siguiente={this.siguiente}/>
 
-                </div>);
+                </div>)
             case 4:
                 pasos=
                     <div className="step-progressBar">
