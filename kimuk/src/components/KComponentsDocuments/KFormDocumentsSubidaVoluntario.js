@@ -407,10 +407,10 @@ export default class KFormDocumentsSubidaVoluntario extends Component {
                 </div>
                 <div className="row">
                     <div className="col-1 offset-2">
-                        <button className="btn btn-info" onClick={ this.props.anterior }>anterior</button>
+                        <button className="btn btn-default" onClick={ this.props.anterior }>Anterior</button>
                     </div>
                     <div className="col-1 offset-6">
-                        <button className="btn btn-primary" onClick={ this.props.siguiente }>continuar</button>
+                        <button className="btn btn-primary" onClick={ this.props.siguiente }>Siguiente</button>
                     </div>
                     <br/>
                     <br/>

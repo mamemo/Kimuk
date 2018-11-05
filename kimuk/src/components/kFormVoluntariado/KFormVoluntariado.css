@@ -196,6 +196,7 @@ label {
   height: 20px;
   width: 20px;
   background-color: #eee;
+  border-radius: 6px;
 }
 
 /* On mouse-over, add a grey background color */

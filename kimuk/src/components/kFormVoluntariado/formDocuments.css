@@ -137,3 +137,16 @@ progress.dos {
     left: 1%;
     bottom: 30pt;
 }
+
+.SeleccionDocumentos{
+  width:500px;
+  float: left;
+}
+
+.marcarbuttom{
+  float: left;
+}
+
+.tablasDocumentos{
+  clear: both;
+}
