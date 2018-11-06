@@ -175,6 +175,10 @@ export default class KFormDocumentsSubidaVoluntario extends Component {
     }
     onChangeFileUploadButtonVoluntario(e) {
         try {
+            if (e.target.files[0].size > 500000){
+                alert("Error\nEl archivo supera los 50MB, por favor suba un archivo por debajo de 50MB");
+                return;
+            }
             const tipoDocumento = e.target.accessKey;
             const nombreArchivo = e.target.files[0].name;
             const idCampana = this.props.campana.id;
