@@ -10,6 +10,18 @@ progress {
     bottom: 30pt;
 }
 
+progress.especial {
+    width: 20%;
+    background-color: #f3f3f3;
+    border: 0;
+    height: 18px;
+    border-radius: 9px;
+
+    position: relative;
+    left: -4%;
+    bottom: 30pt;
+}
+
 table{
     border: none;
     margin-left: auto;
