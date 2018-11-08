@@ -19,7 +19,7 @@ export default class KFormVoluntario extends Component {
         super(props);
         // TODO: Cuando se vaya a abrir esto, pasar el id de la campaña -> this.Id_campana = props.Id_campana;
         this.state = {
-            step: 1,
+            step: 3,
             tipo_id: "",
             id: "",
             nombre: "",

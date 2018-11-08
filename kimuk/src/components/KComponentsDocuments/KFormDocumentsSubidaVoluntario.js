@@ -6,10 +6,13 @@ import "./formDocumentsSubida.css";
 import {insertar_actualizar_beneficiaros, insertar_actualizar_contacto_emergencia_voluntario} from "../DB/volunteers";
 
 
-let cedulaBen1 = "";
-let nombreBen1 = "";
-let parentescoBen1 = "";
-let porcentajeBen1 = "";
+/*
+Estas variables contienen la informacion de los beneficiarios
+ */
+let cedulaBen1 = ""; // Cedula
+let nombreBen1 = ""; // Nombre
+let parentescoBen1 = ""; // Parentesco
+let porcentajeBen1 = ""; // Porcentaje
 
 let cedulaBen2 = "";
 let nombreBen2 = "";
@@ -22,13 +25,22 @@ let nombreBen3 = "";
 let parentescoBen3 = "";
 let porcentajeBen3 = "";
 
-let aviso = "";
-let parentescoAviso = "";
-let telefono = "";
+/*
+Estas variables contienen la informacion del contacto de emergencia
+ */
+let nombreContacto = ""; // Nombre
+let parentescoContacto = ""; // Parentesco
+let telefonoContacto = ""; // Telefono
 
 
 export default class KFormDocumentsSubidaVoluntario extends Component {
 
+    /*
+    Informacion del state:
+        - listaDocumentosCampana: contiene el jsx de cada documento
+        - codigo, poliza, emergencia: son valores booleanos que pasan a ser true cuando se solicita
+                                      el codigo de conducta, la poliza de seguro y el contacto de emergencia
+     */
     constructor(props)
     {
         super(props);
@@ -43,6 +55,13 @@ export default class KFormDocumentsSubidaVoluntario extends Component {
         this.emergenciaOnClick = this.emergenciaOnClick.bind(this);
     }
 
+    /*
+    Muestra los documentos de la campaña. Los consulta en la BD y crea el jsx de cada uno.
+    Crea jsx especiales para el codigo de conducta y la poliza del seguro.
+    Se puede visualizar codigo repetido al final, esto es porque se tuvo que hacer así debido a que
+    javascript ejecuta codigo de manera asincrona y esa fue una solucion para lograr meter
+    el jsx de los documenotos a la lista listaDocumentosCampana del state
+     */
     componentDidMount(){
         database.leer_documentos_campana(this.props.campana.id).then(result => {
             let documentos = result;
@@ -78,7 +97,6 @@ export default class KFormDocumentsSubidaVoluntario extends Component {
                                            onChange={KFormDocumentsSubidaVoluntario.onchangeCheckBox}/>
                                     <label className={"lbldoc"}>&nbsp;&nbsp;{documentos[k]}
                                         <input type="file" name={k} id={"file" + consecutivo} className="uploadbutton"
-                                               accessKey={documentos[k]}
                                                disabled={true}
                                                onChange={this.onChangeFileUploadButtonVoluntario}/>
                                         <label htmlFor={"file" + consecutivo}>Adjuntar</label>
@@ -96,41 +114,13 @@ export default class KFormDocumentsSubidaVoluntario extends Component {
             if(poliza)
             {
                 database.leer_url_documento_campana(this.props.campana.id, "Póliza de seguro").then(result => {
-                    listaDocumentosCampana.push(
-                    <div className={"containerdoc"}>
-                        <input className={"checkdoc"} type={"checkbox"} name={"Póliza de seguro"} id={consecutivo}
-                               onChange={KFormDocumentsSubidaVoluntario.onchangeCheckBox}/>
-                        <label className={"lbldoc"}>&nbsp;&nbsp;Póliza de seguro
-                            <a href={result} target="_blank">
-                                <input type="button" name={"down"} id={"file" + consecutivo} className="uploadbutton"
-                                       disabled={true}/>
-                                <label htmlFor={"file" + consecutivo}>Descargar</label>
-                            </a>
-                        </label>
-                        <br/>     <br/>
-                    </div>
-                    );
-                    consecutivo += 1;
+                    listaDocumentosCampana.push(this.jsxPoliza(consecutivo, result));
+                    consecutivo += 2;
                     if(codigo)
                     {
                         database.leer_url_documento_campana(this.props.campana.id, "Código de conducta").then(result => {
-                            listaDocumentosCampana.push(
-                                <div className={"containerdoc"}>
-                                    <input className={"checkdoc"} type={"checkbox"} name={"Código de conducta"}
-                                           id={consecutivo}
-                                           onChange={KFormDocumentsSubidaVoluntario.onchangeCheckBox}/>
-                                    <label className={"lbldoc"}>&nbsp;&nbsp;Código de conducta
-                                        <a href={result} target="_blank">
-                                            <input type="button" name={"down"} id={"file" + consecutivo}
-                                                   className="uploadbutton"
-                                                   disabled={true}/>
-                                            <label htmlFor={"file" + consecutivo}>Descargar</label>
-                                        </a>
-                                    </label>
-                                    <br/>     <br/>
-                                </div>
-                            );
-                            consecutivo += 1;
+                            listaDocumentosCampana.push(this.jsxCodigo(consecutivo, result));
+                            consecutivo += 2;
                             this.setState({
                                 listaDocumentosCampana: listaDocumentosCampana,
                             })
@@ -144,23 +134,8 @@ export default class KFormDocumentsSubidaVoluntario extends Component {
             } else {
                 if (codigo) {
                     database.leer_url_documento_campana(this.props.campana.id, "Código de conducta").then(result => {
-                        listaDocumentosCampana.push(
-                            <div className={"containerdoc"}>
-                                <input className={"checkdoc"} type={"checkbox"} name={"Código de conducta"}
-                                       id={consecutivo}
-                                       onChange={KFormDocumentsSubidaVoluntario.onchangeCheckBox}/>
-                                <label className={"lbldoc"}>&nbsp;&nbsp;Código de conducta
-                                    <a href={result} target="_blank">
-                                        <input type="button" name={"down"} id={"file" + consecutivo}
-                                               className="uploadbutton"
-                                               disabled={true}/>
-                                        <label htmlFor={"file" + consecutivo}>Descargar</label>
-                                    </a>
-                                </label>
-                                <br/>     <br/>
-                            </div>
-                        );
-                        consecutivo += 1;
+                        listaDocumentosCampana.push(this.jsxCodigo(consecutivo, result));
+                        consecutivo += 2;
                         this.setState({
                             listaDocumentosCampana: listaDocumentosCampana,
                         })
@@ -173,13 +148,73 @@ export default class KFormDocumentsSubidaVoluntario extends Component {
             }
         });
     }
+
+    /*
+     Devuelve el jsx del documento poliza de seguro
+      */
+    jsxPoliza(consecutivo, result) {
+        return (
+            <div className={"containerdoc"}>
+                <input className={"checkdoc"} type={"checkbox"} name={"Póliza de seguro"} id={(consecutivo + 1)}
+                       onChange={KFormDocumentsSubidaVoluntario.onchangeCheckBox}/>
+                <label className={"lbldoc"}>&nbsp;&nbsp;Póliza de seguro
+                    <a href={result} target="_blank">
+                        <input type="button" name={"down"} id={"file" + consecutivo} className="uploadbutton"
+                        />
+                        <label htmlFor={"file" + consecutivo}>Descargar</label>
+                    </a>
+                    <input type="file" name={"Póliza de seguro"} id={"file" + (consecutivo + 1)} className="uploadbutton"
+                           disabled={true}
+                           onChange={this.onChangeFileUploadButtonVoluntario}/>
+                    <label htmlFor={"file" + (consecutivo + 1)}>Adjuntar</label>
+                </label>
+                <label className={"docname"} id={"name" + "Póliza de seguro"}>&nbsp;</label>
+                <br/>
+                <progress max={100} className={"especial"} value={0} id={"bar" + "Póliza de seguro"}>0%</progress>
+                <br/>
+            </div>
+        );
+    }
+
+    /*
+     Devuelve el jsc del documento codigo de conducta
+      */
+    jsxCodigo(consecutivo, result) {
+        return(
+            <div className={"containerdoc"}>
+                <input className={"checkdoc"} type={"checkbox"} name={"Código de conducta"} id={(consecutivo + 1)}
+                       onChange={KFormDocumentsSubidaVoluntario.onchangeCheckBox}/>
+                <label className={"lbldoc"}>&nbsp;&nbsp;Código de conducta
+                    <a href={result} target="_blank">
+                        <input type="button" name={"down"} id={"file" + consecutivo} className="uploadbutton"
+                        />
+                        <label htmlFor={"file" + consecutivo}>Descargar</label>
+                    </a>
+                    <input type="file" name={"Código de conducta"} id={"file" + (consecutivo + 1)} className="uploadbutton"
+                           disabled={true}
+                           onChange={this.onChangeFileUploadButtonVoluntario}/>
+                    <label htmlFor={"file" + (consecutivo + 1)}>Adjuntar</label>
+                </label>
+                <label className={"docname"} id={"name" + "Código de conducta"}>&nbsp;</label>
+                <br/>
+                <progress max={100} className={"especial"} value={0} id={"bar" + "Código de conducta"}>0%</progress>
+                <br/>
+            </div>
+        )
+    }
+
+    /*
+    Este metodo es accionado por el boton de adjuntar.
+    Lo que hace es subir a la base de datos el documento seleccionado.
+    El documento tiene un limitante de 50MB
+     */
     onChangeFileUploadButtonVoluntario(e) {
         try {
             if (e.target.files[0].size > 500000){
                 alert("Error\nEl archivo supera los 50MB, por favor suba un archivo por debajo de 50MB");
                 return;
             }
-            const tipoDocumento = e.target.accessKey;
+            const tipoDocumento = e.target.name;
             const nombreArchivo = e.target.files[0].name;
             const idCampana = this.props.campana.id;
             const voluntarioCedula = this.props.voluntario.cedula;
@@ -191,18 +226,18 @@ export default class KFormDocumentsSubidaVoluntario extends Component {
             const task =  databaseVoluntario.insertar_documento_storage_voluntario(idCampana, voluntarioCedula,
                 tipoDocumento, e.target.files[0]);
             const progressBar = document.getElementById("bar" + e.target.name);
-            document.getElementById("name" + e.target.name).innerHTML = e.target.files[0].name;  // File name label
+            document.getElementById("name" + e.target.name).innerHTML = e.target.files[0].name;  // Se coloca en el label adjunto el nombre del archivo
             task.on('state_changed',
 
-                function progress(snapshot) {  // Update progress bar
+                function progress(snapshot) {  // Este metodo actualiza la barra de progreso
                     progressBar.value = 100 * (snapshot.bytesTransferred / snapshot.totalBytes);
                 },
 
-                function error(err) { // possible errors
+                function error(err) { // En caso de algun error se va a alertar
                     alert("Error\n" + err.message + "\nPor favor suba el archivo nuevamente.");
                 },
 
-                function complete() { // Lets me know when the file has been uploaded
+                function complete() { // Avisa cuando el documento se subio y crea el URL de descarga para el.
                     databaseVoluntario.insertar_url_nombre_documento_voluntario(idCampana, voluntarioCedula, tipoDocumento, nombreArchivo);
                 }
             );
@@ -211,6 +246,10 @@ export default class KFormDocumentsSubidaVoluntario extends Component {
         }
     }
 
+    /*
+    Al darle click al checkbox se ejecuta este metodo.
+    Lo que hace es habilitar el boton de adjuntar respectivo.
+     */
     static onchangeCheckBox(e) {
         try {
             const button = document.getElementById("file" + e.target.id);
@@ -219,6 +258,10 @@ export default class KFormDocumentsSubidaVoluntario extends Component {
 
         }
     }
+
+    /*
+    Este metodo guarda en las variables de arriba la informacion ingresada del beneficiario 1
+     */
     static guardar_info_Ben1(e){
         switch(e.target.name)
         {
@@ -236,6 +279,10 @@ export default class KFormDocumentsSubidaVoluntario extends Component {
                 break;
         }
     }
+
+    /*
+    Este metodo guarda en las variables de arriba la informacion ingresada del beneficiario 2
+     */
     static guardar_info_Ben2(e){
         switch(e.target.name)
         {
@@ -253,6 +300,10 @@ export default class KFormDocumentsSubidaVoluntario extends Component {
                 break;
         }
     }
+
+    /*
+    Este metodo guarda en las variables de arriba la informacion ingresada del beneficiario 3
+     */
     static guardar_info_Ben3(e){
         switch(e.target.name)
         {
@@ -270,16 +321,20 @@ export default class KFormDocumentsSubidaVoluntario extends Component {
                 break;
         }
     }
+
+    /*
+    Este metodo guarda en las variables de arriba la informacion ingresada del contacto de emergencia
+     */
     static guardar_info_emergencia(e){
         switch (e.target.name) {
             case "Nombre":
-                aviso = e.target.value;
+                nombreContacto = e.target.value;
                 break;
             case "Parentesco":
-                parentescoAviso = e.target.value;
+                parentescoContacto = e.target.value;
                 break;
             case "Telefono":
-                telefono = e.target.value;
+                telefonoContacto = e.target.value;
                 break;
             default:
                 break;
@@ -287,12 +342,12 @@ export default class KFormDocumentsSubidaVoluntario extends Component {
     }
 
 
-    // TODO -> Validaciones y CSS
-
-    beneficarioOnClick(e)
-    {
-        // TODO -> Validaciones
-
+    // TODO -> Validaciones y CSS de beneficiarios
+    /*
+    Este metodo se ejecuta al oprimir el boton de aceptar al lado de la informacion de un beneficiaro.
+    Manda a guardar la informacion de los beneficiarios que se encuentra en las variables al inicio.
+     */
+    beneficarioOnClick(e) {
         switch (e.target.name) {
             case "ben1":
                 if(cedulaBen1)
@@ -316,16 +371,19 @@ export default class KFormDocumentsSubidaVoluntario extends Component {
                 break;
         }
     }
+
     emergenciaOnClick(e)
     {
         insertar_actualizar_contacto_emergencia_voluntario(this.props.campana.id, this.props.voluntario.cedula,
-            aviso, parentescoAviso, telefono
+            nombreContacto, parentescoContacto, telefonoContacto
             );
     }
 
+    /*
+    Devuelve el jsx de los beneficiarios
+     */
     mostrarBeneficiarios(){
         return (
-
             <div>
                 <table className="title">
                     <tr>
@@ -377,6 +435,10 @@ export default class KFormDocumentsSubidaVoluntario extends Component {
             </div>
         );
     }
+
+    /*
+    Devuelve el jsx del contacto de emergencia
+     */
     mostrarContactoEmergencia() {
         return(
           <div>
@@ -396,6 +458,8 @@ export default class KFormDocumentsSubidaVoluntario extends Component {
     }
 
     render() {
+        // 472 -> si hay poliza entonces muestre los beneficiarios
+        // 474 -> si hay contacto de emergencia entonces muestre el contacto de emergencia
         return (
             <div className="container text-center">
                 <br/>
@@ -421,7 +485,6 @@ export default class KFormDocumentsSubidaVoluntario extends Component {
                     <br/>
                     <br/>
                 </div>
-
             </div>
         );
     }
