@@ -1,3 +1,22 @@
-select{
+select {
     display:inline-block
+}
+
+.ben_div {
+  margin-bottom: 1em;
+}
+
+.ben_btn {
+  margin-left: 1em;
+  float: right;
+}
+
+.ben_btn1 {
+  margin-top: 1em;
+  float: left;
+  width: 100%;
+}
+
+.containerdoc {
+  margin-top: 1em;
 }

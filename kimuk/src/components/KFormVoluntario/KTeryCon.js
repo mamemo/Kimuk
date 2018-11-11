@@ -12,6 +12,8 @@ import {
     enviar_correo_voluntario_aceptado
   } from '../kEmail/KEmail';
 
+import { FaLongArrowAltLeft, FaCheck} from 'react-icons/fa';
+
 export default class KTeryCon extends Component {
     constructor(props){
         super(props);
@@ -87,77 +89,80 @@ export default class KTeryCon extends Component {
     }
 
     render(){
-        return(
-            <div className="container">
-              <div className="row">
-                <div className="col-sm-10 text-center">
-                  <textarea
-                     id="termsAndConditions"
-                     name="termsAndConditions"
-                     value={this.props.tyc}
-                     className="form-control"
-                     rows="10"
-                     readonly/>
+        return(<div className="container_term">
+                <div className="container-terycon">
+                  <div className="flex-item-hab">
+                    <h2> Términos y condiciones </h2>
+                    <br/>
+                    <div className="text-center">
+                      <div clasName="container">
+
+                        <textarea
+                           id="termsAndConditions"
+                           name="termsAndConditions"
+                           value={this.props.tyc}
+                           className="form-control"
+                           rows="10"
+                           readonly/>
+                      </div>
+                    </div>
+                    <div className="tyc_div">
+                      <input
+                        className="checkbox"
+                        type="radio"
+                        name="tyc"
+                        value="si"
+                        defaultChecked={this.props.voluntario.tyc==="si"}
+                        onChange={(e) => {
+                            this.guardar_info(e);
+                            this.updateButtonContinuar_Acepta();
+                        }}/> Acepto términos y condiciones <br/>
+                      <input
+                        className="checkbox"
+                        type="radio"
+                        name="tyc"
+                        value="no"
+                        defaultChecked={this.props.voluntario.tyc==="no"}
+                        onChange={(e) => {
+                            this.guardar_info(e);
+                            this.updateButtonContinuar_noAcepta();
+                        }}/> No acepto
+                    </div>
+                  </div>
+                  <div className="row">
+                      <div className="col-1 offset-2">
+                          <button
+                              className="btn btn-default"
+                              data-tip data-for='btn-tooltip'
+                              onClick={ this.props.anterior }
+                          >
+                            <FaLongArrowAltLeft/>
+                            Anterior
+                          </button>
+                      </div>
+                      <ReactTooltip id='btn-tooltip' type='warning' effect='solid' place="top">
+                          <span>Regresá a la sección de documentos.</span>
+                      </ReactTooltip>
+                      <div className="col-1 offset-6">
+                          <button
+                              className="btn btn-success"
+                              data-tip data-for='btn-tooltip2'
+                              onClick={ this.registrar }
+                              disabled={this.state.noAceptaTyC}
+                          >
+                            <FaCheck/>
+                            Confirmar
+                          </button>
+                      {(this.state.listo) ? this.state.popup : void(0)}
+                      </div>
+                      <ReactTooltip id='btn-tooltip2' type='success' effect='solid' place="top">
+                          <span>Confirmar la inscripción en la campaña.</span>
+                      </ReactTooltip>
+                  </div>
+                  <br/>
+                  <br/>
                 </div>
               </div>
-                <div className="row">
-                    <div className="col-4 offset-6 text-left">
-                    <input
-                      className="checkbox"
-                      type="radio"
-                      name="tyc"
-                      value="si"
-                      defaultChecked={this.props.voluntario.tyc==="si"}
-                      onChange={(e) => {
-                          this.guardar_info(e);
-                          this.updateButtonContinuar_Acepta();
-                      }}/> Acepto términos y condiciones <br/>
-                    <input
-                      className="checkbox"
-                      type="radio"
-                      name="tyc"
-                      value="no"
-                      defaultChecked={this.props.voluntario.tyc==="no"}
-                      onChange={(e) => {
-                          this.guardar_info(e);
-                          this.updateButtonContinuar_noAcepta();
-                      }}/> No acepto
-                      <br/>
-                      <br/>
-                      <br/>
-                    </div>
-                </div>
-                <div className="row">
-                    <div className="col-1 offset-2">
-                        <button
-                            className="btn btn-default"
-                            data-tip data-for='btn-tooltip'
-                            onClick={ this.props.anterior }
-                        >
-                            Anterior
-                        </button>
-                    </div>
-                    <ReactTooltip id='btn-tooltip' type='info' effect='solid' place="bottom">
-                        <span>Regresá a la sección de documentos</span>
-                    </ReactTooltip>
-                    <div className="col-1 offset-6">
-                        <button
-                            className="btn btn-success"
-                            data-tip data-for='btn-tooltip2'
-                            onClick={ this.registrar }
-                            disabled={this.state.noAceptaTyC}
-                        >
-                            Confirmar
-                        </button>
-                    {(this.state.listo) ? this.state.popup : void(0)}
-                    </div>
-                    <ReactTooltip id='btn-tooltip2' type='warning' effect='solid' place="bottom">
-                        <span>Termina la inscripición</span>
-                    </ReactTooltip>
-                </div>
-                <br/>
-                <br/>
-            </div>
         );
     }
 }

@@ -114,7 +114,7 @@ export default class KModalDocumentos extends Component {
                   >
                       Aceptar
                   </button>
-                  <ReactTooltip id='btn-tooltip-Aceptar' type='info' effect='solid' place="right">
+                  <ReactTooltip id='btn-tooltip-Aceptar' type='info' effect='solid' place="top">
                       <span>Guardá tus documentos y continuá configurando tu voluntariado</span>
                   </ReactTooltip>
                 </div>
@@ -128,10 +128,9 @@ export default class KModalDocumentos extends Component {
                       Cancelar
                   </button>
                   <ReactTooltip id='btn-tooltip-CancelarBtn' type='warning' effect='solid' place="top">
-                      <span>Descartá todos los documentos seleccionadas</span>
+                      <span>Descartá todos los documentos seleccionados</span>
                   </ReactTooltip>
                 </div>
-
              </div>
 
           </Modal>

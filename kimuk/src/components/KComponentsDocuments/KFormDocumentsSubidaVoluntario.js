@@ -4,7 +4,8 @@ import * as databaseVoluntario from "../DB/documentsVolunteer";
 import * as database from "../DB/documentsAdmin";
 import "./formDocumentsSubida.css";
 import {insertar_actualizar_beneficiaros, insertar_actualizar_contacto_emergencia_voluntario} from "../DB/volunteers";
-
+import ReactTooltip from 'react-tooltip';
+import { FaLongArrowAltRight, FaLongArrowAltLeft, FaDownload } from 'react-icons/fa';
 
 /*
 Estas variables contienen la informacion de los beneficiarios
@@ -69,6 +70,7 @@ export default class KFormDocumentsSubidaVoluntario extends Component {
             let consecutivo = 0;
             let poliza = false;
             let codigo = false;
+
             for(let k in documentos) {
                 if(documentos[k] !== "Foto") {
                     if(documentos[k] === "Aviso en caso de emergencia")
@@ -99,11 +101,14 @@ export default class KFormDocumentsSubidaVoluntario extends Component {
                                         <input type="file" name={k} id={"file" + consecutivo} className="uploadbutton"
                                                disabled={true}
                                                onChange={this.onChangeFileUploadButtonVoluntario}/>
-                                        <label htmlFor={"file" + consecutivo}>Adjuntar</label>
+                                        <label htmlFor={"file" + consecutivo} data-tip data-for='upload-tooltip'>Adjuntar</label>
                                     </label>
                                     <label className={"docname"} id={"name" + k.toString()}>&nbsp;</label>
                                     <br/>
                                     <progress max={100} value={0} id={"bar" + k.toString()}>0%</progress>
+                                    <ReactTooltip id='upload-tooltip' type='info' effect='solid' place="top">
+                                        <span>Adjuntá el documento solicitado.</span>
+                                    </ReactTooltip>
                                 </div>
                             );
                         }
@@ -154,25 +159,26 @@ export default class KFormDocumentsSubidaVoluntario extends Component {
       */
     jsxPoliza(consecutivo, result) {
         return (
-            <div className={"containerdoc"}>
-                <input className={"checkdoc"} type={"checkbox"} name={"Póliza de seguro"} id={(consecutivo + 1)}
-                       onChange={KFormDocumentsSubidaVoluntario.onchangeCheckBox}/>
-                <label className={"lbldoc"}>&nbsp;&nbsp;Póliza de seguro
-                    <a href={result} target="_blank">
-                        <input type="button" name={"down"} id={"file" + consecutivo} className="uploadbutton"
-                        />
-                        <label htmlFor={"file" + consecutivo}>Descargar</label>
-                    </a>
-                    <input type="file" name={"Póliza de seguro"} id={"file" + (consecutivo + 1)} className="uploadbutton"
-                           disabled={true}
-                           onChange={this.onChangeFileUploadButtonVoluntario}/>
-                    <label htmlFor={"file" + (consecutivo + 1)}>Adjuntar</label>
-                </label>
-                <label className={"docname"} id={"name" + "Póliza de seguro"}>&nbsp;</label>
-                <br/>
-                <progress max={100} className={"especial"} value={0} id={"bar" + "Póliza de seguro"}>0%</progress>
-                <br/>
+          <div class="card">
+            <div class="card-header">
+              Póliza de seguro
+              <a href={result} target="_blank">
+                  <input type="button" name={"down"} id={"file" + consecutivo} className="uploadbutton"
+                  />
+                  <label htmlFor={"file" + consecutivo} data-tip data-for='download-tooltip'> Descargar <FaDownload/> </label>
+              </a>
             </div>
+            <div class="card-body">
+              <div className={"containerdoc"}>
+                {this.mostrarBeneficiarios()}
+              </div>
+            </div>
+            <ReactTooltip id='download-tooltip' type='info' effect='solid' place="top">
+                <span>Descargá el documento.</span>
+            </ReactTooltip>
+
+          </div>
+
         );
     }
 
@@ -182,23 +188,20 @@ export default class KFormDocumentsSubidaVoluntario extends Component {
     jsxCodigo(consecutivo, result) {
         return(
             <div className={"containerdoc"}>
-                <input className={"checkdoc"} type={"checkbox"} name={"Código de conducta"} id={(consecutivo + 1)}
-                       onChange={KFormDocumentsSubidaVoluntario.onchangeCheckBox}/>
                 <label className={"lbldoc"}>&nbsp;&nbsp;Código de conducta
                     <a href={result} target="_blank">
                         <input type="button" name={"down"} id={"file" + consecutivo} className="uploadbutton"
                         />
-                        <label htmlFor={"file" + consecutivo}>Descargar</label>
+                        <label htmlFor={"file" + consecutivo} data-tip data-for='download-tooltip'>Descargar <FaDownload/></label>
                     </a>
-                    <input type="file" name={"Código de conducta"} id={"file" + (consecutivo + 1)} className="uploadbutton"
-                           disabled={true}
-                           onChange={this.onChangeFileUploadButtonVoluntario}/>
-                    <label htmlFor={"file" + (consecutivo + 1)}>Adjuntar</label>
                 </label>
                 <label className={"docname"} id={"name" + "Código de conducta"}>&nbsp;</label>
                 <br/>
                 <progress max={100} className={"especial"} value={0} id={"bar" + "Código de conducta"}>0%</progress>
                 <br/>
+                <ReactTooltip id='download-tooltip' type='info' effect='solid' place="top">
+                    <span>Descargá el documento.</span>
+                </ReactTooltip>
             </div>
         )
     }
@@ -385,53 +388,140 @@ export default class KFormDocumentsSubidaVoluntario extends Component {
     mostrarBeneficiarios(){
         return (
             <div>
-                <table className="title">
-                    <tr>
-                        <label>Beneficiario 1:</label>
-                        <input type={"text"} placeholder={"Cedula"} name={"Cedula"} onChange={KFormDocumentsSubidaVoluntario.guardar_info_Ben1}/>
-                        <input type={"text"} placeholder={"Nombre"} name={"Nombre"} onChange={KFormDocumentsSubidaVoluntario.guardar_info_Ben1}/>
-                        <select name={"Parentesco"} onChange={KFormDocumentsSubidaVoluntario.guardar_info_Ben1}>
-                            <option value="" selected disabled hidden>Parentesco</option>
-                            <option value="Padre">Padre</option>
-                            <option value="Madre">Madre</option>
-                            <option value="Conyugue">Conyugue</option>
-                            <option value="Otro">Otro</option>
-                        </select>
-                        <input type="number" name="Porcentaje" min="1" max="100" onChange={KFormDocumentsSubidaVoluntario.guardar_info_Ben1}/>
-                        <button name={"ben1"} onClick={this.beneficarioOnClick}>Aceptar</button>
-                    </tr>
+                <div className="ben_div">
+                <label>Beneficiario 1:
+                <select data-tip data-for='par-tooltip' name={"Parentesco"} onChange={KFormDocumentsSubidaVoluntario.guardar_info_Ben1}>
+                    <option value="" selected disabled hidden>Parentesco</option>
+                    <option value="Padre">Padre</option>
+                    <option value="Madre">Madre</option>
+                    <option value="Cónyugue">Cónyugue</option>
+                    <option value="Otro">Otro</option>
+                </select>
+                </label>
+                <br/>
+                <input
+                  type={"text"}
+                  placeholder={"Cédula"}
+                  name={"Cedula"}
+                  onChange={KFormDocumentsSubidaVoluntario.guardar_info_Ben1}/>
+                <input
+                  type={"text"}
+                  placeholder={"Nombre completo"}
+                  name={"Nombre"}
+                  onChange={KFormDocumentsSubidaVoluntario.guardar_info_Ben1}/>
+                <input
+                  type="number"
+                  name="Porcentaje"
+                  min="1"
+                  max="100"
+                  placeholder={" % "}
+                  data-tip data-for='perc-tooltip'
+                  onChange={KFormDocumentsSubidaVoluntario.guardar_info_Ben1}/>
 
-                    <tr>
-                        <label>Beneficiario 2:</label>
-                        <input type={"text"} placeholder={"Cedula"} name={"Cedula"} onChange={KFormDocumentsSubidaVoluntario.guardar_info_Ben2}/>
-                        <input type={"text"} placeholder={"Nombre"} name={"Nombre"} onChange={KFormDocumentsSubidaVoluntario.guardar_info_Ben2}/>
-                        <select name={"Parentesco"} onChange={KFormDocumentsSubidaVoluntario.guardar_info_Ben1}>
-                            <option value="" selected disabled hidden>Parentesco</option>
-                            <option value="Padre">Padre</option>
-                            <option value="Madre">Madre</option>
-                            <option value="Conyugue">Conyugue</option>
-                            <option value="Otro">Otro</option>
-                        </select>
-                        <input type="number" name="Porcentaje" min="1" max="100" onChange={KFormDocumentsSubidaVoluntario.guardar_info_Ben2}/>
-                        <button name={"ben2"} onClick={this.beneficarioOnClick}>Aceptar</button>
-                    </tr>
+                <div className="ben_btn">
+                  <button
+                    className="btn btn-info"
+                    name={"ben1"}
+                    data-tip data-for='ben-tooltip'
+                    onClick={this.beneficarioOnClick}>
+                    Aceptar
+                  </button>
+                </div>
+                <br/>
+                </div>
 
-                    <tr>
-                        <label>Beneficiario 3:</label>
-                        <input type={"text"} placeholder={"Cedula"} name={"Cedula"} onChange={KFormDocumentsSubidaVoluntario.guardar_info_Ben3}/>
-                        <input type={"text"} placeholder={"Nombre"} name={"Nombre"} onChange={KFormDocumentsSubidaVoluntario.guardar_info_Ben3}/>
-                        <select name={"Parentesco"} onChange={KFormDocumentsSubidaVoluntario.guardar_info_Ben1}>
-                            <option value="" selected disabled hidden>Parentesco</option>
-                            <option value="Padre">Padre</option>
-                            <option value="Madre">Madre</option>
-                            <option value="Conyugue">Conyugue</option>
-                            <option value="Otro">Otro</option>
-                        </select>
-                        <input type="number" name="Porcentaje" min="1" max="100" onChange={KFormDocumentsSubidaVoluntario.guardar_info_Ben3}/>
-                        <button name={"ben3"} onClick={this.beneficarioOnClick}>Aceptar</button>
-                    </tr>
+                <div className="ben_div">
+                <label>Beneficiario 2:
+                <select data-tip data-for='par-tooltip' name={"Parentesco"} onChange={KFormDocumentsSubidaVoluntario.guardar_info_Ben1}>
+                    <option value="" selected disabled hidden>Parentesco</option>
+                    <option value="Padre">Padre</option>
+                    <option value="Madre">Madre</option>
+                    <option value="Cónyugue">Cónyugue</option>
+                    <option value="Otro">Otro</option>
+                </select>
+                </label>
+                <br/>
+                <input
+                  type={"text"}
+                  placeholder={"Cédula"}
+                  name={"Cedula"}
+                  onChange={KFormDocumentsSubidaVoluntario.guardar_info_Ben2}/>
+                <input
+                  type={"text"}
+                  placeholder={"Nombre completo"}
+                  name={"Nombre"}
+                  onChange={KFormDocumentsSubidaVoluntario.guardar_info_Ben2}/>
+                <input
+                  type="number"
+                  name="Porcentaje"
+                  min="1"
+                  max="100"
+                  placeholder={" % "}
+                  data-tip data-for='perc-tooltip'
+                  onChange={KFormDocumentsSubidaVoluntario.guardar_info_Ben2}/>
 
-                </table>
+                <div className="ben_btn">
+                  <button
+                    className="btn btn-info"
+                    name={"ben1"}
+                    data-tip data-for='ben-tooltip'
+                    onClick={this.beneficarioOnClick}>
+                    Aceptar
+                  </button>
+                </div>
+                <br/>
+                </div>
+
+                <div className="ben_div">
+                <label> Beneficiario 3:
+                <select data-tip data-for='par-tooltip' name={"Parentesco"} onChange={KFormDocumentsSubidaVoluntario.guardar_info_Ben1}>
+                    <option value="" selected disabled hidden>Parentesco</option>
+                    <option value="Padre">Padre</option>
+                    <option value="Madre">Madre</option>
+                    <option value="Cónyugue">Cónyugue</option>
+                    <option value="Otro">Otro</option>
+                </select>
+                </label>
+                <br/>
+                <input
+                  type={"text"}
+                  placeholder={"Cédula"}
+                  name={"Cedula"}
+                  onChange={KFormDocumentsSubidaVoluntario.guardar_info_Ben3}/>
+                <input
+                  type={"text"}
+                  placeholder={"Nombre completo"}
+                  name={"Nombre"}
+                  onChange={KFormDocumentsSubidaVoluntario.guardar_info_Ben3}/>
+                <input
+                  type="number"
+                  name="Porcentaje"
+                  min="1"
+                  max="100"
+                  placeholder={" % "}
+                  data-tip data-for='perc-tooltip'
+                  onChange={KFormDocumentsSubidaVoluntario.guardar_info_Ben3}/>
+
+                  <div className="ben_btn">
+                    <button
+                      className="btn btn-info"
+                      name={"ben1"}
+                      data-tip data-for='ben-tooltip'
+                      onClick={this.beneficarioOnClick}>
+                      Aceptar
+                    </button>
+                  </div>
+                <br/>
+                </div>
+                <ReactTooltip id='perc-tooltip' type='info' effect='solid' place="top">
+                    <span>Porcentaje destinado al beneficiario</span>
+                </ReactTooltip>
+                <ReactTooltip id='ben-tooltip' type='info' effect='solid' place="top">
+                    <span>Guardar la información del beneficiario específico</span>
+                </ReactTooltip>
+                <ReactTooltip id='par-tooltip' type='info' effect='solid' place="top">
+                    <span>Parentesco con el beneficiario específico</span>
+                </ReactTooltip>
             </div>
         );
     }
@@ -441,18 +531,31 @@ export default class KFormDocumentsSubidaVoluntario extends Component {
      */
     mostrarContactoEmergencia() {
         return(
-          <div>
-              <label>Contacto de emergencia:</label>
-              <input type={"text"} placeholder={"Avisar a: nombre"} name={"Nombre"} onChange={KFormDocumentsSubidaVoluntario.guardar_info_emergencia} />
+          <div class="card">
+            <div class="card-header">
+              Contacto de emergencia
+            </div>
+            <div class="card-body">
+            <label> Avisar a:
               <select name={"Parentesco"}  onChange={KFormDocumentsSubidaVoluntario.guardar_info_emergencia}>
                   <option value="" selected disabled hidden>Parentesco</option>
                   <option value="Padre">Padre</option>
                   <option value="Madre">Madre</option>
-                  <option value="Conyugue">Conyugue</option>
+                  <option value="Cónyugue">Cónyugue</option>
                   <option value="Otro">Otro</option>
               </select>
-              <input type={"text"} placeholder={"Telefono"} name={"Telefono"}  onChange={KFormDocumentsSubidaVoluntario.guardar_info_emergencia}/>
-              <button onClick={this.emergenciaOnClick}>Aceptar</button>
+            </label>
+            <br/>
+            <input type={"text"} placeholder={"Nombre completo"} name={"Nombre"} onChange={KFormDocumentsSubidaVoluntario.guardar_info_emergencia} />
+            <input type={"text"} placeholder={"Teléfono"} name={"Telefono"}  onChange={KFormDocumentsSubidaVoluntario.guardar_info_emergencia}/>
+            <br/>
+            <div className="ben_btn1 text-center">
+              <button data-tip data-for='ben1-tooltip' className="btn btn-info" onClick={this.emergenciaOnClick}>Aceptar</button>
+            </div>
+            </div>
+            <ReactTooltip id='ben1-tooltip' type='info' effect='solid' place="top">
+                <span>Guardar la información del contacto de emergencia</span>
+            </ReactTooltip>
           </div>
         );
     }
@@ -460,31 +563,70 @@ export default class KFormDocumentsSubidaVoluntario extends Component {
     render() {
         // 472 -> si hay poliza entonces muestre los beneficiarios
         // 474 -> si hay contacto de emergencia entonces muestre el contacto de emergencia
-        return (
-            <div className="container text-center">
-                <br/>
-                <br/>
-                <h1>Subir documentos</h1>
-                <div>
+        return (<div className="container_habilidades1">
+
+                  <div className="flex-item-hab">
+
+                    <div className="text-center">
+
+                      <div clasName="container">
+
+                        <h2> ¿A cuáles documentos hace referencia? </h2>
+                        <br/>
+
+                        <div class="form-group">
+
+                          <p>
+                            Adjunta o descarga los documentos solicitados para el voluntariado.
+                            <br/> <br/>
+                            Estos documentos son necesarios para tu correcta inscripción en la campaña.
+                          </p>
+
+                        </div>
+
+                      </div>
+
+                    </div>
+
+                  </div>
+
+                  <div className="flex-item-hab">
+
+                    <h5> Documentos solicitados </h5>
+                    <hr />
                     <br/>
                     {this.state.listaDocumentosCampana}
                     <br/>
-                    {(this.state.poliza) ? this.mostrarBeneficiarios(): void(0)}
-                    <br/>
                     {(this.state.emergencia) ? this.mostrarContactoEmergencia(): void(0)}
-                </div>
-                <div className="row">
-                    <div className="col-1 offset-2">
-                        <button className="btn btn-default" onClick={ this.props.anterior }>Anterior</button>
-                    </div>
-                    <div className="col-1 offset-6">
-                        <button className="btn btn-primary" onClick={ this.props.siguiente }>Siguiente</button>
-                    </div>
-                    <br/>
-                    <br/>
-                    <br/>
-                    <br/>
-                </div>
+
+                  </div>
+
+                  <div className="row">
+                      <div className="col-1 offset-2">
+                          <button
+                            className="btn btn-default"
+                            onClick={ this.props.anterior }
+                            data-tip data-for='btn-tooltip'> <FaLongArrowAltLeft /> Anterior</button>
+                      </div>
+                      <div className="col-1 offset-6">
+                          <button
+                            className="btn btn-primary"
+                            onClick={ this.props.siguiente }
+                            data-tip data-for='btn-tooltip2'> Siguiente <FaLongArrowAltRight />
+                            </button>
+                      </div>
+                      <ReactTooltip id='btn-tooltip' type='warning' effect='solid' place="top">
+                          <span>Regresá a la sección de habilidades</span>
+                      </ReactTooltip>
+                      <ReactTooltip id='btn-tooltip2' type='info' effect='solid' place="top">
+                          <span>Continuá configurando tu voluntariado</span>
+                      </ReactTooltip>
+                      <br/>
+                      <br/>
+                      <br/>
+                      <br/>
+                  </div>
+
             </div>
         );
     }

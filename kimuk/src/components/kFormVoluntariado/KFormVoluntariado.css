@@ -1,5 +1,7 @@
 .step-progressBar {
 	width: 100%;
+	margin-top: 20px;
+	margin-bottom: 25px;
 }
 
 .progressbar {
@@ -239,6 +241,18 @@ label {
 	margin-left: 1em;
 }
 
+.container_term {
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+	justify-content: space-between;
+	width: 100%;
+}
+
 .container-terycon {
-	width: 62.5em;
+	display: flex;
+	flex-direction: column;
+	flex-wrap: wrap;
+	width: 80%;
+	margin-left: 10%;
 }

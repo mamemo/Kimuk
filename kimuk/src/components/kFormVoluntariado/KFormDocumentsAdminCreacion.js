@@ -8,7 +8,7 @@ import KModalDocumentos from './KModalDocumentos';
 import { confirmAlert } from 'react-confirm-alert';
 import 'react-confirm-alert/src/react-confirm-alert.css';
 import ReactTooltip from 'react-tooltip'
-
+import { FaLongArrowAltLeft} from 'react-icons/fa';
 
 const question = {
     title: '¿A cuáles documentos hace referencia?',
@@ -68,15 +68,17 @@ export default class KFormDocumentsAdminCreacion extends Component {
               <div className="flex-item">
 
                   <button
-                      id="navigationButton"
                       className="btn btn-default btn-md"
                       onClick={this.props.anterior}
                       data-tip data-for='btn-tooltip2'
                   >
-                      Anterior
+                    <FaLongArrowAltLeft />
+                    Anterior
                   </button>
-                  <ReactTooltip id='btn-tooltip2' type='info' effect='solid' place="bottom">
-                      <span>Regresá a la sección de habilidades del voluntariado</span>
+                  <br/>
+                  <br/>
+                  <ReactTooltip id='btn-tooltip2' type='warning' effect='solid' place="top">
+                      <span>Regresá a la sección de habilidades</span>
                   </ReactTooltip>
 
               </div>

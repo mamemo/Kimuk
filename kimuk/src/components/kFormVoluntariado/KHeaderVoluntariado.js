@@ -25,26 +25,18 @@ export default class KHeaderVoluntariado extends Component {
   volunteeringData() {
     return (
       <div className="flex-container">
-
         <div className="flex-item">
-
-          <div className="thumbnail">
-
-            <img
-              id="profile-img"
-              src={(this.props.url === "") ?  require('../../media/image1-icon.png') : this.props.url}
-              className={'img-responsive'}
-              accept="image/*"
-              width="150"
-              height="150" />
-
-          </div>
-
+          <img
+            id="profile-img"
+            src={(this.props.url === "") ?  require('../../media/image1-icon.png') : this.props.url}
+            className={'img-responsive'}
+            accept="image/*"
+            width="200"
+            height="200" />
           <div id="img-div" className="form-group">
 
               <label className="btn btn-link">
-                  Agregar imagen al voluntariado
-
+                   Agregar imagen al voluntariado
                   <input
                     id="image-file"
                     name="volImage"
@@ -53,7 +45,6 @@ export default class KHeaderVoluntariado extends Component {
                     value={this.props.image}
                     onChange={this.props.handlerImage}
                   />
-
               </label>
 
               <input
@@ -62,6 +53,7 @@ export default class KHeaderVoluntariado extends Component {
                 value={this.props.image}
                 onChange={this.props.handlerImage}
               />
+
           </div>
 
         </div>
@@ -93,8 +85,10 @@ export default class KHeaderVoluntariado extends Component {
           </span>
         </ReactTooltip>
 
-        <progress max={100} id={"barimg"}>0%</progress>
-        
+        <div className="flex-item-bar">
+          <progress max={100} id={"barimg"}>0%</progress>
+        </div>
+
       </div>
     );
   }

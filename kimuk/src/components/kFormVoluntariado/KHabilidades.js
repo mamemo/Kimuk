@@ -7,6 +7,7 @@ import KModalHabilidades from './KModalHabilidades';
 import { confirmAlert } from 'react-confirm-alert';
 import 'react-confirm-alert/src/react-confirm-alert.css';
 import ReactTooltip from 'react-tooltip'
+import { FaLongArrowAltLeft} from 'react-icons/fa';
 
 const question = {
     title: '¿Qué son habilidades?',
@@ -55,14 +56,14 @@ export default class KHabilidades extends Component {
                 <div className="flex-item">
 
                   <button
-                      id="navigationButton"
                       data-tip data-for='btn-tooltip2'
                       className="btn btn-default"
                       onClick={this.props.anterior}
                   >
-                      Anterior
+                    <FaLongArrowAltLeft/>
+                    Anterior
                   </button>
-                  <ReactTooltip id='btn-tooltip2' type='info' effect='solid' place="bottom">
+                  <ReactTooltip id='btn-tooltip2' type='warning' effect='solid' place="top">
                       <span>Regresá a la sección de información del voluntariado</span>
                   </ReactTooltip>
 

@@ -1,5 +1,5 @@
 .flex-container {
-  margin: 5em 0 0 0;
+  margin: 1em 0 0 0;
   padding: 0;
   display: flex;
   flex-direction: row;
@@ -13,22 +13,31 @@
 	margin: 5px;
 }
 
+.flex-item-bar {
+	padding: 5px;
+  margin-top: 3px;
+}
+
 .flex-item-name {
 	padding: 5px;
   width: 65%;
+  margin-left: 5%;
 }
 
 progress {
   /* Reset the default appearance */
   -webkit-appearance: none;
-   appearance: none;
-
-  width: 250px;
-  height: 20px;
+  appearance: none;
+  display: none;
 }
 
 progress::-webkit-progress-bar {
   background-color: #eee;
   border-radius: 2px;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.25) inset;
+  width: 200px;
+}
+
+#img-div {
+  margin: auto;
 }
