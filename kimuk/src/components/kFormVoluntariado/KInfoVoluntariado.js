@@ -536,7 +536,7 @@ export default class KInfoVoluntariado extends Component {
           <div className="col-1 offset-6">
               <button
                 className="btn btn-primary btn-md"
-                onClick={ this.props.siguiente }
+                onClick={ this.submitDataRegistrationForm }
                 data-tip data-for='btn-tooltip'> Siguiente <FaLongArrowAltRight />
               </button>
               <ReactTooltip id='btn-tooltip' type='warning' effect='solid' place="top">

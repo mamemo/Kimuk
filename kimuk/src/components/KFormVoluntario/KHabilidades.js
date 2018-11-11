@@ -37,7 +37,7 @@ export default class KHabilidades extends Component {
             for (var i = 0; i < nhabs; i++) {
                 const hab = [];
                 for (var k = i * 2; k < i + 2; k++) {
-                    hab.push(<div className="button button2">
+                    hab.push(<div className="button button2 text-left">
                               <input
                                 type="checkbox"
                                 name="habilidades"
