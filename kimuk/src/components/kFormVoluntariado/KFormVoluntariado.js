@@ -102,7 +102,7 @@ export default class KFormVoluntariado extends Component {
     handleInputChangeImage(e) {
       try {
         if (e.target.files[0].size > 5000000) {
-            this.showPopUp("Error subiendo el archivo", 
+            this.showPopUp("Error subiendo el archivo",
                         "El archivo supera los 5MB, por favor suba un archivo por debajo de 5MB");
             return;
         }
@@ -114,6 +114,7 @@ export default class KFormVoluntariado extends Component {
         const task = database.insertar_documento_storage_campana(this.state.id, tipoDocumento, e.target.files[0]);
 
         const progressBar = document.getElementById("barimg");
+        progressBar.style.display = "block";
 
         task.on('state_changed',
 
@@ -122,7 +123,7 @@ export default class KFormVoluntariado extends Component {
             },
 
             function error(err) { // possible errors
-                this.showPopUp("Error subiendo el archivo", 
+                this.showPopUp("Error subiendo el archivo",
                         "Por favor suba el archivo nuevamente.\n\n" + err.message);
             },
 
@@ -132,6 +133,8 @@ export default class KFormVoluntariado extends Component {
                 });
             }
         )
+
+
       } catch (err) {
         this.showPopUp("Error", err);
           return;
@@ -257,7 +260,7 @@ export default class KFormVoluntariado extends Component {
 
     showPopUp(tNotificacion, msj){
         let pop = [];
-        pop.push(<KModalInfoAccion tipoNotificacion={tNotificacion} 
+        pop.push(<KModalInfoAccion tipoNotificacion={tNotificacion}
             mensaje={msj}
             handler={this.handlerPopUp}  />);
 
@@ -271,7 +274,7 @@ export default class KFormVoluntariado extends Component {
      * Insert: new campaign, general manager, other managers, skills
      * and documents to the DB
      */
-    insertNewCampaign() {        
+    insertNewCampaign() {
         insertar_actualizar_campana(this.state.id, this.state.volName, this.state.description,
             this.state.startDate.toString(), this.state.time.toString(),
             this.state.address, this.state.finishDate.toString(), "",
@@ -283,29 +286,29 @@ export default class KFormVoluntariado extends Component {
 
                 insertar_actualizar_encargados_lista(this.state.id, this.state.encargados).then( result => {
                     insertar_actualizar_habilidades_campana_lista(this.state.id, this.state.skills).then(result => {
-                        
+
                         enviar_correo_voluntariado(this.state.email, this.state.volName, this.state.name, this.state.id, this.state.admin_pass); // correo a creador
                         // Correo a administradores
                         for (var i = 0 ; i < this.state.encargados.length ; i++) {
                             enviar_correo_voluntariado(this.state.encargados[i][2], this.state.volName, this.state.encargados[i][0], this.state.id, this.state.admin_pass);
                         }
-                        this.showPopUp("Creación de campaña", 
-                            "Campaña " + this.state.volName + " creada con éxito.\n\nSe envió al correo electrónico " 
+                        this.showPopUp("Creación de campaña",
+                            "Campaña " + this.state.volName + " creada con éxito.\n\nSe envió al correo electrónico "
                             + this.state.email + " y a los administradores los links de registro de voluntariado y administración de voluntariado.");
                     }).catch(function (error) {
-                        this.showPopUp("Error al insertar habilidad", 
+                        this.showPopUp("Error al insertar habilidad",
                         "Error al insertar habilidad\n" + error + "\nRevise información ingresada en el sistema y vuelva a intentar.\n\nEn caso de no funcionar recargue la página");
                     })
                 }).catch(function (error) {
-                    this.showPopUp("Error al insertar encargado", 
+                    this.showPopUp("Error al insertar encargado",
                     "Error al insertar encargado\n" + error + "\n\nRevise información ingresada en el sistema y vuelva a intentar.\n\nEn caso de no funcionar recargue la página");
                 })
             }).catch(function (error) {
-                this.showPopUp("Error al insertar el encargado general", 
+                this.showPopUp("Error al insertar el encargado general",
                 "Error al insertar el encargado general\n" + error + "\n\nRevise información ingresada en el sistema y vuelva a intentar.\n\nEn caso de no funcionar recargue la página");
             })
         }).catch(function (error) {
-            this.showPopUp("Error al insertar la campana", 
+            this.showPopUp("Error al insertar la campana",
             "Error al insertar la campana\n" + error + "\n\nRevise información ingresada en el sistema y vuelva a intentar.\n\nEn caso de no funcionar recargue la página");
         });
     }
@@ -325,36 +328,33 @@ export default class KFormVoluntariado extends Component {
                         <li>Terminos y condiciones</li>
                     </ul>
                 </div>;
-                return (<div className="container" >
-                          <div>
-                          <br/>
-                          <h2 className="text-left">Crear voluntariado</h2>
+                return (<div className="page_container" >
+                          <div className="div_header">
+                            <br/>
+                            <h2>Crear voluntariado</h2>
+                          </div>
                           {pasos}
-                          </div>
-                          <div className="relative">
-                            <div className="absolute">
-                              <KHeaderVoluntariado
-                                name={this.state.volName}
-                                image={this.state.volImage}
-                                handler={this.handleInputChange}
-                                handlerImage={this.handleInputChangeImage}
-                                url={this.state.imgURL}
-                              />
+                          <KHeaderVoluntariado
+                            name={this.state.volName}
+                            image={this.state.volImage}
+                            handler={this.handleInputChange}
+                            handlerImage={this.handleInputChangeImage}
+                            url={this.state.imgURL}
+                          />
 
-                              <KInfoVoluntariado
-                                campana={this.state}
-                                anterior={this.anterior}
-                                siguiente={this.siguiente}
-                                handler={this.handleInputChange}
-                                handleStartDateChange={this.handleStartDateChange}
-                                handleFinishDateChange={this.handleFinishDateChange}
-                                handleTimeChange={this.handleTimeChange}
-                                handleCheckoxChange={this.handleCheckoxChange}
-                                handlerNumeric={this.handleNumeric}
-                              />
-                            </div>
-                          </div>
+                          <KInfoVoluntariado
+                            campana={this.state}
+                            anterior={this.anterior}
+                            siguiente={this.siguiente}
+                            handler={this.handleInputChange}
+                            handleStartDateChange={this.handleStartDateChange}
+                            handleFinishDateChange={this.handleFinishDateChange}
+                            handleTimeChange={this.handleTimeChange}
+                            handleCheckoxChange={this.handleCheckoxChange}
+                            handlerNumeric={this.handleNumeric}
+                          />
                         </div>)
+
             case 2:
                 pasos=
                 <div className="step-progressBar">
@@ -365,28 +365,24 @@ export default class KFormVoluntariado extends Component {
                         <li>Terminos y condiciones</li>
                     </ul>
                 </div>;
-                return (<div className="container" >
-                            <div>
+                return (<div className="page_container" >
+                          <div className="div_header">
                             <br/>
-                            <h2 className="text-left">Crear voluntariado</h2>
-                            {pasos}
-                            </div>
-                            <div className="relative">
-                              <div className="absolute">
-                                <KHeaderVoluntariado
-                                  name={this.state.volName}
-                                  image={this.state.volImage}
-                                  handler={this.handleInputChange}
-                                  handlerImage={this.handleInputChangeImage}
-                                  url={this.state.imgURL}
-                                />
-                                <KHabilidades
-                                  test={this.state.encargados}
-                                  skills={this.state.skills}
-                                  anterior={this.anterior}
-                                  siguiente={this.siguiente} />
-                              </div>
-                            </div>
+                            <h2>Crear voluntariado</h2>
+                          </div>
+                          {pasos}
+                          <KHeaderVoluntariado
+                            name={this.state.volName}
+                            image={this.state.volImage}
+                            handler={this.handleInputChange}
+                            handlerImage={this.handleInputChangeImage}
+                            url={this.state.imgURL}
+                          />
+                          <KHabilidades
+                            test={this.state.encargados}
+                            skills={this.state.skills}
+                            anterior={this.anterior}
+                            siguiente={this.siguiente} />
                         </div>)
             case 3:
                 pasos=
@@ -398,35 +394,31 @@ export default class KFormVoluntariado extends Component {
                         <li>Terminos y condiciones</li>
                     </ul>
                 </div>;
-                return (<div className="container" >
-                            <div>
-                                <br/>
-                                <h2 className="text-left">Crear voluntariado</h2>
-                                {pasos}
-                            </div>
-                            <div className="relative">
-                              <div className="absolute">
-                                <KHeaderVoluntariado
-                                  name={this.state.volName}
-                                  image={this.state.volImage}
-                                  handler={this.handleInputChange}
-                                  handlerImage={this.handleInputChangeImage}
-                                  url={this.state.imgURL}
-                                />
-                                <KFormDocumentsAdminCreacion
-                                  campana={{id: this.state.id,
-                                  subio: this.state.subio,
-                                  document: this.state.document,
-                                      subioCod:this.state.subioCod,
-                                      documentCod:this.state.documentCod
-                                  }}
-                                  anterior={this.anterior}
-                                  siguiente={this.siguiente}
-                                  handler={this.handleDocument}
-                                />
-                              </div>
-                            </div>
-                        </div>)
+                return (<div className="page_container" >
+                          <div className="div_header">
+                            <br/>
+                            <h2>Crear voluntariado</h2>
+                          </div>
+                          {pasos}
+                          <KHeaderVoluntariado
+                            name={this.state.volName}
+                            image={this.state.volImage}
+                            handler={this.handleInputChange}
+                            handlerImage={this.handleInputChangeImage}
+                            url={this.state.imgURL}
+                          />
+                          <KFormDocumentsAdminCreacion
+                            campana={{id: this.state.id,
+                            subio: this.state.subio,
+                            document: this.state.document,
+                                subioCod:this.state.subioCod,
+                                documentCod:this.state.documentCod
+                            }}
+                            anterior={this.anterior}
+                            siguiente={this.siguiente}
+                            handler={this.handleDocument}
+                          />
+                      </div>)
             case 4:
                 pasos=
                 <div className="step-progressBar">
@@ -437,38 +429,30 @@ export default class KFormVoluntariado extends Component {
                         <li className="active">Terminos y condiciones</li>
                     </ul>
                 </div>;
-                return (<div className="container" >
-                            <div>
-                                <br/>
-                                <h2 className="text-left">Crear voluntariado</h2>
-                                {pasos}
-                            </div>
-                            <div className="relative">
-                              <div className="absolute">
-                                <KHeaderVoluntariado
-                                  name={this.state.volName}
-                                  image={this.state.volImage}
-                                  handler={this.handleInputChange}
-                                  handlerImage={this.handleInputChangeImage}
-                                  url={this.state.imgURL}
-                                />
-                                <KTeryCon
-                                  tyc={this.state.termsAndConditions}
-                                  anterior={this.anterior}
-                                  siguiente={this.siguiente}
-                                  handler={this.handleInputChange}
-                                  insertInDB={this.insertNewCampaign}
-                                  estado={this.state}/>
+                return (<div className="page_container" >
+                          <div className="div_header">
+                            <br/>
+                            <h2>Crear voluntariado</h2>
+                          </div>
+                          {pasos}
+                          <KHeaderVoluntariado
+                            name={this.state.volName}
+                            image={this.state.volImage}
+                            handler={this.handleInputChange}
+                            handlerImage={this.handleInputChangeImage}
+                            url={this.state.imgURL}
+                          />
+                          <KTeryCon
+                            tyc={this.state.termsAndConditions}
+                            anterior={this.anterior}
+                            siguiente={this.siguiente}
+                            handler={this.handleInputChange}
+                            insertInDB={this.insertNewCampaign}
+                            estado={this.state}/>
 
-                                {(this.state.listo) ? this.state.popup : void(0)}
+                          {(this.state.listo) ? this.state.popup : void(0)}
 
-                              </div>
-                            </div>
                         </div>)
         }
-
-
     }
-
-
 }

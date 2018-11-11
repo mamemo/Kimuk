@@ -238,7 +238,7 @@ export default class KHabilidades extends Component {
                 </ReactTooltip>
                 <div>
                 <h5 className="card-title"> Habilidades </h5>
-                    <div className="container_habilidades1">
+                    <div className="container_habilidades0">
                         {this.state.habBD}
                     </div>
                 </div>

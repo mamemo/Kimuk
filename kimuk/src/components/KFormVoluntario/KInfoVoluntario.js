@@ -4,6 +4,7 @@ import '../style/color.css';
 import DatePicker from 'react-datepicker';
 import ReactTooltip from 'react-tooltip';
 import 'react-datepicker/dist/react-datepicker.css';
+import { FaLongArrowAltRight } from 'react-icons/fa';
 
 export default class KInfoVoluntario extends Component {
     constructor(props){
@@ -644,18 +645,23 @@ export default class KInfoVoluntario extends Component {
             <br/>
 
             <div className="row">
+              <div className="col-1 offset-2">
 
-                <div className="col-1 offset-6">
-                    <button
-                        id="navigationButton"
-                        className="btn btn-primary btn-md"
-                        onClick={ this.props.siguiente }
-                        data-tip data-for='btn-tooltip'> Siguiente
-                    </button>
-                    <ReactTooltip id='btn-tooltip' type='warning' effect='solid'>
-                        <span>Para poder continuar debe de asegurarse de haber completado correctamente todos los campos de información solicitados.</span>
-                    </ReactTooltip>
-                </div>
+              </div>
+              <div className="col-1 offset-6">
+                  <button
+                      className="btn btn-primary"
+                      onClick={ this.props.siguiente }
+                      data-tip data-for='btn-tooltip'> Siguiente <FaLongArrowAltRight />
+                  </button>
+                  <ReactTooltip id='btn-tooltip' type='warning' effect='solid' place="top">
+                      <span>
+                        Asegúrate de completar correctamente todos
+                        <br/>
+                        los campos solicitados.
+                      </span>
+                  </ReactTooltip>
+              </div>
 
             </div>
             <br/>

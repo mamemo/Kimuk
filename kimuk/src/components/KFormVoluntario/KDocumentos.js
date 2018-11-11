@@ -94,21 +94,21 @@ export default class KDocumentos extends Component {
           : null
         }
       </div>
-                     <br/>
-                    <br/>
+      <br/>
+      <br/>
+          </div>
+           </div>
+            <div className="row">
+                <div className="col-1 offset-2">
+                    <button className="btn btn-default" onClick={ this.props.anterior }>Anterior</button>
                 </div>
-               </div>
-                <div className="row">
-                    <div className="col-1 offset-2">
-                        <button className="btn btn-default" onClick={ this.props.anterior }>Anterior</button>
-                    </div>
-                    <div className="col-1 offset-6">
-                        <button className="btn btn-primary" onClick={ this.props.siguiente }>Siguiente</button> 
-                    </div>
+                <div className="col-1 offset-6">
+                    <button className="btn btn-primary" onClick={ this.props.siguiente }>Siguiente</button>
                 </div>
-                <br/>
-                <br/>
             </div>
+            <br/>
+            <br/>
+        </div>
         );
     }
 }

@@ -100,7 +100,7 @@ export default class KModalHabilidades extends Component
                       >
                           Aceptar
                       </button>
-                      <ReactTooltip id='btn-tooltip-Aceptar' type='info' effect='solid' place="right">
+                      <ReactTooltip id='btn-tooltip-Aceptar' type='info' effect='solid' place="top">
                           <span>Guardá tus habilidades y continuá configurando tu voluntariado</span>
                       </ReactTooltip>
                     </div>

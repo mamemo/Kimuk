@@ -262,6 +262,7 @@ export default class KDocumentosCuerpo extends Component {
 
             const task = database.insertar_documento_storage_campana(this.props.campana.id, tipoDocumento, e.target.files[0]);
             const progressBar = document.getElementById("bar" + e.target.name);
+            progressBar.style.display = "block";
             document.getElementById("name" + e.target.name).innerHTML = e.target.files[0].name;  // File name label
             task.on('state_changed',
 

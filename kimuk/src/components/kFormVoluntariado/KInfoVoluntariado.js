@@ -4,6 +4,7 @@ import KModalAddAdmin from '../KModals/KModalAddAdmin';
 import ReactTooltip from 'react-tooltip'
 import TimeInput from 'material-ui-time-picker'
 import DatePicker from 'react-datepicker';
+import { FaLongArrowAltRight } from 'react-icons/fa';
 
 import './KFormVoluntariado.css';
 import '../style/color.css';
@@ -202,7 +203,7 @@ export default class KInfoVoluntariado extends Component {
 
             </div>
 
-            <ReactTooltip id='date-tooltip' type='info' effect='solid'>
+            <ReactTooltip id='date-tooltip' type='info' effect='solid' place="top">
               <span>
                 Seleccionar la fecha a realizarse el voluntariado.
               </span>
@@ -214,7 +215,7 @@ export default class KInfoVoluntariado extends Component {
 
         <div className="form-group">
 
-          <ReactTooltip id='checkbox-tooltip' type='info' effect='solid'>
+          <ReactTooltip id='checkbox-tooltip' type='info' effect='solid' place="top">
             <span>
               Seleccionar la fecha límite de recepción de solicitudes de
               <br />
@@ -262,7 +263,7 @@ export default class KInfoVoluntariado extends Component {
 
         <div className="form-group">
 
-          <label className="col-6 col-form-label" data-tip data-for='must-tooltip'>
+          <label className="col-6 col-form-label" data-tip data-for='must-tooltip' place="top">
             Hora de inicio del voluntariado
             <span
               id="must-tooltip"
@@ -280,7 +281,7 @@ export default class KInfoVoluntariado extends Component {
 
           </div>
 
-          <ReactTooltip id='time-tooltip' type='info' effect='solid'>
+          <ReactTooltip id='time-tooltip' type='info' effect='solid' place="top">
             <span>
               Seleccionar la hora a realizarse el voluntariado.
               <br />
@@ -308,7 +309,7 @@ export default class KInfoVoluntariado extends Component {
             onChange={this.props.handlerNumeric} />
         </div>
 
-        <ReactTooltip id='numeric-tooltip' type='info' effect='solid'>
+        <ReactTooltip id='numeric-tooltip' type='info' effect='solid' place="top">
           <span>
             Indique la cantidad máxima de voluntarios deseados.
             <br />
@@ -361,7 +362,7 @@ export default class KInfoVoluntariado extends Component {
             />
 
 
-            <ReactTooltip id='identification-tooltip' type='info' effect='solid'>
+            <ReactTooltip id='identification-tooltip' type='info' effect='solid' place="top">
               <span>Digite la identificación sin espacios en blanco ni guiones.</span>
             </ReactTooltip>
 
@@ -398,7 +399,7 @@ export default class KInfoVoluntariado extends Component {
 
           </div>
 
-          <ReactTooltip id='name-tooltip' type='info' effect='solid'>
+          <ReactTooltip id='name-tooltip' type='info' effect='solid' place="top">
             <span>Ingrese nombre completo.</span>
           </ReactTooltip>
 
@@ -431,7 +432,7 @@ export default class KInfoVoluntariado extends Component {
 
           </div>
 
-          <ReactTooltip id='lastname-tooltip' type='info' effect='solid'>
+          <ReactTooltip id='lastname-tooltip' type='info' effect='solid' place="top">
             <span>Ingrese uno o los dos apellidos.</span>
           </ReactTooltip>
 
@@ -462,7 +463,7 @@ export default class KInfoVoluntariado extends Component {
               data-tip data-for='email-tooltip'
             />
 
-            <ReactTooltip id='email-tooltip' type='info' effect='solid'>
+            <ReactTooltip id='email-tooltip' type='info' effect='solid' place="top">
               <span>Ingrese correo electrónico válido: ejemplo@kimuk.com</span>
             </ReactTooltip>
 
@@ -495,7 +496,7 @@ export default class KInfoVoluntariado extends Component {
               data-tip data-for='tel-tooltip'
             />
 
-            <ReactTooltip id='tel-tooltip' type='info' effect='solid'>
+            <ReactTooltip id='tel-tooltip' type='info' effect='solid' place="top">
               <span>
                 Digite el número de teléfono sin espacios en blanco ni guiones:
                 <br />
@@ -534,15 +535,20 @@ export default class KInfoVoluntariado extends Component {
           </div>
           <div className="col-1 offset-6">
               <button
-                id="navigationButton"
                 className="btn btn-primary btn-md"
                 onClick={ this.props.siguiente }
-                data-tip data-for='btn-tooltip'> Siguiente
+                data-tip data-for='btn-tooltip'> Siguiente <FaLongArrowAltRight />
               </button>
-              <ReactTooltip id='btn-tooltip' type='warning' effect='solid'>
-                <span>Para poder continuar debe de asegurarse de haber completado correctamente todos los campos de información solicitados.</span>
+              <ReactTooltip id='btn-tooltip' type='warning' effect='solid' place="top">
+                <span>
+                  Asegúrate de completar correctamente todos
+                  <br/>
+                  los campos solicitados.
+                </span>
               </ReactTooltip>
           </div>
+          <br/>
+          <br/>
         </div>
       </div>
     );

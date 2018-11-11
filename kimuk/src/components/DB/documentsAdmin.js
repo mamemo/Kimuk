@@ -27,6 +27,9 @@ export function insertar_url_nombre_documento_campana(id_campana, tipo_documento
                 insertar_nombre_documento_campana(id_campana, tipo_documento, nombre_archivo).then(result => {
                     alert("El documento se ha subido exitosamente");
                     resolve("El documento se ha subido exitosamente");
+                    const progressBar = document.getElementById("barimg");
+                    progressBar.style.display = "none";
+
                 }).catch( function (error) {
                     alert("Error\n" + error + "\nPor favor suba el archivo nuevamente.");
                 })
