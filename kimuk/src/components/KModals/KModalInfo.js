@@ -295,6 +295,22 @@ export default class KModalInfo extends Component {
           if(this.state.cambioEstado){
             this.props.updateUser(this.props.campana, this.props.volunteerInfo.Cedula, "Estado_solicitud", this.state.estadoSolicitud);
           }
+          if(this.state.cambioCedula){
+            this.props.updateUser(this.props.campana, this.props.volunteerInfo.Cedula, "ID", this.state.cedula);
+          }
+          if(this.state.cambioNombre){
+            this.props.updateUser(this.props.campana, this.props.volunteerInfo.Cedula, "Nombre", this.state.nombre);
+          }
+          if(this.state.cambioPrimerApellido){
+            this.props.updateUser(this.props.campana, this.props.volunteerInfo.Cedula, "Primer_apellido", this.state.primerApellido);
+          }
+          if(this.state.cambioSegundoApellido){
+            this.props.updateUser(this.props.campana, this.props.volunteerInfo.Cedula, "Segundo_apellido", this.state.segundoApellido);
+          }
+          if(this.state.cambioDireccion){
+            this.props.updateUser(this.props.campana, this.props.volunteerInfo.Cedula, "Direccion", this.state.direccion);
+          }
+
           this.props.onClose();
         }}>Guardar</button>
         <button onClick={()=>{
