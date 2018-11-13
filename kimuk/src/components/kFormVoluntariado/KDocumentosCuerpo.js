@@ -77,7 +77,7 @@ export default class KDocumentosCuerpo extends Component {
                                 </label>
                                 <label className={"docname"} id={"name" + k.toString()}>&nbsp;{nombreDoc}</label>
                                 <br/>
-                                <progress className={"dos"} max={100} value={progress} id={"bar" + k.toString()}>0%</progress>
+                                <progress className={"documentosbar"} max={100} value={progress} id={"bar" + k.toString()}>0%</progress>
                             </div>
                         );
 
@@ -117,7 +117,7 @@ export default class KDocumentosCuerpo extends Component {
                                 </label>
                                 <label className={"docname"} id={"name" + k.toString()}>&nbsp;{nombreDoc}</label>
                                 <br/>
-                                <progress className={"dos"} max={100} value={progress} id={"bar" + k.toString()}>0%</progress>
+                                <progress className={"documentosbar"} max={100} value={progress} id={"bar" + k.toString()}>0%</progress>
                             </div>
                         );
 

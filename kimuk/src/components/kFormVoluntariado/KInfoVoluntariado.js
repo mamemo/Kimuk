@@ -196,6 +196,7 @@ export default class KInfoVoluntariado extends Component {
 
               <DatePicker
                 name="startDate"
+                dateFormat="DD-MM-YYYY"
                 selected={this.props.campana.startDate}
                 onChange={this.props.handleStartDateChange}
                 className="form-control"
@@ -248,6 +249,7 @@ export default class KInfoVoluntariado extends Component {
 
               <DatePicker
                 name="finishDate"
+                dateFormat="DD-MM-YYYY"
                 placeholderText="Sin fecha límite"
                 disabled={this.props.campana.disabled}
                 selected={this.props.campana.finishDate}
@@ -276,6 +278,7 @@ export default class KInfoVoluntariado extends Component {
             <TimeInput
               mode='12h'
               cancelLabel='Cancelar'
+              format="HH:mm:ss"
               onChange={this.props.handleTimeChange}
             />
 
