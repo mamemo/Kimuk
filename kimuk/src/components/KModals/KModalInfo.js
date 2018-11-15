@@ -178,9 +178,9 @@ export default class KModalInfo extends Component {
 
     return (
 
-      <div className="container-form">
+      <div ref={this.setWrapperRef} className="container-form">
         <div>
-        <div ref={this.setWrapperRef} className="panel_div">
+        <div className="panel_div">
           <h4>Solicitud de registro</h4>
           <hr/>
           <form className="form_container">

@@ -70,6 +70,7 @@ export default class KTable extends Component {
   }
 
   createModal(userJson) {
+    console.log(this.state.voluntarios[2].Habilidades);
     confirmAlert({
       customUI: ({onClose}) => {
         return(
