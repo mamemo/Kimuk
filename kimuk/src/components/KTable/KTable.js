@@ -29,12 +29,19 @@ export default class KTable extends Component {
 			inputValue: '',
 			voluntarios: this.props.rows,
 			id_campana: this.props.idcampana,
-			user: []
+			user: [],
+			orden_documento: [
+				"Tipo_identificacion", "Cedula", "Nombre", "Primer_apellido", "Segundo_apellido",
+				"Fecha_nacimiento", "Fecha_registro", "Genero", "Estado_civil", "Ocupacion",
+				"Provincia", "Canton", "Distrito", "Direccion", "Correo_electronico", "Telefono_uno",
+				"Telefono_dos", "Habilidades", "Beneficiarios","Estado_solicitud"
+			]
 		};
 
 		this.updateInputValue = this.updateInputValue.bind(this);
 		this.filtrarEstado = this.filtrarEstado.bind(this);
 		this.mostrarInfoVoluntario = this.mostrarInfoVoluntario.bind(this);
+		this.convertToCSV = this.convertToCSV.bind(this);
 		this.voluntariosSeleccionados = [];
 	}
 
@@ -125,6 +132,9 @@ export default class KTable extends Component {
 		
 	}
 
+	/**
+	 * Función para refrescar los voluntarios después de que se hayan modificado.
+	 */
 	mostrarInfoVoluntario(){
 		leer_campanas(this.state.id_campana).then(result => {
 			let in_voluntarios = {};
@@ -226,25 +236,73 @@ export default class KTable extends Component {
 		});
 	}
 
+	Get(yourUrl){
+		var Httpreq = new XMLHttpRequest(); // a new request
+		Httpreq.open("GET",yourUrl,false);
+		Httpreq.send(null);
+		return Httpreq.responseText;          
+	}
+
 	/**
 	 * Método que convierte un objeto a un CSV.
 	 * @param objArray El objeto a transformar.
 	 */
 	convertToCSV(objArray) {
-		var array = typeof objArray != 'object' ? JSON.parse(objArray) : objArray;
-		var str = '';
-
-		for (var i = 0; i < array.length; i++) {
-			var line = '';
-			for (var index in array[i]) {
-				if (line != '') line += ','
-
-				line += array[i][index];
-			}
-
-			str += line + '\r\n';
-		}
-
+		let str = "";
+		Object.keys(objArray).map(volunt => { 
+			let volunteer = "";
+			let provincias = JSON.parse(this.Get("https://ubicaciones.paginasweb.cr/provincias.json"));
+			let cantones = JSON.parse(this.Get("https://ubicaciones.paginasweb.cr/provincia/"+objArray[volunt].Provincia+"/cantones.json"));
+			let distritos = JSON.parse(this.Get("https://ubicaciones.paginasweb.cr/provincia/"+objArray[volunt].Provincia+"/canton/"+objArray[volunt].Canton+"/distritos.json"));
+			this.state.orden_documento.map(field => {	
+				switch (field) {
+					case "Provincia":
+						volunteer += provincias[objArray[volunt][field]] + ",";
+						break;
+					case "Canton":
+						volunteer += cantones[objArray[volunt][field]] + ",";
+						break;
+					case "Distrito":
+						volunteer += distritos[objArray[volunt][field]] + ",";
+						break;
+					case "Habilidades":
+						if(objArray[volunt][field]){
+							let abilities = "";
+							objArray[volunt][field].map(abil => {
+								abilities += abil + ";";
+							});
+							volunteer += abilities + ",";
+						}else{
+							volunteer += ",";
+						}
+						break;
+					case "Beneficiarios":
+						let amount = 3;
+						if(objArray[volunt][field]){
+							let benes = "";
+							Object.keys(objArray[volunt][field]).map(bene => {
+								amount--;
+								benes += bene + "; Nombre: " + objArray[volunt][field][bene].nombre +
+										"; Parentesco: " + objArray[volunt][field][bene].parentesco + 
+										"; Porcentaje: " + objArray[volunt][field][bene].porcentaje;
+							});
+							volunteer += benes + ",".repeat(amount+1);
+							
+						}else{
+							volunteer += ",".repeat(amount);
+						}
+						break;
+					case "Estado_solicitud":
+						volunteer += objArray[volunt][field];
+						break;
+				
+					default:
+						volunteer += objArray[volunt][field].replace(",",";") + ",";
+						break;
+				}
+			});
+			str+= volunteer + '\n';
+		});
 		return str;
 	}
 
@@ -255,15 +313,13 @@ export default class KTable extends Component {
 	 * @param fileTitle El nombre del documento.
 	 */
 	exportCSVFile(items, fileTitle) {
-
-		// Convert Object to JSON
-		var jsonObject = JSON.stringify(items);
-
-		var csv = this.convertToCSV(jsonObject);
-
+		var header = this.state.orden_documento.toString().replace("Beneficiarios,",
+				"Beneficiario #1,Beneficiario #2,Beneficiario #3,") + '\n';
+		var csv =  header + this.convertToCSV(items);				
+		
 		var exportedFilenmae = fileTitle + '.csv' || 'export.csv';
 
-		var blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+		var blob = new Blob([csv], { type: 'text/csv;charset=UTF-8;' });
 		if (navigator.msSaveBlob) { // IE 10+
 			navigator.msSaveBlob(blob, exportedFilenmae);
 		} else {
@@ -271,6 +327,7 @@ export default class KTable extends Component {
 			if (link.download !== undefined) { // feature detection
 				// Browsers that support HTML5 download attribute
 				var url = URL.createObjectURL(blob);
+				link.acceptCharset = "UTF-8";
 				link.setAttribute("href", url);
 				link.setAttribute("download", exportedFilenmae);
 				link.style.visibility = 'hidden';
