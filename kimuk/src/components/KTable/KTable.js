@@ -18,20 +18,23 @@ import 'react-confirm-alert/src/react-confirm-alert.css' // Import css
 
 import * as volunteers from '../DB/volunteers';
 import KFormDocumentsBajadaVoluntario from "../KComponentsDocuments/KFormDocumentsBajadaVoluntario";
+import {leer_campanas} from "../DB/campaigns";
+import {InVoluntariosKFormAdmin} from '../DB/add-onns';
 
 export default class KTable extends Component {
 	constructor(props){
 		super(props);
 
 		this.state = {
-		inputValue: '',
-		voluntarios: this.props.rows,
-		id_campana: this.props.idcampana,
+			inputValue: '',
+			voluntarios: this.props.rows,
+			id_campana: this.props.idcampana,
+			user: []
 		};
 
 		this.updateInputValue = this.updateInputValue.bind(this);
 		this.filtrarEstado = this.filtrarEstado.bind(this);
-
+		this.mostrarInfoVoluntario = this.mostrarInfoVoluntario.bind(this);
 		this.voluntariosSeleccionados = [];
 	}
 
@@ -111,44 +114,28 @@ export default class KTable extends Component {
 				<KModalInfo
 				volunteerInfo={userJson}
 				campana={this.props.idcampana}
+				campana_nombre={this.props.campana[0]}
 				updateUser={this.updateUser}
 				habilidades={userJson.Habilidades}
-				onClose={onClose}/>
+				onClose={onClose}
+				refrescar={this.mostrarInfoVoluntario}/>
 			);
 		}
 		});
 		
-		
-		// leer_campanas(this.state.id_campana).then(result => {
-		// 	if (result && this.state.admin_pass && this.state.admin_pass === result.Admin_pass) {
-		// 		let in_campana = InCampanasKFormVoluntario(result);
-		// 		let in_encargados = InEcargadosKFormVoluntario(result);
-		// 		let in_voluntarios = {};
-		// 		if ('Voluntarios' in result) {
-		// 			in_voluntarios = InVoluntariosKFormAdmin(result);
-		// 		}
-		// 		this.setState({
-		// 			campana: in_campana,
-		// 			encargados: in_encargados,
-		// 			voluntarios: in_voluntarios
-		// 		});
-
-		// 		database.leer_url_documento_campana(this.state.id_campana, "Foto").then(result => {
-		// 			this.setState({
-		// 				imgURL: result
-		// 			});
-		// 		})
-
-		// 	} else {
-		// 		window.location.href = "http://localhost:3000";
-		// 	}
-		// });
 	}
 
-	// mostrarInfoVoluntario(userJson){
-	// 	this.createModal(userJson);
-	// 	console.log("Termina");
-	// }
+	mostrarInfoVoluntario(){
+		leer_campanas(this.state.id_campana).then(result => {
+			let in_voluntarios = {};
+			if ('Voluntarios' in result) {
+				in_voluntarios = InVoluntariosKFormAdmin(result);
+			}
+			this.setState({
+				voluntarios: in_voluntarios
+			});
+		});
+	}
 
 	/**
 	 * Método para controlar la selección de un voluntario.

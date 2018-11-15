@@ -6,7 +6,10 @@
 
 import React, { Component } from 'react';
 import './KModalInfo.css';
-import {leer_habilidades_voluntario} from '../DB/volunteers'
+import {leer_habilidades_voluntario} from '../DB/volunteers';
+import {
+    enviar_correo_voluntario_aceptado
+  } from '../kEmail/KEmail';
 
 export default class KModalInfo extends Component {
 	constructor(props){
@@ -15,25 +18,15 @@ export default class KModalInfo extends Component {
 		console.log(this.props.volunteerInfo);
 
 		this.state = {
-		estadoSolicitud: "",
-		nombre: "",
-		primerApellido:"",
-		segundoApellido:"",
-		direccion:"",
-		cedula:"",
-
-		provincias:"",
-		cantones:"",
-		distritos:"",
-		errors: {},
-
-		cambioEstado: false,
-		cambioNombre: false,
-		cambioPrimerApellido: false,
-		cambioSegundoApellido: false,
-		cambioDireccion: false,
-		cambioCedula: false,
+			original: this.props.volunteerInfo,
+			modificaciones: this.props.volunteerInfo,
+	
+			provincias:"",
+			cantones:"",
+			distritos:"",
+			errors: {}
 		}
+		
 		this.guardar_info=this.guardar_info.bind(this);
 		this.cargar_provincias=this.cargar_provincias.bind(this);
 
@@ -47,6 +40,7 @@ export default class KModalInfo extends Component {
 	 * a fuera de la ventana.
 	 */
     componentDidMount() {
+		this.cargar_provincias();
 		document.addEventListener('mousedown', this.handleClickOutside);
 	}
 
@@ -78,27 +72,35 @@ export default class KModalInfo extends Component {
 	/**
 	 * Llama a un servicio para obtener los cantones 
 	 * y/o distritos según una selección.
-	 * Guarda la selección de lugar de residencia.
+	 * Guarda los cambios al voluntario.
 	 */
 	guardar_info(e){
 		
-		if(e.target.name==="provincia"){
-
-			fetch("https://ubicaciones.paginasweb.cr/provincia/"+e.target.value+"/cantones.json")
-			.then((resp) => resp.json())
-			.then((data) => this.setState({ cantones: data }))
+		if(e.target.name==="Provincia"){
+            fetch("https://ubicaciones.paginasweb.cr/provincia/"+e.target.value+"/cantones.json")
+            .then((resp) => resp.json())
+			.then((data) => this.setState({ cantones: data }));
+			this.state.modificaciones.Canton="";
+            this.state.modificaciones.Distrito="";
+			this.render();
+        }
+        if(e.target.name==="Canton"){
+            fetch("https://ubicaciones.paginasweb.cr/provincia/"+this.state.modificaciones.Provincia+"/canton/"+e.target.value+"/distritos.json")
+            .then((resp) => resp.json())
+			.then((data) => this.setState({ distritos: data }));
+			this.state.modificaciones.Distrito="";
 			this.render();
 		}
-		// if(e.target.name==="canton"){
-		// 	fetch("https://ubicaciones.paginasweb.cr/provincia/"+cual[0]+"/canton/"+cual[1]+"/distritos.json")
-		// 	.then((resp) => resp.json())
-		// 	.then((data) => this.setState({ distritos: data }))
-		// 	this.render();
-		// }
+
+		const newState = Object.assign({}, this.state.modificaciones);
+		newState[e.target.name] = e.target.value;
+		this.setState({ 
+			modificaciones: newState
+        });
 	}
 
 	/**
-	 * Llama a un servicio para obtener las provincias de Costa Rica.
+	 * Llama a un servicio para obtener las provincias, cantones y distritos de Costa Rica.
 	 */
 	cargar_provincias(){
 		fetch("https://ubicaciones.paginasweb.cr/provincias.json")
@@ -108,84 +110,10 @@ export default class KModalInfo extends Component {
 		fetch("https://ubicaciones.paginasweb.cr/provincia/"+this.props.volunteerInfo.Provincia+"/cantones.json")
 			.then((resp) => resp.json())
 			.then((data) => this.setState({ cantones: data }));
-	}
-
-	/**
-	 * Controla cuando se cambia el estado de la solicitud en la interfaz.
-	 */
-	handleSelectChange = (event) => {
-		this.setState({
-		estadoSolicitud: event.target.value
-		});
-
-		this.setState({
-		cambioEstado: true,
-		});
-	}
-
-	/**
-	 * Controla cuando se cambia la cédula.
-	 */
-	handleCambioCedula = (event) => {
-		this.setState({
-		cedula: event.target.value
-		});
-
-		this.setState({
-		cambioCedula: true,
-		});
-	}
-
-	/**
-	 * Controla cuando se cambia el nombre.
-	 */
-	handleCambioNombre = (event) => {
-		this.setState({
-		nombre: event.target.value
-		});
-
-		this.setState({
-		cambioNombre: true,
-		});
-	}
-
-	/**
-	 * Controla cuando se cambia el primer apellido.
-	 */
-	handleCambioPrimerApellido = (event) => {
-		this.setState({
-		primerApellido: event.target.value
-		});
-
-		this.setState({
-		cambioPrimerApellido: true,
-		});
-	}
-
-	/**
-	 * Controla cuando se cambia el segundo apellido.
-	 */
-	handleCambioSegundoApellido = (event) => {
-		this.setState({
-		segundoApellido: event.target.value
-		});
-
-		this.setState({
-		cambioSegundoApellido: true,
-		});
-	}
-
-	/**
-	 * Controla cuando se cambia la dirección de residencia.
-	 */
-	handleCambioDireccion = (event) => {
-		this.setState({
-		direccion: event.target.value
-		});
-
-		this.setState({
-		cambioDireccion: true,
-		});
+		
+		fetch("https://ubicaciones.paginasweb.cr/provincia/"+this.props.volunteerInfo.Provincia+"/canton/"+this.props.volunteerInfo.Canton+"/distritos.json")
+			.then((resp) => resp.json())
+			.then((data) => this.setState({ distritos: data }));
 	}
 
 	_onFocus = function(e){
@@ -201,7 +129,6 @@ export default class KModalInfo extends Component {
 	 */
 	render() {
 		// cargar provincias, cantones y distritos
-		this.cargar_provincias();
 		const p= [];
 		const c= [];
 		const d= [];
@@ -239,7 +166,10 @@ export default class KModalInfo extends Component {
 				<div className="group_line">
 				<div className="form_field">
 					<label>Tipo de identificación</label>
-					<select value={this.props.volunteerInfo.Tipo_identificacion}>
+					<select 
+						name="Tipo_identificacion"
+						value={this.state.modificaciones.Tipo_identificacion} 
+						onChange={this.guardar_info}>
 					<option value="">Tipo indentificación</option>
 					<option value="cedula_identidad">Cedula identidad</option>
 					<option value="cedula_residencia">Cedula residencia</option>
@@ -249,7 +179,11 @@ export default class KModalInfo extends Component {
 
 				<div className="form_field">
 					<label>Identificación</label>
-					<input type="text" placeholder={this.props.volunteerInfo.Cedula} onChange={this.handleCambioCedula}/>
+					<input type="text"
+						name="Cedula" 
+						placeholder={this.state.modificaciones.Cedula} 
+						onChange={this.guardar_info}
+						disabled/>
 				</div>
 				</div>
 
@@ -257,29 +191,46 @@ export default class KModalInfo extends Component {
 
 				<div className="form_field">
 				<label>Nombre</label>
-					<input type="text" className="name_input" placeholder={this.props.volunteerInfo.Nombre} onChange={this.handleCambioNombre}/>
+					<input type="text" className="name_input" 
+						name="Nombre" 
+						placeholder={this.state.modificaciones.Nombre} 
+						onChange={this.guardar_info}/>
 				</div>
 
 				<div className="form_field">
 				<label>Primer apellido</label>
-					<input type="text" className="name_input" placeholder={this.props.volunteerInfo.Primer_apellido} onChange={this.handleCambioPrimerApellido}/>
+					<input type="text" className="name_input" 
+						name="Primer_apellido" 
+						placeholder={this.state.modificaciones.Primer_apellido} 
+						onChange={this.guardar_info}/>
 				</div>
 
 				<div className="form_field">
 				<label>Segundo apellido</label>
-					<input type="text" className="name_input" placeholder={this.props.volunteerInfo.Segundo_apellido} onChange={this.handleCambioSegundoApellido}/>
+					<input type="text" className="name_input" 
+						name="Segundo_apellido" 
+						placeholder={this.state.modificaciones.Segundo_apellido} 
+						onChange={this.guardar_info}/>
 				</div>
 
 				</div>
 
 				<div className="form_field">
 				<label>Fecha de Nacimiento</label>
-				<input type="text" placeholder={this.props.volunteerInfo.Fecha_nacimiento} onFocus = {this._onFocus} onBlur={this._onBlur}/>
+				<input type="text" 
+					name="Fecha_nacimiento" 
+					placeholder={this.state.modificaciones.Fecha_nacimiento} 
+					onFocus = {this._onFocus} 
+					onBlur={this._onBlur}
+					onChange={this.guardar_info}/>
 				</div>
 
 				<div className="form_field">
 				<label>Género</label>
-				<select value={this.props.volunteerInfo.Genero}>
+				<select 
+					name="Genero" 
+					value={this.state.modificaciones.Genero}
+					onChange={this.guardar_info}>
 					<option value="masculino">Masculino</option>
 					<option value="femenino">Femenino</option>
 					<option value="otro">Prefiero no especificar</option>
@@ -289,7 +240,10 @@ export default class KModalInfo extends Component {
 
 				<div className="form_field">
 				<label>Estado civil</label>
-				<select value={this.props.volunteerInfo.Estado_civil} onChange={this.setState(this.handleChange)}>
+				<select 
+					name="Estado_civil" 
+					value={this.state.modificaciones.Estado_civil}
+					onChange={this.guardar_info}>
 					<option value="" selected disabled >Estado civil</option>
                     <option value="soltero">Soltero</option>
                     <option value="casado">Casado</option>
@@ -309,7 +263,10 @@ export default class KModalInfo extends Component {
 				<div className="group_line">
 					<div className="form_field">
 					<label>Provincia</label>
-					<select id="provincia" name="provincia" value={this.props.volunteerInfo.Provincia} onChange={this.guardar_info}>
+					<select 
+						name="Provincia" 
+						value={this.state.modificaciones.Provincia} 
+						onChange={this.guardar_info}>
 					<option value="" selected disabled>Provincia</option>
 						{p}
 					</select>
@@ -317,7 +274,10 @@ export default class KModalInfo extends Component {
 
 					<div className="form_field">
 					<label>Cantón</label>
-					<select id="canton" name="canton" value={this.props.volunteerInfo.Canton} onChange={this.guardar_info}>
+					<select 
+						name="Canton" 
+						value={this.state.modificaciones.Canton} 
+						onChange={this.guardar_info}>
 					<option value="" selected disabled>Canton</option>
 						{c}
 					</select>
@@ -325,7 +285,10 @@ export default class KModalInfo extends Component {
 
 					<div className="form_field">
 					<label>Distrito</label>
-					<select value={this.props.volunteerInfo.Distrito}>
+					<select 
+						name="Distrito" 
+						value={this.state.modificaciones.Distrito} 
+						onChange={this.guardar_info}>
 					<option value="" selected disabled>Distrito</option>
 						{d}
 					</select>
@@ -334,7 +297,10 @@ export default class KModalInfo extends Component {
 
 				<div className="form_field">
 					<label>Dirección exacta</label>
-					<input type="text-long" placeholder={this.props.volunteerInfo.Direccion}/>
+					<input type="text-long" 
+						name="Direccion" 
+						placeholder={this.state.modificaciones.Direccion}
+						onChange={this.guardar_info}/>
 				</div>
 				<br/>
 				<h5> Habilidades seleccionadas </h5>
@@ -353,17 +319,26 @@ export default class KModalInfo extends Component {
 
 				<div className="form_field">
 					<label>Correo electrónico</label>
-					<input type="email" placeholder={this.props.volunteerInfo.Correo_electronico}/>
+					<input type="email" 
+						name="Correo_electronico" 
+						placeholder={this.state.modificaciones.Correo_electronico}
+						onChange={this.guardar_info}/>
 				</div>
 
 				<div className="form_field">
 					<label>Teléfono 1</label>
-					<input type="phone" placeholder={this.props.volunteerInfo.Telefono_uno}/>
+					<input type="phone" 
+						name="Telefono_uno" 
+						placeholder={this.state.modificaciones.Telefono_uno}
+						onChange={this.guardar_info}/>
 				</div>
 
 				<div className="form_field">
 					<label>Teléfono 2</label>
-					<input type="phone"placeholder={this.props.volunteerInfo.Telefono_dos}/>
+					<input type="phone"
+						name="Telefono_dos" 
+						placeholder={this.state.modificaciones.Telefono_dos}
+						onChange={this.guardar_info}/>
 				</div>
 
 				</section>
@@ -373,7 +348,10 @@ export default class KModalInfo extends Component {
 					<h5>Estado Solicitud</h5>
 					<hr></hr>
 				</div>
-				<select defaultValue={this.props.volunteerInfo.Estado_solicitud} onChange={this.handleSelectChange}>
+				<select 
+					name="Estado_solicitud" 
+					defaultValue={this.state.modificaciones.Estado_solicitud} 
+					onChange={this.guardar_info}>
 					<option value="Pendiente">Pendiente</option>
 					<option value="Aprobado">Aprobado</option>
 					<option value="Denegado">Denegado</option>
@@ -388,24 +366,20 @@ export default class KModalInfo extends Component {
 			<div className="group_line1">
 				<div className="flex-btn">
 				<button className="btn btn-primary" onClick={()=>{
-					if(this.state.cambioEstado){
-					this.props.updateUser(this.props.campana, this.props.volunteerInfo.Cedula, "Estado_solicitud", this.state.estadoSolicitud);
+					let entra = false;
+					Object.keys(this.state.modificaciones).map(key => { 
+						if(this.state.modificaciones[key] !== this.state.original[key]){
+							entra = true;
+							this.props.updateUser(this.props.campana, this.props.volunteerInfo.Cedula, key, this.state.modificaciones[key]);
+							if(key === "Estado_solicitud"){
+								enviar_correo_voluntario_aceptado(this.state.modificaciones.Correo_electronico,this.props.campana_nombre, this.props.volunteerInfo.Nombre);
+							}
+						}
+					});
+					if(entra){
+						alert("Los valores han sido actualizados");
 					}
-					if(this.state.cambioCedula){
-					this.props.updateUser(this.props.campana, this.props.volunteerInfo.Cedula, "ID", this.state.cedula);
-					}
-					if(this.state.cambioNombre){
-					this.props.updateUser(this.props.campana, this.props.volunteerInfo.Cedula, "Nombre", this.state.nombre);
-					}
-					if(this.state.cambioPrimerApellido){
-					this.props.updateUser(this.props.campana, this.props.volunteerInfo.Cedula, "Primer_apellido", this.state.primerApellido);
-					}
-					if(this.state.cambioSegundoApellido){
-					this.props.updateUser(this.props.campana, this.props.volunteerInfo.Cedula, "Segundo_apellido", this.state.segundoApellido);
-					}
-					if(this.state.cambioDireccion){
-					this.props.updateUser(this.props.campana, this.props.volunteerInfo.Cedula, "Direccion", this.state.direccion);
-					}
+					this.props.refrescar();
 
 					this.props.onClose();
 				}}> Guardar </button>

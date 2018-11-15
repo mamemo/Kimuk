@@ -87,7 +87,7 @@ function actualizar_voluntarios_campana(Id_campana, Id_voluntario, llave_valor, 
     if (llave_valor !== "Key") {
         const db = firebase.database().ref('Campanas/' + Id_campana + "/Voluntarios/" + Id_voluntario);
         db.child(llave_valor).set(nuevo_valor).then(function () {
-            alert("El valor ha sido actualizado");
+            console.log("El valor ha sido actualizado");
         }).catch(function (error) {
             alert("Error al actualizar\n" + error);
         });

@@ -37,10 +37,10 @@ function enviar_correo_voluntariado(correo,campana,name,id,admin_pass) {
 }
 
 /**
- * Envia correo -> registro de voluntario (confirmacion de voluntario registrado)
- * @param {correo} correo
- * @param {campana} nombreCampana
- * @param {name} nombreVoluntarioRegistrado
+ * Envia correo del registro de voluntario (confirmacion de voluntario registrado)
+ * @param correo El correo a donde enviar información.
+ * @param campana El nombre de la campaña
+ * @param name El nombre del voluntario
  */
 function enviar_correo_voluntario_confirmacion(correo,campana, name) {
     var mensaje="";
@@ -52,11 +52,12 @@ function enviar_correo_voluntario_confirmacion(correo,campana, name) {
 /**
  * Envia correo de la confirmación al voluntario para una campaña
  * @param correo El correo a donde enviar información.
- * @param informacion La información de la campaña
+ * @param campana El nombre de la campaña
+ * @param name El nombre del voluntario
  */
-function enviar_correo_voluntario_aceptado(correo,informacion) {
+function enviar_correo_voluntario_aceptado(correo,campana, name) {
     var mensaje="";
-    var asunto="Kimuk - Aceptación en el voluntariado - " + informacion.campana;
-    var html="Hola " + informacion.name + " acabás de ser aceptado como voluntario de " + informacion.campana + ". Estamos muy felices de que participés en esta actividad. Te esperamos";
+    var asunto="Kimuk - Aceptación en el voluntariado - " + campana;
+    var html="Hola " + name + " acabás de ser aceptado como voluntario de " + campana + ". Estamos muy felices de que participés en esta actividad. Te esperamos";
     enviar_correo(correo,asunto,mensaje,html);
 }
