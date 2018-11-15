@@ -5,7 +5,7 @@ import * as database from "../DB/documentsAdmin";
 import "./formDocumentsSubida.css";
 import {insertar_actualizar_beneficiaros, insertar_actualizar_contacto_emergencia_voluntario} from "../DB/volunteers";
 import ReactTooltip from 'react-tooltip';
-import { FaLongArrowAltRight, FaLongArrowAltLeft, FaDownload } from 'react-icons/fa';
+import { FaLongArrowAltRight, FaLongArrowAltLeft, FaDownload, FaUpload } from 'react-icons/fa';
 
 /*
 Estas variables contienen la informacion de los beneficiarios
@@ -96,12 +96,18 @@ export default class KFormDocumentsSubidaVoluntario extends Component {
                                 <div className={"containerdoc"}>
                                     <input className={"checkdoc"} type={"checkbox"} name={documentos[k]}
                                            id={consecutivo}
+                                           data-tip data-for='check-doc-tooltip'
                                            onChange={KFormDocumentsSubidaVoluntario.onchangeCheckBox}/>
+                                           <ReactTooltip id='check-doc-tooltip' type='info' effect='solid' place="top">
+                                               <span>
+                                                 Seleccioná el documento y procede a adjuntarlo.
+                                               </span>
+                                           </ReactTooltip>
                                     <label className={"lbldoc"}>&nbsp;&nbsp;{documentos[k]}
                                         <input type="file" name={k} id={"file" + consecutivo} className="uploadbutton"
                                                disabled={true}
                                                onChange={this.onChangeFileUploadButtonVoluntario}/>
-                                        <label htmlFor={"file" + consecutivo} data-tip data-for='upload-tooltip'>Adjuntar</label>
+                                        <label htmlFor={"file" + consecutivo} data-tip data-for='upload-tooltip'>Adjuntar <FaUpload/> </label>
                                     </label>
                                     <label className={"docname"} id={"name" + k.toString()}>&nbsp;</label>
                                     <br/>

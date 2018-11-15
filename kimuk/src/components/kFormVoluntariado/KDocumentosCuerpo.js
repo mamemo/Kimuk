@@ -3,8 +3,9 @@ import './KFormVoluntariado.css';
 import * as database from "../DB/documentsAdmin";
 import "./formDocuments.css";
 import ReactTooltip from 'react-tooltip';
-import KHeaderVoluntariado from './KHeaderVoluntariado'
-import KModalDocumentos from './KModalDocumentos';;
+import KHeaderVoluntariado from './KHeaderVoluntariado';
+import KModalDocumentos from './KModalDocumentos';
+import { FaUpload } from 'react-icons/fa';
 
 
 export default class KDocumentosCuerpo extends Component {
@@ -72,12 +73,17 @@ export default class KDocumentosCuerpo extends Component {
                                     <input type="file" name={k} id={"file" + k.toString()} className="uploadbutton"
                                            accessKey={documentos[k]}
                                            onChange={this.onChangeFileUploadButton}/>
-                                    <label htmlFor={"file" + k.toString()}>Adjuntar</label>
+                                    <label data-tip data-for='upload-tooltip' htmlFor={"file" + k.toString()}>Adjuntar <FaUpload/> </label>
 
                                 </label>
                                 <label className={"docname"} id={"name" + k.toString()}>&nbsp;{nombreDoc}</label>
                                 <br/>
                                 <progress className={"documentosbar"} max={100} value={progress} id={"bar" + k.toString()}>0%</progress>
+                                <ReactTooltip id='upload-tooltip' type='info' effect='solid' place="top">
+                                  <span>
+                                    Adjuntá el documento deseado
+                                  </span>
+                                </ReactTooltip>
                             </div>
                         );
 
@@ -111,13 +117,19 @@ export default class KDocumentosCuerpo extends Component {
 
                                     <input type="file" name={k} id={"file" + k.toString()} className="uploadbutton"
                                            accessKey={documentos[k]}
+                                           data-tip data-for='upload-tooltip'
                                            onChange={this.onChangeFileUploadButton}/>
-                                    <label htmlFor={"file" + k.toString()}>Adjuntar</label>
+                                    <label data-tip data-for='upload-tooltip' htmlFor={"file" + k.toString()}>Adjuntar <FaUpload/> </label>
 
                                 </label>
                                 <label className={"docname"} id={"name" + k.toString()}>&nbsp;{nombreDoc}</label>
                                 <br/>
                                 <progress className={"documentosbar"} max={100} value={progress} id={"bar" + k.toString()}>0%</progress>
+                                <ReactTooltip id='upload-tooltip' type='info' effect='solid' place="top">
+                                  <span>
+                                    Adjuntá el documento deseado
+                                  </span>
+                                </ReactTooltip>
                             </div>
                         );
 
@@ -305,7 +317,6 @@ export default class KDocumentosCuerpo extends Component {
                         <span class="checkmark"></span>
                     </label>
 
-
                 </div>
                 <div>
                     <input class="marcarbuttom"
@@ -319,24 +330,6 @@ export default class KDocumentosCuerpo extends Component {
                     {this.state.listaDocumentosRestantes}
                 </div>
 
-                <ReactTooltip id='table-tooltip' type='info' effect='solid'>
-              <span>
-                <h4> ¿A cuáles documentos hace referencia? </h4>
-                <h5> ¿Deseas seleccionar documentos requeridos? </h5>
-                <p>
-                  Adjunta documentos como pólizas de seguro.
-                  <br />
-                  También puedes solicitar a los posibles voluntarios documentos como:
-                  <br />
-                  <ul>
-                    <li>Cédula de identidad </li>
-                    <li>Hoja de delincuencia</li>
-                    <li>Curriculum Vitae </li>
-                    <li>etc.</li>
-                  </ul>
-                </p>
-              </span>
-                </ReactTooltip>
                 <div className="offset-6">
                 </div>
 

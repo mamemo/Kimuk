@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import './KTable.css';
 import KModalInfo from '../KModals/KModalInfo';
+import { FaDownload, FaInfoCircle, FaSearch } from 'react-icons/fa';
+import ReactTooltip from 'react-tooltip'
 
 //Imports for pop up
 import { confirmAlert } from 'react-confirm-alert'; // Import
@@ -12,8 +14,6 @@ import KFormDocumentsBajadaVoluntario from "../KComponentsDocuments/KFormDocumen
 export default class KTable extends Component {
   constructor(props){
     super(props);
-
-    console.log(this.props.idcampana);
 
     this.state = {
       inputValue: '',
@@ -28,14 +28,17 @@ export default class KTable extends Component {
   }
 
   filterItemsSearchBar = (query) => {
-    if(query == "")
-      return this.state.voluntarios;
-    return this.state.voluntarios.filter((el) =>
-      el.Nombre.replace(/\s/g,'').toLowerCase().indexOf(query.replace(/\s/g,'').toLowerCase()) > -1 ||
-      el.Primer_apellido.replace(/\s/g,'').toLowerCase().indexOf(query.replace(/\s/g,'').toLowerCase()) > -1 ||
-      el.Segundo_apellido.replace(/\s/g,'').toLowerCase().indexOf(query.replace(/\s/g,'').toLowerCase()) > -1 ||
-      (el.Nombre+el.Primer_apellido+el.Segundo_apellido).replace(/\s/g,'').toLowerCase().indexOf(query.replace(/\s/g,'').toLowerCase()) > -1
-    );
+    if(this.state.voluntarios.length){
+      if(query == "")
+        return this.state.voluntarios;
+      return this.state.voluntarios.filter((el) =>
+        el.Nombre.replace(/\s/g,'').toLowerCase().indexOf(query.replace(/\s/g,'').toLowerCase()) > -1 ||
+        el.Primer_apellido.replace(/\s/g,'').toLowerCase().indexOf(query.replace(/\s/g,'').toLowerCase()) > -1 ||
+        el.Segundo_apellido.replace(/\s/g,'').toLowerCase().indexOf(query.replace(/\s/g,'').toLowerCase()) > -1 ||
+        (el.Nombre+el.Primer_apellido+el.Segundo_apellido).replace(/\s/g,'').toLowerCase().indexOf(query.replace(/\s/g,'').toLowerCase()) > -1
+      );
+    }
+    return this.state.voluntarios;
   }
 
   filterItemsState = (query) => {
@@ -53,7 +56,7 @@ export default class KTable extends Component {
       return <td className="aprobado">{pState}</td>
     }
 
-    else if(pState == 'No aprobado'){
+    else if(pState == 'Denegado'){
       return <td className="no_aprobado">{pState}</td>
     }
 
@@ -70,10 +73,12 @@ export default class KTable extends Component {
     confirmAlert({
       customUI: ({onClose}) => {
         return(
-          <div>
-            <KModalInfo volunteerInfo={userJson} campana={this.props.idcampana} updateUser={this.updateUser} onClose={onClose}/>
-          </div>
-          
+            <KModalInfo
+              volunteerInfo={userJson}
+              campana={this.props.idcampana}
+              updateUser={this.updateUser}
+              habilidades={this.state.voluntarios[2].Habilidades}
+              onClose={onClose}/>
         );
       }
     });
@@ -92,7 +97,7 @@ export default class KTable extends Component {
 
   createTable = () => {
     let tableBody = [];
-
+    //console.log(this.state.voluntarios[2].Habilidades);
     const voluntarios = this.filterItemsSearchBar(this.state.inputValue);
 
     for(var i = 0; i < voluntarios.length; i++){
@@ -103,9 +108,31 @@ export default class KTable extends Component {
                         <td>{this.createStateCell(voluntarios[i].Estado_solicitud)}</td>
                         <td>{voluntarios[i].Ocupacion}</td>
                         <td>{voluntarios[i].Fecha_registro}</td>
-                        <td><button onClick={this.createModal.bind(this, voluntarios[i])}>Editar información</button></td>
-                        <td><button onClick={this.abrirDocumentos.bind(this, voluntarios[i])}>Descargar documentos</button></td>
-                        <td><input type="checkbox" className="checkbox" onChange={this.handleCheck.bind(this, voluntarios[i])}/></td>
+                        <td>
+                          <button
+                            className="btn btn-default"
+                            data-tip data-for='info-tooltip'
+                            onClick={this.createModal.bind(this, voluntarios[i])}>
+                            <span className="icon_span"><FaInfoCircle/></span>
+                             Información
+                          </button>
+                        </td>
+                        <td>
+                          <button
+                            className="btn btn-default"
+                            data-tip data-for='down-doc-tooltip'
+                            onClick={this.abrirDocumentos.bind(this, voluntarios[i])}>
+                            <span className="icon_span"><FaDownload/></span>
+                             Descargar documentos
+                          </button>
+                        </td>
+                        <td>
+                          <input
+                            type="checkbox"
+                            className="checkbox"
+                            data-tip data-for='check-vol-tooltip'
+                            onChange={this.handleCheck.bind(this, voluntarios[i])}/>
+                        </td>
                       </tr>);
       }
     }
@@ -119,7 +146,10 @@ export default class KTable extends Component {
     confirmAlert({
       customUI: ({onClose}) => {
         return(
-          <KFormDocumentsBajadaVoluntario campana={this.props.idcampana} voluntario={{cedula: voluntario["Cedula"]}}/>
+          <KFormDocumentsBajadaVoluntario
+            campana={this.props.idcampana}
+            voluntario={{cedula: voluntario["Cedula"]}}
+            onClose={onClose}/>
         );
       }
     });
@@ -186,7 +216,7 @@ export default class KTable extends Component {
         newRows = this.filterItemsState('Aprobado');
         break;
       case 'No Aprobados':
-        newRows = this.filterItemsState('No Aprobado');
+        newRows = this.filterItemsState('Denegado');
         break;
       case 'Todos':
         newRows = this.props.rows;
@@ -204,7 +234,7 @@ export default class KTable extends Component {
       default:
         break;
     }
-    
+
     this.setState({
       voluntarios : newRows
     });
@@ -213,40 +243,100 @@ export default class KTable extends Component {
   render() {
     return (
       <div className='members_container'>
-        <input 
-          type='search' 
-          className="searchBar" 
-          value={this.state.inputValue} 
-          onChange={evt => this.updateInputValue(evt)}
-          placeholder='Buscá un voluntario por Nombre y/o Apellidos'/>
 
-        <div className="table_container">
-          <table className="volunteer_table">
-            <thead>
-              <tr>
-                <th></th>
-                <th>Nombre completo</th>
-                <th>Estado</th>
-                <th>Ocupación</th>
-                <th>Fecha de registro</th>
-                <th></th>
-                <th></th>
-              </tr>
-            </thead>
-            {this.createTable()}
-          </table>
-
-          <div className="filter_container">
-            <button name="Aprobados" onClick={evt=>this.filtrarEstado(evt)}>Aprobados</button>
-            <button name="No Aprobados" onClick={evt=>this.filtrarEstado(evt)}>No Aprobados</button>
-            <button name="Todos" onClick={evt=>this.filtrarEstado(evt)}>Todos</button>
-            <button name="Pendientes" onClick={evt=>this.filtrarEstado(evt)}>Pendientes</button>
-            <button name="Aprobados para seguro" onClick={evt=>this.filtrarEstado(evt)}>Aprobados para seguro</button>
+        <div className="searchBar">
+          <div className="input-group mb-3">
+            <input
+              type='search'
+              className="form-control"
+              value={this.state.inputValue}
+              onChange={evt => this.updateInputValue(evt)}
+              data-tip data-for='search-tooltip'
+              placeholder='Buscá un voluntario por Nombre y/o Apellidos'/>
+            <div className="input-group-append">
+              <span className="input-group-text"><FaSearch/></span>
+            </div>
           </div>
+          <ReactTooltip id='search-tooltip' type='info' effect='solid' place="top">
+              <span>
+                Puedes buscar solicitudes de voluntarios específicos,
+                <br/>
+                mediante su nombre y/o apellidos.
+              </span>
+          </ReactTooltip>
         </div>
 
-        <button onClick={this.exportCSVFile.bind(this, this.voluntariosSeleccionados, "voluntarios")}>Descargar seleccionados</button>
+        <div className="table_container">
 
+          <div className="btn-gr text-center" data-tip data-for='btn-gr-tooltip'>
+            <div className="btn-group btn-group-justified">
+              <button type="button" class="btn btn-dark" name="Aprobados" onClick={evt=>this.filtrarEstado(evt)}>Aprobados</button>
+              <button type="button" class="btn btn-dark" name="No Aprobados" onClick={evt=>this.filtrarEstado(evt)}>No Aprobados</button>
+              <button type="button" class="btn btn-dark" name="Todos" onClick={evt=>this.filtrarEstado(evt)}>Todos</button>
+              <button type="button" class="btn btn-dark" name="Pendientes" onClick={evt=>this.filtrarEstado(evt)}>Pendientes</button>
+            </div>
+
+            <ReactTooltip id='btn-gr-tooltip' type='info' effect='solid' place="top">
+                <span>Filtrá las solicitudes según su estado</span>
+            </ReactTooltip>
+
+          </div>
+
+          <div class="table-responsive">
+            <table className="table table-hover">
+              <thead>
+                <tr>
+                  <th></th>
+                  <th>Nombre completo</th>
+                  <th>Estado</th>
+                  <th>Ocupación</th>
+                  <th>Fecha de registro</th>
+                  <th></th>
+                  <th></th>
+                </tr>
+              </thead>
+              {this.createTable()}
+            </table>
+          </div>
+
+        </div>
+        <br />
+        <button
+          className="btn btn-primary"
+          data-tip data-for='down-tooltip'
+          onClick={this.exportCSVFile.bind(this, this.voluntariosSeleccionados, "voluntarios")}>
+          Descargar seleccionados
+        </button>
+        <br />
+        <br />
+        <ReactTooltip id='down-tooltip' type='info' effect='solid' place="top">
+            <span>
+              Descargá las solicitudes seleccionadas.
+              <br/>
+              Se generará un archivo con la información de
+              <br />
+              las solicitudes de los voluntarios.
+            </span>
+        </ReactTooltip>
+        <ReactTooltip id='info-tooltip' type='info' effect='solid' place="top">
+            <span>
+              Puedes ver y editar la información de la solicitud
+              <br/>
+              del candidato a voluntario seleccionado.
+            </span>
+        </ReactTooltip>
+        <ReactTooltip id='down-doc-tooltip' type='info' effect='solid' place="top">
+            <span>
+              Puedes descargar los documentos adjuntados por el
+              <br/>
+              candidato a voluntario seleccionado.
+            </span>
+        </ReactTooltip>
+        <ReactTooltip id='check-vol-tooltip' type='info' effect='solid' place="top">
+            <span>
+              Seleccioná esta solicitud
+            </span>
+        </ReactTooltip>
 			</div>
     );
   }

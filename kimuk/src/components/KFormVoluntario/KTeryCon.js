@@ -63,7 +63,7 @@ export default class KTeryCon extends Component {
             if (insertar_actualizar_habilidades_voluntarios(this.props.voluntario.Id_campana,
                 this.props.voluntario.id, habilidad, this.props.voluntario.habilidades[habilidad])) {
                 this.showPopUp("Error en el registro",
-                "Tuvimos un error registrandote.\n\nRevisá la información que ingresaste y vuelvé a intentar.\nSi el problema sigue recargá la página");
+                "Tuvimos un error registrandote.\n\nRevisá la información que ingresaste y vuelve a intentar.\nSi el problema sigue recargá la página");
                 return;
             }
         }

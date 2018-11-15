@@ -11,7 +11,7 @@ const infoModalStyle = {
         bottom                : 'auto',
         height                : '500px',
         transform             : 'translate(-50%, -50%)',
-        overflow              : 'auto',
+        overflow              : 'auto', // <-- This tells the modal to scrol
     }
 };
 
@@ -22,7 +22,7 @@ const contactModalStyle = {
         right                 : 'auto',
         bottom                : 'auto',
         transform             : 'translate(-50%, -50%)',
-        overflow              : 'auto',
+        overflow              : 'auto', // <-- This tells the modal to scrol
     }
 };
 
@@ -70,6 +70,7 @@ export default class KNav extends React.Component {
         ariaHideApp={false}
       >
         <h4>Información de Contacto</h4>
+        <hr/>
         <h5>Dirección Principal</h5>
         <h6><b>Teléfono: </b>+506 2542-5000</h6>
         <h6><b>Dirección: </b>Calle 8, Avenida 14, Distrito Hospital, San José 10103, Costa Rica</h6>
@@ -79,9 +80,11 @@ export default class KNav extends React.Component {
         <h6><b>Teléfono: </b>+506 2528-0000</h6>
         <h6><b>Dirección: </b>Avenida 20A, Zapote, San José, 10105, Costa Rica</h6>
         <h6><b>Otras Señas: </b>De Casa Presidencial, 300 m noroeste y 25 metros norte</h6>
-        <button className="btn-md btn-primary" aria-label="Close" onClick={this.showContactModal}>
-            <span aria-hidden="true">Cerrar</span>
-        </button>
+        <div className="div_btn text-center">
+          <button className="btn-md btn-primary text-center" aria-label="Close" onClick={this.showContactModal}>
+              <span aria-hidden="true">Cerrar</span>
+          </button>
+        </div>
       </Modal>
     );
   }
@@ -95,6 +98,7 @@ export default class KNav extends React.Component {
         ariaHideApp={false}
       >
         <h4>Información General</h4>
+        <hr/>
         <p>
           El Ciclo de Gestión de Voluntariado, es el proceso que garantiza la inclusión de los voluntarios en los programas de asistencia de la Cruz Roja Costarricense. Este proceso busca fortalecer y organizar los esfuerzos realizados por la institución y los voluntarios para poder cumplir con sus labores y objetivos, así como con su misión y visión.
         </p>
@@ -117,9 +121,11 @@ export default class KNav extends React.Component {
           </li>
 
         </ol>
-        <button className="btn-md btn-primary" aria-label="Close" onClick={this.showInfoModal}>
-            <span aria-hidden="true">Cerrar</span>
-        </button>
+        <div className="div_btn text-center">
+          <button className="btn-md btn-primary" aria-label="Close" onClick={this.showInfoModal}>
+              <span aria-hidden="true">Cerrar</span>
+          </button>
+        </div>
       </Modal>
     );
   }

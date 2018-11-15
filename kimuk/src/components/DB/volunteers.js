@@ -98,7 +98,8 @@ function leer_voluntarios(Id_campana, Id_voluntario) {
 function insertar_actualizar_habilidades_voluntarios(Id_campana, Id_voluntario, Id_habilidad, nombre_habilidad) {
     const ref = firebase.database().ref('Campanas/' + Id_campana + "/Voluntarios/" + Id_voluntario + "/Habilidades");
     ref.child(Id_habilidad).set(nombre_habilidad).then(function () {
-        alert("Habilidad actualizada");
+      console.log("Habilidad actualizada");
+        //alert("Habilidad actualizada");
     }).catch(function (error) {
         alert("Error al actualizar la habilidad \n" + error);
     })
@@ -223,5 +224,3 @@ function leer_contacto_emergencia_voluntario(Id_campana, Id_voluntario) {
     });
     });
 }
-
-

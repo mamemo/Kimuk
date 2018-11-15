@@ -1,3 +1,8 @@
 li {
   text-align: left;
 }
+
+.div_btn {
+  margin: 2em 0;
+  width: 100%;
+}

@@ -7,7 +7,7 @@
 }
 
 .volunteer_table{
-  width: 80%;
+  width: 100%;
   justify-content: space-evenly;
 }
 
@@ -31,24 +31,29 @@
   background-color: lightskyblue;
 }
 
-table, th, td {
-  border-bottom: 1px solid black;
-  border-collapse: collapse;
-}
-
 .checkbox{
   width: auto;
 }
 
 .table_container {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   flex-wrap: nowrap;
   justify-content: space-around;
+  width: 85%;
 }
 
 .filter_container{
   display: flex;
   flex-direction: column;
   flex-wrap: nowrap;
+}
+
+.btn-gr {
+  margin-top: 1em;
+  width: 100%;
+}
+
+.icon_span {
+  margin: 3px;
 }

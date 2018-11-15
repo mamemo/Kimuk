@@ -161,17 +161,19 @@ export default class KModalAddAdmin extends Component
 
     render(){
         return (
-            <div className={"container"}>
+            <div className={"container text-left"}>
                 <h1 data-tip data-for='modal-tooltip' className="hform">Otros encargados:</h1>
                 <ReactTooltip id='modal-tooltip' type='info' effect='solid'>
                   <span>Puede agregar nuevos encargados que ayuden con la organización del voluntariado.</span>
                 </ReactTooltip>
                 <a className="aform" href='javascript:' onClick={this.openModal}>Agregar encargados al voluntariado</a>
+
                 <Modal
                     isOpen={this.state.modalIsOpen}
                     onRequestClose={this.closeModal}
                     style={customStyles}
                     ariaHideApp={false}>
+
                     <h7>&nbsp; Ingrese información del encargado</h7>
                     <br/>
                     <h6>Nombre:</h6>
@@ -198,8 +200,10 @@ export default class KModalAddAdmin extends Component
                     <button type="button" className="close" aria-label="Close" onClick={this.closeModal}>
                         <span aria-hidden="true">&times;</span>
                     </button>
+
                 </Modal>
-                <div>
+
+                <div className="table-responsive">
                     <table className="title">
                         <tr>
                             <td>Nombre</td>

@@ -93,7 +93,7 @@ export default class KFormVoluntario extends Component {
     }
 
     render(){
-      console.log(this.state.encargados);
+      //console.log(this.state.encargados);
       let pasos;
         const info=<KInfoVoluntariado campana={this.state.campana}
                                       vis_encargados={VisualizacionEncargados(this.state.encargados)}
@@ -164,7 +164,7 @@ export default class KFormVoluntario extends Component {
                           {pasos}
                           <KFormDocumentsSubidaVoluntario
                             campana={{id: this.state.Id_campana}}
-                            voluntario={{cedula: "116760644"}}
+                            voluntario={{cedula: this.state.id}}
                             anterior={this.anterior}
                             siguiente={this.siguiente}/>
                         </div>);

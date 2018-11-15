@@ -1,12 +1,12 @@
 table {
     border-collapse: collapse;
-    width: 100%;
+    width: 90%;
   }
 
   table.title {
     position: relative;
     border-spacing: 3px;
-    width: 85%;
+    width: 90%;
     border: 1px solid lightgrey;
     font-size: 14px;
     table-layout: fixed;
@@ -25,7 +25,7 @@ table {
   }
 
   th {
-    text-align: center;
+    text-align: left;
     font-family: Arial, Helvetica, sans-serif;
   }
 

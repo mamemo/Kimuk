@@ -48,7 +48,7 @@ export default class KHabilidades extends Component {
                                 {this.props.habilidades[k]}
                             </div>);
                 }
-                tab.push(hab)
+                tab.push(hab);
             }
         }
         return(

@@ -13,11 +13,11 @@ export default class KAdmin extends Component {
 		super(props);
 		let id = props.url.split("?p=");
 		this.state = {id_campana : id[0],
-					  	admin_pass: id[1],
-						campana : null,
-						encargados : {},
-						voluntarios : {},
-						imgURL: ""
+							  	admin_pass: id[1],
+									campana : null,
+									encargados : {},
+									voluntarios : {},
+									imgURL: ""
 					};
 
 	}
