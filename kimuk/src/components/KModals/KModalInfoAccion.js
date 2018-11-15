@@ -1,3 +1,9 @@
+/**
+ * Archivo que contiene el componente que muestra la ventana 
+ * con información después de realizar una acción.
+ */
+
+
 import React, { Component } from 'react';
 import '../style/color.css';
 import './KModalInfoAccion.css';
@@ -26,15 +32,24 @@ export default class KModalHabilidades extends Component
         this.muestraMensaje = this.muestraMensaje.bind(this);
     }
 
+    /**
+     * Muestra la ventana.
+     */
     openModal() {
         this.setState({modalIsOpen: true});
     }
 
+    /**
+     * Cierra la ventana.
+     */
     closeModal() {
         this.setState({modalIsOpen: false});
         this.props.handler();
     }
 
+    /**
+     * Muestra en la ventana el mensaje de lo que pasó con la acción realizada.
+     */
     muestraMensaje() {
         var resul = [];
         var arrayMensaje = this.props.mensaje.split("\n");
@@ -49,11 +64,18 @@ export default class KModalHabilidades extends Component
         this.setState({mensajeUsuario: resul});
     }
 
+    /**
+     * Una vez que ya esté lista la ventana, muestra el mensaje.
+     */
     componentDidMount () {
         this.muestraMensaje();
     }
 
-    render(){
+    /**
+	 * Muestra los componentes deseados. 
+	 * Actualiza la interfaz dependiendo de lo que pase en la aplicación.
+	 */
+	render(){
         return (
             <div className={"container"}>
                 

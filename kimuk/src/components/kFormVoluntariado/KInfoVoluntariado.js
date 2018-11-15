@@ -5,7 +5,6 @@
 
 
 import React, { Component } from 'react';
-import { Glyphicon } from 'react-bootstrap';
 import KModalAddAdmin from '../KModals/KModalAddAdmin';
 import ReactTooltip from 'react-tooltip'
 import TimeInput from 'material-ui-time-picker'

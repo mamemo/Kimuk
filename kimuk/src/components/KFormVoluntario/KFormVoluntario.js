@@ -1,3 +1,9 @@
+/**
+ * Archivo que junta todos los componentes para 
+ * mostrar la interfaz de Registrar a un Voluntariado.
+ */
+
+
 import React, { Component } from 'react';
 import './KFormVoluntario.css';
 import '../style/color.css';
@@ -17,7 +23,7 @@ export default class KFormVoluntario extends Component {
 
     constructor(props){
         super(props);
-        // TODO: Cuando se vaya a abrir esto, pasar el id de la campaña -> this.Id_campana = props.Id_campana;
+        
         this.state = {
             step: 1,
             tipo_id: "",
@@ -50,26 +56,43 @@ export default class KFormVoluntario extends Component {
         this.obtener_datos=this.obtener_datos.bind(this);
     }
 
+    /**
+     * Obtiene los datos de la campaña.
+     */
     obtener_datos(){
         leer_campanas(this.state.Id_campana).then((data) => this.setState({datos:data}))
         //console.log(this.state.datos)
         this.dato=this.state.datos;
 
     }
+
+    /*
+    * Navigate forward through form
+    *
+    */
     siguiente(){
         this.setState({
             step : this.state.step + 1
         });
     }
+
+    /*
+    * Navigate backwards through form
+    *
+    */
     anterior(){
         this.setState({
             step : this.state.step - 1
         });
     }
 
+    /**
+	 * Obtiene los datos del voluntariado de la base de datos y 
+	 * llena las variables con la información obtenida.
+	 */
     componentDidMount(){
         leer_campanas(this.state.Id_campana).then(result =>  {
-            if (result){
+            if (result){ //Si se encontró una campaña con ese número
                 let in_campana = InCampanasKFormVoluntario(result);
                 let in_encargados = InEcargadosKFormVoluntario(result);
                 let in_campana_habilidades_graficas = InHabilidadesGraficasKFormVoluntario(result);
@@ -86,15 +109,18 @@ export default class KFormVoluntario extends Component {
                 })
 
 
-            } else {
+            } else { //Si no se encontró lo manda al Inicio
                 window.location.href = "http://localhost:3000";
             }
         });
     }
 
-    render(){
-      //console.log(this.state.encargados);
-      let pasos;
+    /**
+	 * Muestra los componentes deseados. 
+	 * Actualiza la interfaz dependiendo de lo que pase en la aplicación.
+	 */
+	render(){
+        let pasos;
         const info=<KInfoVoluntariado campana={this.state.campana}
                                       vis_encargados={VisualizacionEncargados(this.state.encargados)}
                                       url={this.state.imgURL}/>;

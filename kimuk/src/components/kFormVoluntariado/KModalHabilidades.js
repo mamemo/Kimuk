@@ -1,3 +1,9 @@
+/**
+ * Archivo que contiene todos los componentes para 
+ * mostrar la ventana para agregar habilidades en Crear Voluntariado.
+ */
+
+
 import React, { Component } from 'react';
 import '../style/color.css';
 import './KFormVoluntariado.css';
@@ -17,8 +23,7 @@ const customStyles = {
     }
 };
 
-export default class KModalHabilidades extends Component
-{
+export default class KModalHabilidades extends Component{
     constructor(props) {
         super(props);
         this.state = {
@@ -29,20 +34,36 @@ export default class KModalHabilidades extends Component
         this.borraHabilidadesSeleccionadas = this.borraHabilidadesSeleccionadas.bind(this);
     }
 
+    /**
+     * Muestra la ventana.
+     */
     openModal() {
         this.setState({modalIsOpen: true});
     }
 
+    /**
+     * Cierra la ventana.
+     */
     closeModal() {
         this.setState({modalIsOpen: false});
     }
 
+    /**
+     * Llama al método que borra las habilidades 
+     * seleccionadas del voluntariado.
+     * Se usa cuando se seleccionaron habilidades 
+     * pero se cierra la ventana sin darle Aceptar.
+     */
     borraHabilidadesSeleccionadas() {
         this.props.habilidades.splice(0, this.props.habilidades.length);
         this.closeModal();
     }
 
-    render(){
+    /**
+	 * Muestra los componentes deseados. 
+	 * Actualiza la interfaz dependiendo de lo que pase en la aplicación.
+	 */
+	render(){
         return (
             <div className="container_button">
 

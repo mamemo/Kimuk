@@ -1,3 +1,9 @@
+/**
+ * Archivo que maneja las habilidades que 
+ * el voluntario quiera agregar a su registro.
+ */
+
+
 import React, { Component } from 'react';
 import './KFormVoluntario.css';
 import '../style/color.css';
@@ -10,6 +16,9 @@ export default class KHabilidades extends Component {
         this.guardar_info=this.guardar_info.bind(this);
     }
 
+    /**
+     * Guarda las habilidades seleccionadas.
+     */
     guardar_info(e) {
 
         if(this.props.voluntario[e.target.name].includes(e.target.value)){
@@ -26,7 +35,11 @@ export default class KHabilidades extends Component {
 
     }
 
-    render() {
+    /**
+	 * Muestra los componentes deseados. 
+	 * Actualiza la interfaz dependiendo de lo que pase en la aplicación.
+	 */
+	render() {
 
         const tab=[];
 

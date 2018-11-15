@@ -1,3 +1,9 @@
+/**
+ * Archivo que contiene todos los componentes para mostrar 
+ * la sección de Términos y Condiciones en Registrar a un Voluntariado.
+ */
+
+
 import React, { Component } from 'react';
 import './KFormVoluntario.css';
 import '../style/color.css';
@@ -34,7 +40,9 @@ export default class KTeryCon extends Component {
         this.setState({listo: false});
     }
 
-
+    /**
+     * Muestra un mensaje después de hacer una acción.
+     */
     showPopUp(tNotificacion, msj){
         let pop = [];
         pop.push(<KModalInfoAccion tipoNotificacion={tNotificacion}
@@ -47,6 +55,9 @@ export default class KTeryCon extends Component {
         });
     }
 
+    /**
+     * Método que registra un voluntario en la base de datos.
+     */
     registrar() {
         const d = new Date();
         var resul = insertar_actualizar_voluntarios_camapana(this.props.voluntario.Id_campana,
@@ -76,19 +87,38 @@ export default class KTeryCon extends Component {
                 "Tuvimos un error registrandote.\n\nRevisá la información que ingresaste y vuelvé a intentar.\nSi el problema sigue recargá la página");
         }
     }
+
+    /**
+     * Actualizo un campo dentro del arreglo de Voluntario, 
+     * para luego registrarlo.
+     */
     guardar_info(e){
         this.props.voluntario[e.target.name]=e.target.value;
     }
 
+    /**
+	 * El botón de Registrar Voluntario se deshabilita si no se 
+     * selecciona Aceptar a los Términos y Condiciones. 
+     * Este método lo habilita cuando se selecciona Aceptar.
+	 */
     updateButtonContinuar_Acepta() {
         this.setState({noAceptaTyC: false});
     }
 
+    /**
+	 * El botón de Registrar Voluntario se deshabilita si no se 
+     * selecciona Aceptar a los Términos y Condiciones. 
+     * Este método deshabilita el botón si se selecciona No Acepto.
+	 */
     updateButtonContinuar_noAcepta() {
         this.setState({noAceptaTyC: true});
     }
 
-    render(){
+    /**
+	 * Muestra los componentes deseados. 
+	 * Actualiza la interfaz dependiendo de lo que pase en la aplicación.
+	 */
+	render(){
         return(<div className="container_term">
                 <div className="container-terycon">
                   <div className="flex-item-hab">

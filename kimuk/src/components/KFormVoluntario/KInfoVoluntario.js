@@ -1,3 +1,9 @@
+/**
+ * Archivo que contiene todos los componentes para 
+ * ingresar la información de un voluntario a la hora de registrarse.
+ */
+
+
 import React, { Component } from 'react';
 import './KFormVoluntario.css';
 import '../style/color.css';
@@ -18,7 +24,13 @@ export default class KInfoVoluntario extends Component {
         this.guardar_info=this.guardar_info.bind(this);
         this.cargar_provincias=this.cargar_provincias.bind(this);
         this.submitDataRegistrationForm = this.submitDataRegistrationForm.bind(this);
-    }
+	}
+	
+	/**
+	 * Llama a un servicio para obtener los cantones 
+	 * y/o distritos según una selección.
+	 * Guarda la selección de lugar de residencia.
+	 */
     guardar_info(e){
         if(e.target.name==="provincia"){
 
@@ -36,14 +48,21 @@ export default class KInfoVoluntario extends Component {
             this.render();
         }
         this.props.voluntario[e.target.name]=e.target.value;
-    }
+	}
+	
+	/**
+	 * Llama a un servicio para obtener las provincias de Costa Rica.
+	 */
     cargar_provincias(){
         fetch("https://ubicaciones.paginasweb.cr/provincias.json")
         .then((resp) => resp.json())
         .then((data) => this.setState({ provincias: data}));
     }
 
-    validateForm() {
+    /**
+	 * Función para validar los campos de la interfaz.
+	 */
+	validateForm() {
         //let fields = this.state.fields;
         let errors = {};
         let formIsValid = true;
@@ -147,14 +166,21 @@ export default class KInfoVoluntario extends Component {
         return formIsValid;
     }
 
-    submitDataRegistrationForm(e) {
+    /**
+	 * Método para pasar a la siguiente sección de Registrar un Voluntario.
+	 */
+	submitDataRegistrationForm(e) {
         e.preventDefault();
         if (this.validateForm()) {
             this.props.siguiente();
         }
     }
 
-    render(){
+    /**
+	 * Muestra los componentes deseados. 
+	 * Actualiza la interfaz dependiendo de lo que pase en la aplicación.
+	 */
+	render(){
         this.cargar_provincias();
         const p= [];
         const c= [];

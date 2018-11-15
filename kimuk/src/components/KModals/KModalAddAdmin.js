@@ -1,3 +1,9 @@
+/**
+ * Archivo que contiene el componente que muestra la ventana 
+ * que agrega un encargado a la hora de crear un voluntariado.
+ */
+
+
 import React, { Component } from 'react';
 import '../style/color.css';
 import './KModalAddAdmin.css';
@@ -11,11 +17,11 @@ let nuevoTelefono = "";
 
 const customStyles = {
     content : {
-        top                   : '50%',
-        left                  : '50%',
-        right                 : 'auto',
-        bottom                : 'auto',
-        transform             : 'translate(-50%, -50%)',
+        top         : '50%',
+        left        : '50%',
+        right       : 'auto',
+        bottom      : 'auto',
+        transform   : 'translate(-50%, -50%)',
     }
 };
 
@@ -37,6 +43,9 @@ export default class KModalAddAdmin extends Component
         this.actualizarListaEncargados();
     }
 
+    /**
+	 * Guarda los datos ingresados por el usuario.
+	 */
     static guardar_info(e){
         switch(e.target.name)
         {
@@ -55,61 +64,67 @@ export default class KModalAddAdmin extends Component
         }
     }
 
-    validateForm() {
+    /**
+	 * Función para validar los campos de la interfaz.
+	 */
+	validateForm() {
         //let fields = this.state.fields;
         let errors = {};
         let formIsValid = true;
 
         if (!nuevoNombre) {
-          formIsValid = false;
-          errors["name"] = "*Por favor ingrese nombre del encargado.";
+            formIsValid = false;
+            errors["name"] = "*Por favor ingrese nombre del encargado.";
         }
 
         if (!nuevoApellidos) {
-          formIsValid = false;
-          errors["lastname"] = "*Por favor ingresar apellidos del encargado.";
+            formIsValid = false;
+            errors["lastname"] = "*Por favor ingresar apellidos del encargado.";
         }
 
         if (typeof nuevoNombre !== "undefined" &&
             typeof nuevoApellidos !== "undefined") {
-          if (!nuevoNombre.match(/^[a-zA-Z ]*$/) &&
-              !nuevoApellidos.match(/^[a-zA-Z ]*$/)) {
-            formIsValid = false;
-            errors["name"] = "*Por favor introduzca solo caracteres del alfabeto.";
-            errors["lastname"] = "*Por favor introduzca solo caracteres del alfabeto.";
-          }
+            if (!nuevoNombre.match(/^[a-zA-Z ]*$/) &&
+                !nuevoApellidos.match(/^[a-zA-Z ]*$/)) {
+                formIsValid = false;
+                errors["name"] = "*Por favor introduzca solo caracteres del alfabeto.";
+                errors["lastname"] = "*Por favor introduzca solo caracteres del alfabeto.";
+            }
         }
 
         if (!nuevoCorreo) {
-          formIsValid = false;
-          errors["email"] = "*Por favor ingrese correo electrónico del encargado.";
+            formIsValid = false;
+            errors["email"] = "*Por favor ingrese correo electrónico del encargado.";
         }
 
         if (typeof nuevoCorreo !== "undefined") {
-          //regular expression for email validation
-          const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-          if (!re.test(nuevoCorreo)) {
-            formIsValid = false;
-            errors["email"] = "*Por favor, introduzca una dirección de correo electrónico válida.";
-          }
+            //regular expression for email validation
+            const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+            if (!re.test(nuevoCorreo)) {
+                formIsValid = false;
+                errors["email"] = "*Por favor, introduzca una dirección de correo electrónico válida.";
+            }
         }
 
         if (!nuevoTelefono) {
-          formIsValid = false;
-          errors["tel"] = "*Por favor ingrese número de teléfono del encargado.";
+            formIsValid = false;
+            errors["tel"] = "*Por favor ingrese número de teléfono del encargado.";
         }
 
         if (typeof nuevoTelefono !== "undefined") {
-          if (!nuevoTelefono.match(/^[0-9]{8}$/)) {
-            formIsValid = false;
-            errors["tel"] = "*Por favor, introduzca un número de teléfono válido.";
-          }
+            if (!nuevoTelefono.match(/^[0-9]{8}$/)) {
+                formIsValid = false;
+                errors["tel"] = "*Por favor, introduzca un número de teléfono válido.";
+            }
         }
 
         this.setState({errors: errors});
         return formIsValid;
     }
 
+    /**
+	 * Función que agrega un encargado en el arreglo del voluntariado.
+	 */
     agregarEncargado(){
         if (this.validateForm()) {
             const encargado = [nuevoNombre, nuevoApellidos, nuevoCorreo, nuevoTelefono];
@@ -120,20 +135,32 @@ export default class KModalAddAdmin extends Component
         }
     }
 
+    /**
+	 * Función que elimina un encargado del arreglo del voluntariado.
+	 */
     quitarEncargado(e){
         const id = parseInt(e.target.id);
         this.props.manager.encargados.splice(id, 1);
         this.actualizarListaEncargados();
     }
 
+    /**
+     * Muestra la ventana.
+     */
     openModal() {
         this.setState({modalIsOpen: true});
     }
 
+    /**
+     * Cierra la ventana.
+     */
     closeModal() {
         this.setState({modalIsOpen: false});
     }
 
+    /**
+	 * Función que actualiza el arreglo de encargados del voluntariado.
+	 */
     actualizarListaEncargados(){
         let encargados = [];
         for(let k in this.props.manager.encargados)
@@ -159,7 +186,11 @@ export default class KModalAddAdmin extends Component
         });
     }
 
-    render(){
+    /**
+	 * Muestra los componentes deseados. 
+	 * Actualiza la interfaz dependiendo de lo que pase en la aplicación.
+	 */
+	render(){
         return (
             <div className={"container text-left"}>
                 <h1 data-tip data-for='modal-tooltip' className="hform">Otros encargados:</h1>
