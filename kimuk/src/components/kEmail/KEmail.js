@@ -1,13 +1,29 @@
+/**
+ * Archivo que contiene las funciones para conectar la 
+ * aplicación Kimuk con la aplicación que envía correos.
+ */
+
 export{enviar_correo,enviar_correo_voluntariado,enviar_correo_voluntario_confirmacion,enviar_correo_voluntario_aceptado}
 
+/**
+ * Llama a la aplicación que envía correos.
+ * @param correo El correo a donde enviarlo.
+ * @param asunto El asunto del correo.
+ * @param mensaje El mensaje del correo.
+ * @param html Los links a las páginas
+ */
 async function enviar_correo(correo,asunto,mensaje,html) {
     fetch("https://us-central1-kimuk-backend.cloudfunctions.net/app/api/email?correo="+correo+"&asunto="+asunto+"&mensaje="+mensaje+"&html="+html)
 }
 
 /**
- * Envia correo -> creación de voluntariado (link admin y registro)
- * @param {correo} correo
- * @param {campana} nombreDeCampana
+ * Envia correo de la creación de voluntariado con el 
+ * url de admin y para registrar voluntarios.
+ * @param correo El correo a donde enviar información.
+ * @param campana El nombre de la campaña
+ * @param name El nombre del encargado
+ * @param id El ID de la camapaña
+ * @param admin_pass La contraseña para ingresar al administrador.
  */
 function enviar_correo_voluntariado(correo,campana,name,id,admin_pass) {
     var asunto="Kimuk - Enlaces de inscripción y administración - " + campana;
@@ -34,10 +50,9 @@ function enviar_correo_voluntario_confirmacion(correo,campana, name) {
 }
 
 /**
- * Envia correo -> confirmacion de voluntario en voluntariado
- * @param {correo} correo
- * @param {informacion:campana} nombreDeCampana
- * @param {informacion:name} nombreVoluntarioRegistrado
+ * Envia correo de la confirmación al voluntario para una campaña
+ * @param correo El correo a donde enviar información.
+ * @param informacion La información de la campaña
  */
 function enviar_correo_voluntario_aceptado(correo,informacion) {
     var mensaje="";

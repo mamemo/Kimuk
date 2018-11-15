@@ -1,3 +1,8 @@
+/**
+ * Archivo que pregunta si se quiere agregar Habilidades para el Voluntariado.
+ */
+
+
 import React, { Component } from 'react';
 import './KFormVoluntariado.css';
 import '../style/color.css';
@@ -17,6 +22,12 @@ const question = {
 };
 
 export default class KHabilidades extends Component {
+    
+    /**
+	 * Conforma la pregunta a mostrar.
+     * @param titulo El título de la pregunta
+     * @param mensaje Mensaje de la pregunta
+	 */
     confirmacionAccion = (titulo, mensaje) => {
         confirmAlert({
             title: titulo,
@@ -34,6 +45,10 @@ export default class KHabilidades extends Component {
           })
     };
 
+     /**
+	 * Muestra los componentes deseados. 
+	 * Actualiza la interfaz dependiendo de lo que pase en la aplicación.
+	 */
     render() {
         return (
             <div className="container_habilidades1">

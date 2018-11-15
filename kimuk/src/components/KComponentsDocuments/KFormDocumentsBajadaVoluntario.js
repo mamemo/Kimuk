@@ -1,3 +1,9 @@
+/**
+ * Archivo que contiene las funciones que se encargan de descargar 
+ * los documentos de un Voluntario para un Voluntariado.
+ */
+
+
 import React, {Component} from "react";
 import * as database from "../DB/documentsVolunteer";
 import "./formDocuments.css";
@@ -15,6 +21,10 @@ export default class KFormDocumentsBajadaVoluntario extends Component {
         this.handleClickOutside = this.handleClickOutside.bind(this);
     }
 
+    /**
+	 * Obtiene los documentos de la base de datos y 
+	 * llena las variables con la información obtenida.
+	 */
     componentDidMount(){
         // Add event listener, this close the modal when the click is outside
         document.addEventListener('mousedown', this.handleClickOutside);
@@ -69,7 +79,10 @@ export default class KFormDocumentsBajadaVoluntario extends Component {
       }
     }
 
-
+    /**
+	 * Muestra los componentes deseados. 
+	 * Actualiza la interfaz dependiendo de lo que pase en la aplicación.
+	 */
     render(){
         return (
             <div ref={this.setWrapperRef} className="doc_div text-left">

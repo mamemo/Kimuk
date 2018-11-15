@@ -1,3 +1,9 @@
+/**
+ * Archivo que contiene las funciones que se encargan de subir
+ * los documentos de un Voluntario para un Voluntariado a la base de datos.
+ */
+
+
 import "./formDocuments.css";
 import React, {Component} from "react";
 import * as databaseVoluntario from "../DB/documentsVolunteer";

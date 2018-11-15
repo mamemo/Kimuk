@@ -1,3 +1,10 @@
+/**
+ * Archivo que contiene las funciones para manejar los 
+ * archivos de cada voluntario en el modo Administrador 
+ * de un Voluntariado.
+ */
+
+
 import React, {Component} from "react";
 import * as database from "../DB/documentsAdmin";
 import "./formDocuments.css";
@@ -19,11 +26,18 @@ export default class KFormDocumentsAdmin extends Component {
         this.onChangeCheckBoxDocumentosRestantes = this.onChangeCheckBoxDocumentosRestantes.bind(this);
     }
 
+    /**
+	 * Obtiene los documentos de la base de datos y 
+	 * llena las variables con la información obtenida.
+	 */
     componentDidMount() {
         this.cargarDocumentosCampana();
         this.cargarDocumentosRestantes();
     }
 
+    /**
+	 * Obtiene los documentos de la campaña.
+	 */
     cargarDocumentosCampana(){
         let poliza = false;
         database.leer_documentos_campana(this.props.campana.id).then(result => {
@@ -85,6 +99,9 @@ export default class KFormDocumentsAdmin extends Component {
         });
     }
 
+    /**
+	 * Obtiene los tipos de documentos que no fueron usados en la campaña.
+	 */
     cargarDocumentosRestantes(){
         database.leer_todos_tipos_documentos().then(result => {
             let documentos = result;
@@ -108,6 +125,10 @@ export default class KFormDocumentsAdmin extends Component {
         });
     }
 
+    /**
+	 * Controla la acción del usuario en la interfaz 
+     * con el objeto CheckBox de Documentos Campaña.
+	 */
     onChangeCheckBoxDocumentosCampana(e){
         database.eliminar_nombre_documento_campana(this.props.campana.id, e.target.name).then(
             result => {
@@ -116,6 +137,10 @@ export default class KFormDocumentsAdmin extends Component {
         );
     }
 
+    /**
+	 * Controla la acción del usuario en la interfaz 
+     * con el objeto CheckBox de Documentos Restantes.
+	 */
     onChangeCheckBoxDocumentosRestantes(e){
         database.insertar_nombre_documento_campana(this.props.campana.id, e.target.name, e.target.name).then(
             result => {
@@ -124,6 +149,10 @@ export default class KFormDocumentsAdmin extends Component {
         )
     }
 
+    /**
+	 * Controla la acción del usuario en la interfaz 
+     * con el objeto de Subir Archivo.
+	 */
     onChangeFileUploadButton(e){
         try {
             const tipoDocumento = e.target.accessKey;
@@ -153,6 +182,10 @@ export default class KFormDocumentsAdmin extends Component {
         }
     }
 
+    /**
+	 * Controla la acción del usuario en la interfaz 
+     * con el objeto de Descargar.
+	 */
     onClickDownloadButton() {
         database.leer_url_documento_campana(this.props.campana.id, "Póliza de seguro").then(result => {
             let a = document.createElement('a');
@@ -161,6 +194,10 @@ export default class KFormDocumentsAdmin extends Component {
         });
     }
 
+    /**
+	 * Muestra los componentes deseados. 
+	 * Actualiza la interfaz dependiendo de lo que pase en la aplicación.
+	 */
     render(){
         return(
             <div className="container text-center">

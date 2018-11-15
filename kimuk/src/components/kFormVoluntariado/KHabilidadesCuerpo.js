@@ -1,3 +1,9 @@
+/**
+ * Archivo que maneja las habilidades que 
+ * el encargado quiera agregar a un Voluntariado.
+ */
+
+
 import React, { Component } from 'react';
 import './KFormVoluntariado.css';
 import '../style/color.css';
@@ -31,6 +37,10 @@ export default class KHabilidades extends Component {
         this.onChangeHabilidadesSeleccionadas = this.onChangeHabilidadesSeleccionadas.bind(this);
     }
 
+    /**
+	 * Obtiene las habilidades de la base de datos y 
+	 * llena las variables con la información obtenida.
+	 */
     componentDidMount() {
         leer_habilidades().then(
             result => {
@@ -42,6 +52,9 @@ export default class KHabilidades extends Component {
         );
     }
 
+    /**
+	 * Se agrega una habilidad seleccionada a la base de datos.
+	 */
     agregarHabilidadABD() {
         if (this.state.valueBuscar == "") { // Si es vacio no agrega nada
             alert("No se agregó ninguna habilidad a la base de datos. \nEscriba la habilidad en el campo de texto.");
@@ -65,10 +78,13 @@ export default class KHabilidades extends Component {
      * Modifica el state.valueBuscar cada vez que se
      * hace una modificacion en su respectivo input
      */
-     updateValueBuscar(event) {
-         this.setState({valueBuscar: event.target.value});
-     }
+    updateValueBuscar(event) {
+        this.setState({valueBuscar: event.target.value});
+    }
 
+    /**
+	 * Muestra las habilidades disponibles para seleccionar.
+	 */
     muestraHabilidades(habilidad) {
         let habilidades = [];
         console.log(this.state.habSeleccionadas);
@@ -125,6 +141,9 @@ export default class KHabilidades extends Component {
 
     }
 
+    /**
+	 * Muestra las habilidades que fueron seleccionadas.
+	 */
     muestraHabilidadesSeleccionadas() {
         let habilidades = [];
         for(var k in this.props.habilidades) {
@@ -139,6 +158,10 @@ export default class KHabilidades extends Component {
         this.setState({habSeleccionadas: habilidades});
     }
 
+    /**
+	 * Método que controla que pasa con una habilidad cuando
+     * es seleccionada y antes estuvo seleccionada.
+	 */
     onChangeHabilidadesSeleccionadas(e) {
         if (e.target.checked) { // activa check (agrega a habilidadesSeleccionadas)
             this.agregaHabilidadSeleccionada(e.target.value);
@@ -148,12 +171,20 @@ export default class KHabilidades extends Component {
         this.muestraHabilidadesSeleccionadas();
     }
 
+    /**
+	 * Método que controla que pasa con una habilidad cuando
+     * es seleccionada.
+	 */
     onClickHabilidadSeleccionada(e) {
         this.eliminaHabilidadSeleccionada(e.target.value);
         this.muestraHabilidadesSeleccionadas();
         this.quitaChecked(e.target.value);
     }
 
+    /**
+	 * Método que quita la marca de check en una habilidad.
+     * @param habilidad La habilidad seleccionada
+	 */
     quitaChecked(habilidad) {
         let habilidades = this.state.habBD;
         for(var k in habilidades) {
@@ -166,6 +197,11 @@ export default class KHabilidades extends Component {
         this.setState({habBD: habilidades});
     }
 
+    /**
+	 * Método que se acciona cuando se agrega la habilidad
+     * a la sección de Habilidades Seleccionadas.
+     * @param habilidad La habilidad seleccionada
+	 */
     agregaHabilidadSeleccionada(habilidad) {
         let existeHabilidad = this.existeHabilidadSeleccionada(habilidad);
             if (!existeHabilidad) { // si la habilidad NO esta en habilidadesSeleccionadas
@@ -173,6 +209,11 @@ export default class KHabilidades extends Component {
             }
     }
 
+    /**
+	 * Método que se acciona cuando se elimina la habilidad
+     * de la sección de Habilidades Seleccionadas.
+     * @param habilidad La habilidad seleccionada
+	 */
     eliminaHabilidadSeleccionada(habilidad) {
         for (var k in this.props.habilidades) {
             if (habilidad === this.props.habilidades[k]) {
@@ -182,8 +223,8 @@ export default class KHabilidades extends Component {
     }
 
     /**
-     *
-     * @param {habilidad marcada} habilidad
+     * Método para saber si una habilidad fue seleccionada.
+     * @param habilidad La habilidad seleccionada.
      * RETURN true => si la habilidad se encuentra en las habilidades seleccionadas
      * RETURN false => si la habilidad NO se encuentra en las habilidades seleccionadas
      */
@@ -198,10 +239,18 @@ export default class KHabilidades extends Component {
         return respuesta;
     }
 
+    /**
+     * Método que controla cuando se presiona el botón
+     * de buscar una Habilidad.
+     */
     onClickBuscar() {
         this.muestraHabilidades(this.state.valueBuscar);
     }
 
+    /**
+	 * Muestra los componentes deseados. 
+	 * Actualiza la interfaz dependiendo de lo que pase en la aplicación.
+	 */
     render() {
         return (
             <div className="container">

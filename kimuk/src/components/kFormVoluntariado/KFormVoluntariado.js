@@ -1,3 +1,9 @@
+/**
+ * Archivo que junta todos los componentes para 
+ * mostrar la interfaz de Crear un Voluntariado.
+ */
+
+
 import React, { Component } from 'react';
 import { Link } from 'react-router';
 import moment from 'moment';
@@ -83,9 +89,9 @@ export default class KFormVoluntariado extends Component {
     }
 
     /*
-   * Handle multiples inputs changes
-   *
-   */
+    * Handle multiples inputs changes
+    *
+    */
     handleInputChange(event) {
         const target = event.target;
         const name = target.name;
@@ -95,10 +101,10 @@ export default class KFormVoluntariado extends Component {
         });
     }
 
-  /*
-   * Handle image of volunteer
-   *
-   */
+    /*
+    * Handle image of volunteer
+    *
+    */
     handleInputChangeImage(e) {
       try {
         if (e.target.files[0].size > 5000000) {
@@ -141,6 +147,10 @@ export default class KFormVoluntariado extends Component {
       }
     }
 
+    /*
+     * Metodo que guarda la foto del 
+     * voluntariado en la base de datos.
+     */
     cargarURLFoto(){
         database.leer_url_documento_campana(this.state.id, "Foto").then(result => {
             this.setState({
@@ -151,7 +161,7 @@ export default class KFormVoluntariado extends Component {
 
     /*
      * Metodo que almacena nombre del archivo
-     *  un un boolean indica que se subio el archivo
+     * un un boolean indica que se subio el archivo
      * de la poliza
      */
     handleDocument(doc, tipoDoc)
@@ -174,79 +184,79 @@ export default class KFormVoluntariado extends Component {
         }
     }
 
-  /**
-   * Handle input Terms and Conditions
-   */
-  handleTermsAndConditions(event) {
-    this.setState({termsAndConditions: event.target.value});
-  }
+    /**
+     * Handle input Terms and Conditions
+     */
+    handleTermsAndConditions(event) {
+        this.setState({termsAndConditions: event.target.value});
+    }
 
-  /*
-   * Handle changes in start date inputs
-   *
-   */
-   handleStartDateChange(date) {
-     this.setState({
-       startDate: date
-     });
-   }
+    /*
+    * Handle changes in start date inputs
+    *
+    */
+    handleStartDateChange(date) {
+        this.setState({
+        startDate: date
+        });
+    }
 
-  /*
-   * Handle changes in finish date inputs
-   *
-   */
-   handleFinishDateChange(date) {
-     this.setState({
-       finishDate: date
-     });
-   }
+    /*
+    * Handle changes in finish date inputs
+    *
+    */
+    handleFinishDateChange(date) {
+        this.setState({
+        finishDate: date
+        });
+    }
 
-   /*
+    /*
     * Handle changes in time inputs
     *
     */
     handleTimeChange(time) {
-      this.setState({
-        time: time
-      });
+        this.setState({
+            time: time
+        });
     }
 
-  /*
-   * Handle changes in checkbox inputs
-   *
-   */
+    /*
+    * Handle changes in checkbox inputs
+    *
+    */
     handleCheckoxChange(event) {
-      const target = event.target;
-      if(!target.checked) {
-        this.setState({ finishDate: "" });
-      }
-      else {
-        this.setState({ finishDate: moment() });
-      }
-      this.setState({ registrationDeadline: target.checked });
-      this.setState({ disabled: !this.state.disabled});
+        const target = event.target;
+        if(!target.checked) {
+            this.setState({ finishDate: "" });
+        }
+        else {
+            this.setState({ finishDate: moment() });
+        }
+        this.setState({ registrationDeadline: target.checked });
+        this.setState({ disabled: !this.state.disabled});
     }
 
     handleNumeric(event) {
-      this.setState({
-        numberOfVolunteers: event.target.value
-      });
+        this.setState({
+            numberOfVolunteers: event.target.value
+        });
     }
 
-  /*
-   * Navigate forward through form
-   *
-   */
+    /*
+    * Navigate forward through form
+    *
+    */
     siguiente(){
         this.setState({
             step : this.state.step + 1
         });
     }
 
-  /*
-   * Navigate backwards through form
-   *
-   */
+    /*
+    * Navigate backwards through form
+    *
+    */
     anterior(){
         this.setState({
             step : this.state.step - 1
@@ -257,7 +267,9 @@ export default class KFormVoluntariado extends Component {
         this.setState({listo: false});
     }
 
-
+    /*
+     * Muestra un mensaje después de hacer una acción.
+     */
     showPopUp(tNotificacion, msj){
         let pop = [];
         pop.push(<KModalInfoAccion tipoNotificacion={tNotificacion}
@@ -313,8 +325,11 @@ export default class KFormVoluntariado extends Component {
         });
     }
 
+    /**
+	 * Muestra los componentes deseados. 
+	 * Actualiza la interfaz dependiendo de lo que pase en la aplicación.
+	 */
     render(){
-
         var pasos;
 
         switch(this.state.step){

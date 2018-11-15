@@ -104,14 +104,13 @@ export default class KTable extends Component {
     for(var i = 0; i < voluntarios.length; i++){
       if(voluntarios[i]){
         tableBody.push(<tr>
-                        <td></td>
                         <td>{voluntarios[i].Nombre+" "+voluntarios[i].Primer_apellido+" "+voluntarios[i].Segundo_apellido}</td>
                         <td>{this.createStateCell(voluntarios[i].Estado_solicitud)}</td>
                         <td>{voluntarios[i].Ocupacion}</td>
                         <td>{voluntarios[i].Fecha_registro}</td>
                         <td>
                           <button
-                            className="btn btn-default"
+                            className="btn btn-link"
                             data-tip data-for='info-tooltip'
                             onClick={this.createModal.bind(this, voluntarios[i])}>
                             <span className="icon_span"><FaInfoCircle/></span>
@@ -120,7 +119,7 @@ export default class KTable extends Component {
                         </td>
                         <td>
                           <button
-                            className="btn btn-default"
+                            className="btn btn-link"
                             data-tip data-for='down-doc-tooltip'
                             onClick={this.abrirDocumentos.bind(this, voluntarios[i])}>
                             <span className="icon_span"><FaDownload/></span>
@@ -284,16 +283,15 @@ export default class KTable extends Component {
           </div>
 
           <div class="table-responsive">
-            <table className="table table-hover">
+            <table className="table table-hover table-sm">
               <thead>
                 <tr>
-                  <th></th>
-                  <th>Nombre completo</th>
-                  <th>Estado</th>
-                  <th>Ocupación</th>
-                  <th>Fecha de registro</th>
-                  <th></th>
-                  <th></th>
+                  <th className="left">Nombre completo</th>
+                  <th className="left">Estado</th>
+                  <th className="left">Ocupación</th>
+                  <th className="left">Fecha de registro</th>
+                  <th className="left"></th>
+                  <th className="left"></th>
                 </tr>
               </thead>
               {this.createTable()}

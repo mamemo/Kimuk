@@ -1,9 +1,13 @@
+/**
+ * Archivo que pregunta cuáles archivos subir.
+ */
+
+
 import React, { Component } from 'react';
 import './KFormVoluntariado.css';
 import '../style/color.css';
 import '../style/general.css';
 import KFormPregunta from '../KFormPregunta/KFormPregunta';
-import KHeaderVoluntariado from './KHeaderVoluntariado';
 import KModalDocumentos from './KModalDocumentos';
 import { confirmAlert } from 'react-confirm-alert';
 import 'react-confirm-alert/src/react-confirm-alert.css';
@@ -18,6 +22,12 @@ const question = {
 };
 
 export default class KFormDocumentsAdminCreacion extends Component {
+    
+    /**
+	 * Conforma la pregunta a mostrar.
+     * @param titulo El título de la pregunta
+     * @param mensaje Mensaje de la pregunta
+	 */
     confirmacionAccion = (titulo, mensaje) => {
         confirmAlert({
             title: titulo,
@@ -35,6 +45,10 @@ export default class KFormDocumentsAdminCreacion extends Component {
           })
     };
 
+    /**
+	 * Muestra los componentes deseados. 
+	 * Actualiza la interfaz dependiendo de lo que pase en la aplicación.
+	 */
     render() {
         return (
           <div className="container_habilidades1">

@@ -1,10 +1,14 @@
+/**
+ * Archivo que actualiza la base de datos con los 
+ * archivos que se escogen a la hora de crear una campaña.
+ */
+
+
 import React, {Component} from "react";
 import './KFormVoluntariado.css';
 import * as database from "../DB/documentsAdmin";
 import "./formDocuments.css";
 import ReactTooltip from 'react-tooltip';
-import KHeaderVoluntariado from './KHeaderVoluntariado';
-import KModalDocumentos from './KModalDocumentos';
 import { FaUpload } from 'react-icons/fa';
 
 
@@ -29,11 +33,18 @@ export default class KDocumentosCuerpo extends Component {
         this.onClickSeleccionarTodos = this.onClickSeleccionarTodos.bind(this);
     }
 
+    /**
+	 * Obtiene los documentos de la base de datos y 
+	 * llena las variables con la información obtenida.
+	 */
     componentDidMount() {
         this.cargarDocumentosCampana();
         this.cargarDocumentosRestantes();
     }
 
+    /**
+	 * Obtiene los documentos de la campaña.
+	 */
     cargarDocumentosCampana(){
 
         database.leer_documentos_campana(this.props.campana.id).then(result => {
@@ -165,12 +176,12 @@ export default class KDocumentosCuerpo extends Component {
                 listaDocumentosCampana: listaDocumentosCampana.reverse(),
                 nombresDocumentos: nombresDocumentos.reverse()
             });
-
-
-
         });
     }
 
+    /**
+	 * Obtiene los tipos de documentos que no fueron usados en la campaña.
+	 */
     cargarDocumentosRestantes(){
         database.leer_todos_tipos_documentos().then(result => {
             let documentos = result;
@@ -202,26 +213,29 @@ export default class KDocumentosCuerpo extends Component {
             this.setState({
                 listaDocumentosRestantes: restoDocumentos
             });
-
-
         });
     }
 
+    /**
+	 * Controla la acción de cuando se selecciona el 
+     * CheckBox de Marcar todos los docuemntos.
+	 */
     onClickSeleccionarTodos(){
         for(let i in this.state.listaDocumentosRestantes){
         database.insertar_nombre_documento_campana(this.props.campana.id,
-                                                  this.state.listaDocumentosRestantes[i].props.children[1].props.children[1],
-                                                  this.state.listaDocumentosRestantes[i].props.children[1].props.children[1]).then(
+                                                    this.state.listaDocumentosRestantes[i].props.children[1].props.children[1],
+                                                    this.state.listaDocumentosRestantes[i].props.children[1].props.children[1]).then(
           result => {
             this.componentDidMount();
           }
         )
-
       }
-
-
     }
 
+    /**
+	 * Controla la acción de cuando se cambia la selección del 
+     * CheckBox de Marcar todos los docuemntos.
+	 */
     onChangeSeleccionarTodos(e){
         if(e.target.checked == true){
           for(let i in this.state.listaDocumentosRestantes){
@@ -243,12 +257,14 @@ export default class KDocumentosCuerpo extends Component {
                 this.componentDidMount();
               }
             )
-
           }
         }
-
     }
 
+    /**
+	 * Controla la acción de cuando se cambia la selección del 
+     * CheckBox de un Documento que ya está en la campaña.
+	 */
     onChangeCheckBoxDocumentosCampana(e){
         database.eliminar_nombre_documento_campana(this.props.campana.id, e.target.name).then(
             result => {
@@ -257,6 +273,10 @@ export default class KDocumentosCuerpo extends Component {
         );
     }
 
+    /**
+	 * Controla la acción de cuando se cambia la selección del 
+     * CheckBox de un Documento.
+	 */
     onChangeCheckBoxDocumentosRestantes(e){
         database.insertar_nombre_documento_campana(this.props.campana.id, e.target.name, e.target.name).then(
             result => {
@@ -265,6 +285,10 @@ export default class KDocumentosCuerpo extends Component {
         )
     }
 
+    /**
+	 * Controla la acción de cuando se le da click al
+     * botón de Subir Archivo.
+	 */
     onChangeFileUploadButton(e){
         try {
             const tipoDocumento = e.target.accessKey;
@@ -297,8 +321,10 @@ export default class KDocumentosCuerpo extends Component {
         }
     }
 
-
-
+    /**
+	 * Muestra los componentes deseados. 
+	 * Actualiza la interfaz dependiendo de lo que pase en la aplicación.
+	 */
     render(){
 
 

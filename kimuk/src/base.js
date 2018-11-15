@@ -1,3 +1,8 @@
+/**
+ * Archivo que establece la conección con la base de datos.
+ */
+
+
 import Rebase from 're-base';
 import firebase from 'firebase';
 
