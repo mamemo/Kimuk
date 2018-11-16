@@ -25,9 +25,9 @@ export default class KFormVoluntario extends Component {
         super(props);
 
         this.state = {
-            step: 3,
+            step: 1,
             tipo_id: "",
-            id: "17871",
+            id: "",
             nombre: "",
             apellido_1: "",
             apellido_2: "",

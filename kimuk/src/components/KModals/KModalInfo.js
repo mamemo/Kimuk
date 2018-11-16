@@ -1,5 +1,5 @@
 /**
- * Archivo que contiene el componente que muestra la ventana 
+ * Archivo que contiene el componente que muestra la ventana
  * con la información de un voluntario en el modo Administrador.
  */
 
@@ -20,13 +20,13 @@ export default class KModalInfo extends Component {
 		this.state = {
 			original: this.props.volunteerInfo,
 			modificaciones: this.props.volunteerInfo,
-	
+
 			provincias:"",
 			cantones:"",
 			distritos:"",
 			errors: {}
 		}
-		
+
 		this.guardar_info=this.guardar_info.bind(this);
 		this.cargar_provincias=this.cargar_provincias.bind(this);
 
@@ -70,12 +70,12 @@ export default class KModalInfo extends Component {
 	}
 
 	/**
-	 * Llama a un servicio para obtener los cantones 
+	 * Llama a un servicio para obtener los cantones
 	 * y/o distritos según una selección.
 	 * Guarda los cambios al voluntario.
 	 */
 	guardar_info(e){
-		
+
 		if(e.target.name==="Provincia"){
             fetch("https://ubicaciones.paginasweb.cr/provincia/"+e.target.value+"/cantones.json")
             .then((resp) => resp.json())
@@ -94,7 +94,7 @@ export default class KModalInfo extends Component {
 
 		const newState = Object.assign({}, this.state.modificaciones);
 		newState[e.target.name] = e.target.value;
-		this.setState({ 
+		this.setState({
 			modificaciones: newState
         });
 	}
@@ -110,7 +110,7 @@ export default class KModalInfo extends Component {
 		fetch("https://ubicaciones.paginasweb.cr/provincia/"+this.props.volunteerInfo.Provincia+"/cantones.json")
 			.then((resp) => resp.json())
 			.then((data) => this.setState({ cantones: data }));
-		
+
 		fetch("https://ubicaciones.paginasweb.cr/provincia/"+this.props.volunteerInfo.Provincia+"/canton/"+this.props.volunteerInfo.Canton+"/distritos.json")
 			.then((resp) => resp.json())
 			.then((data) => this.setState({ distritos: data }));
@@ -124,7 +124,7 @@ export default class KModalInfo extends Component {
 	}
 
 	/**
-	 * Muestra los componentes deseados. 
+	 * Muestra los componentes deseados.
 	 * Actualiza la interfaz dependiendo de lo que pase en la aplicación.
 	 */
 	render() {
@@ -166,22 +166,22 @@ export default class KModalInfo extends Component {
 				<div className="group_line">
 				<div className="form_field">
 					<label>Tipo de identificación</label>
-					<select 
+					<select
 						name="Tipo_identificacion"
-						value={this.state.modificaciones.Tipo_identificacion} 
+						value={this.state.modificaciones.Tipo_identificacion}
 						onChange={this.guardar_info}>
 					<option value="">Tipo indentificación</option>
 					<option value="cedula_identidad">Cedula identidad</option>
 					<option value="cedula_residencia">Cedula residencia</option>
 					</select>
-					
+
 				</div>
 
 				<div className="form_field">
 					<label>Identificación</label>
 					<input type="text"
-						name="Cedula" 
-						placeholder={this.state.modificaciones.Cedula} 
+						name="Cedula"
+						placeholder={this.state.modificaciones.Cedula}
 						onChange={this.guardar_info}
 						disabled/>
 				</div>
@@ -191,25 +191,25 @@ export default class KModalInfo extends Component {
 
 				<div className="form_field">
 				<label>Nombre</label>
-					<input type="text" className="name_input" 
-						name="Nombre" 
-						placeholder={this.state.modificaciones.Nombre} 
+					<input type="text" className="name_input"
+						name="Nombre"
+						placeholder={this.state.modificaciones.Nombre}
 						onChange={this.guardar_info}/>
 				</div>
 
 				<div className="form_field">
 				<label>Primer apellido</label>
-					<input type="text" className="name_input" 
-						name="Primer_apellido" 
-						placeholder={this.state.modificaciones.Primer_apellido} 
+					<input type="text" className="name_input"
+						name="Primer_apellido"
+						placeholder={this.state.modificaciones.Primer_apellido}
 						onChange={this.guardar_info}/>
 				</div>
 
 				<div className="form_field">
 				<label>Segundo apellido</label>
-					<input type="text" className="name_input" 
-						name="Segundo_apellido" 
-						placeholder={this.state.modificaciones.Segundo_apellido} 
+					<input type="text" className="name_input"
+						name="Segundo_apellido"
+						placeholder={this.state.modificaciones.Segundo_apellido}
 						onChange={this.guardar_info}/>
 				</div>
 
@@ -217,18 +217,18 @@ export default class KModalInfo extends Component {
 
 				<div className="form_field">
 				<label>Fecha de Nacimiento</label>
-				<input type="text" 
-					name="Fecha_nacimiento" 
-					placeholder={this.state.modificaciones.Fecha_nacimiento} 
-					onFocus = {this._onFocus} 
+				<input type="text"
+					name="Fecha_nacimiento"
+					placeholder={this.state.modificaciones.Fecha_nacimiento}
+					onFocus = {this._onFocus}
 					onBlur={this._onBlur}
 					onChange={this.guardar_info}/>
 				</div>
 
 				<div className="form_field">
 				<label>Género</label>
-				<select 
-					name="Genero" 
+				<select
+					name="Genero"
 					value={this.state.modificaciones.Genero}
 					onChange={this.guardar_info}>
 					<option value="masculino">Masculino</option>
@@ -240,8 +240,8 @@ export default class KModalInfo extends Component {
 
 				<div className="form_field">
 				<label>Estado civil</label>
-				<select 
-					name="Estado_civil" 
+				<select
+					name="Estado_civil"
 					value={this.state.modificaciones.Estado_civil}
 					onChange={this.guardar_info}>
 					<option value="" selected disabled >Estado civil</option>
@@ -263,9 +263,9 @@ export default class KModalInfo extends Component {
 				<div className="group_line">
 					<div className="form_field">
 					<label>Provincia</label>
-					<select 
-						name="Provincia" 
-						value={this.state.modificaciones.Provincia} 
+					<select
+						name="Provincia"
+						value={this.state.modificaciones.Provincia}
 						onChange={this.guardar_info}>
 					<option value="" selected disabled>Provincia</option>
 						{p}
@@ -274,9 +274,9 @@ export default class KModalInfo extends Component {
 
 					<div className="form_field">
 					<label>Cantón</label>
-					<select 
-						name="Canton" 
-						value={this.state.modificaciones.Canton} 
+					<select
+						name="Canton"
+						value={this.state.modificaciones.Canton}
 						onChange={this.guardar_info}>
 					<option value="" selected disabled>Canton</option>
 						{c}
@@ -285,9 +285,9 @@ export default class KModalInfo extends Component {
 
 					<div className="form_field">
 					<label>Distrito</label>
-					<select 
-						name="Distrito" 
-						value={this.state.modificaciones.Distrito} 
+					<select
+						name="Distrito"
+						value={this.state.modificaciones.Distrito}
 						onChange={this.guardar_info}>
 					<option value="" selected disabled>Distrito</option>
 						{d}
@@ -297,8 +297,8 @@ export default class KModalInfo extends Component {
 
 				<div className="form_field">
 					<label>Dirección exacta</label>
-					<input type="text-long" 
-						name="Direccion" 
+					<input type="text-long"
+						name="Direccion"
 						placeholder={this.state.modificaciones.Direccion}
 						onChange={this.guardar_info}/>
 				</div>
@@ -319,16 +319,16 @@ export default class KModalInfo extends Component {
 
 				<div className="form_field">
 					<label>Correo electrónico</label>
-					<input type="email" 
-						name="Correo_electronico" 
+					<input type="email"
+						name="Correo_electronico"
 						placeholder={this.state.modificaciones.Correo_electronico}
 						onChange={this.guardar_info}/>
 				</div>
 
 				<div className="form_field">
 					<label>Teléfono 1</label>
-					<input type="phone" 
-						name="Telefono_uno" 
+					<input type="phone"
+						name="Telefono_uno"
 						placeholder={this.state.modificaciones.Telefono_uno}
 						onChange={this.guardar_info}/>
 				</div>
@@ -336,7 +336,7 @@ export default class KModalInfo extends Component {
 				<div className="form_field">
 					<label>Teléfono 2</label>
 					<input type="phone"
-						name="Telefono_dos" 
+						name="Telefono_dos"
 						placeholder={this.state.modificaciones.Telefono_dos}
 						onChange={this.guardar_info}/>
 				</div>
@@ -348,9 +348,9 @@ export default class KModalInfo extends Component {
 					<h5>Estado Solicitud</h5>
 					<hr></hr>
 				</div>
-				<select 
-					name="Estado_solicitud" 
-					defaultValue={this.state.modificaciones.Estado_solicitud} 
+				<select
+					name="Estado_solicitud"
+					defaultValue={this.state.modificaciones.Estado_solicitud}
 					onChange={this.guardar_info}>
 					<option value="Pendiente">Pendiente</option>
 					<option value="Aprobado">Aprobado</option>
@@ -367,12 +367,14 @@ export default class KModalInfo extends Component {
 				<div className="flex-btn">
 				<button className="btn btn-primary" onClick={()=>{
 					let entra = false;
-					Object.keys(this.state.modificaciones).map(key => { 
+					Object.keys(this.state.modificaciones).map(key => {
 						if(this.state.modificaciones[key] !== this.state.original[key]){
 							entra = true;
 							this.props.updateUser(this.props.campana, this.props.volunteerInfo.Cedula, key, this.state.modificaciones[key]);
-							if(key === "Estado_solicitud"){
-								enviar_correo_voluntario_aceptado(this.state.modificaciones.Correo_electronico,this.props.campana_nombre, this.props.volunteerInfo.Nombre);
+              if(key === "Estado_solicitud"){
+								if (this.state.modificaciones[key] === "Aprobado") {
+									enviar_correo_voluntario_aceptado(this.state.modificaciones.Correo_electronico,this.props.campana_nombre, this.props.volunteerInfo.Nombre);
+								}
 							}
 						}
 					});
