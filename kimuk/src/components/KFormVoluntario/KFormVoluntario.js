@@ -1,5 +1,5 @@
 /**
- * Archivo que junta todos los componentes para 
+ * Archivo que junta todos los componentes para
  * mostrar la interfaz de Registrar a un Voluntariado.
  */
 
@@ -23,7 +23,7 @@ export default class KFormVoluntario extends Component {
 
     constructor(props){
         super(props);
-        
+
         this.state = {
             step: 1,
             tipo_id: "",
@@ -87,7 +87,7 @@ export default class KFormVoluntario extends Component {
     }
 
     /**
-	 * Obtiene los datos del voluntariado de la base de datos y 
+	 * Obtiene los datos del voluntariado de la base de datos y
 	 * llena las variables con la información obtenida.
 	 */
     componentDidMount(){
@@ -116,7 +116,7 @@ export default class KFormVoluntario extends Component {
     }
 
     /**
-	 * Muestra los componentes deseados. 
+	 * Muestra los componentes deseados.
 	 * Actualiza la interfaz dependiendo de lo que pase en la aplicación.
 	 */
 	render(){

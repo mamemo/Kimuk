@@ -1,5 +1,5 @@
 /**
- * Archivo que maneja las habilidades que 
+ * Archivo que maneja las habilidades que
  * el voluntario quiera agregar a su registro.
  */
 
@@ -36,31 +36,30 @@ export default class KHabilidades extends Component {
     }
 
     /**
-	 * Muestra los componentes deseados. 
+	 * Muestra los componentes deseados.
 	 * Actualiza la interfaz dependiendo de lo que pase en la aplicación.
 	 */
 	render() {
 
         const tab=[];
-
+        console.log(this.props.habilidades);
         if(this.props.habilidades != null) {
             let habs = this.props.habilidades;
-            var nhabs = Math.ceil(this.props.habilidades.length / 2);
+            var nhabs = this.props.habilidades.length;
 
             for (var i = 0; i < nhabs; i++) {
                 const hab = [];
-                for (var k = i * 2; k < i + 2; k++) {
-                    hab.push(<div className="button button2 text-left">
-                              <input
-                                type="checkbox"
-                                name="habilidades"
-                                className="checkbox"
-                                value={this.props.habilidades[k]}
-                                onChange={this.guardar_info}
-                                defaultChecked={this.props.voluntario.habilidades.includes(this.props.habilidades[k])}/>
-                                {this.props.habilidades[k]}
-                            </div>);
-                }
+
+                hab.push(<div className="button button2 text-left">
+                          <input
+                            type="checkbox"
+                            name="habilidades"
+                            className="checkbox"
+                            value={this.props.habilidades[i]}
+                            onChange={this.guardar_info}
+                            defaultChecked={this.props.voluntario.habilidades.includes(this.props.habilidades[i])}/>
+                            {this.props.habilidades[i]}
+                        </div>);
                 tab.push(hab);
             }
         }
@@ -94,14 +93,12 @@ export default class KHabilidades extends Component {
 
               <div className="flex-item-hab">
 
-                <h5> Habilidades deseadas </h5>
-                <hr />
+                <div classname="container_habilidades2">
+                  <h5> Habilidades deseadas </h5>
+                  <hr />
 
-                <div classname="container-hab2">
-
-                  <div className="text-left">
+                  <div className="flex-item1 text-left">
                     {tab}
-                    <br/>
                     <br/>
                     <br/>
                   </div>
@@ -134,7 +131,7 @@ export default class KHabilidades extends Component {
                 <br/>
                 <br/>
                 <br/>
-            </div>
+             </div>
           </div>
         );
     }

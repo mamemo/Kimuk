@@ -1,5 +1,5 @@
 /**
- * Archivo que maneja las habilidades que 
+ * Archivo que maneja las habilidades que
  * el encargado quiera agregar a un Voluntariado.
  */
 
@@ -38,7 +38,7 @@ export default class KHabilidades extends Component {
     }
 
     /**
-	 * Obtiene las habilidades de la base de datos y 
+	 * Obtiene las habilidades de la base de datos y
 	 * llena las variables con la información obtenida.
 	 */
     componentDidMount() {
@@ -79,7 +79,13 @@ export default class KHabilidades extends Component {
      * hace una modificacion en su respectivo input
      */
     updateValueBuscar(event) {
+      if(event.target.value === "") {
         this.setState({valueBuscar: event.target.value});
+        this.muestraHabilidades("");
+      }
+      else{
+        this.setState({valueBuscar: event.target.value});
+      }
     }
 
     /**
@@ -87,7 +93,6 @@ export default class KHabilidades extends Component {
 	 */
     muestraHabilidades(habilidad) {
         let habilidades = [];
-        console.log(this.state.habSeleccionadas);
         if (habilidad === "") { // muestra todas las habilidades
             for(var k in this.state.habilidadesBD) {
               if(this.props.habilidades.includes(this.state.habilidadesBD[k])){
@@ -135,10 +140,7 @@ export default class KHabilidades extends Component {
                 }
             }
         }
-        this.componentDidMount();
         this.setState({habBD: habilidades});
-
-
     }
 
     /**
@@ -159,7 +161,7 @@ export default class KHabilidades extends Component {
     }
 
     /**
-	 * Método que controla que pasa con una habilidad cuando
+	   * Método que controla que pasa con una habilidad cuando
      * es seleccionada y antes estuvo seleccionada.
 	 */
     onChangeHabilidadesSeleccionadas(e) {
@@ -248,7 +250,7 @@ export default class KHabilidades extends Component {
     }
 
     /**
-	 * Muestra los componentes deseados. 
+	 * Muestra los componentes deseados.
 	 * Actualiza la interfaz dependiendo de lo que pase en la aplicación.
 	 */
     render() {

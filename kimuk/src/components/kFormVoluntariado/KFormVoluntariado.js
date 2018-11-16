@@ -1,5 +1,5 @@
 /**
- * Archivo que junta todos los componentes para 
+ * Archivo que junta todos los componentes para
  * mostrar la interfaz de Crear un Voluntariado.
  */
 
@@ -148,7 +148,7 @@ export default class KFormVoluntariado extends Component {
     }
 
     /*
-     * Metodo que guarda la foto del 
+     * Metodo que guarda la foto del
      * voluntariado en la base de datos.
      */
     cargarURLFoto(){
@@ -326,7 +326,7 @@ export default class KFormVoluntariado extends Component {
     }
 
     /**
-	 * Muestra los componentes deseados. 
+	 * Muestra los componentes deseados.
 	 * Actualiza la interfaz dependiendo de lo que pase en la aplicación.
 	 */
     render(){
