@@ -4,9 +4,12 @@ Página web para creación de voluntariados y reclutamiento de voluntarios.
 
 ## Instalación
 
-Solo se necesita tener instalado NodeJS y NPM. Para utilizar el sitio web es necesario clonarlo. Moverse dentro del directorio y una vez dentro utilizar el comando:
+Solo se necesita tener instalado NodeJS y NPM. Para utilizar el sitio web es necesario clonarlo.
+**Ojo**: Hay que eliminar los node_modules.
+Moverse dentro del directorio y una vez dentro utilizar el comando:
 
 ```
+rm -r node_modules/
 npm install
 npm start
 ```
