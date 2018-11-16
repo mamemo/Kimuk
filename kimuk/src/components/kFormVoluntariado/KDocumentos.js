@@ -10,7 +10,7 @@ import '../style/color.css';
 import '../style/general.css';
 import ReactTooltip from 'react-tooltip'
 import './KDocumentos.css';
-import {leer_documentos} from "../DB/CRUDdocuments.js";
+import {leer_documentos} from "../DB/documents.js";
 import {InDocumentosBD} from "../DB/add-onns.js"
 
 

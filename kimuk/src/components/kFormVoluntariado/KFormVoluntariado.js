@@ -287,6 +287,7 @@ export default class KFormVoluntariado extends Component {
      * and documents to the DB
      */
     insertNewCampaign() {
+        const pop = this.showPopUp;
         insertar_actualizar_campana(this.state.id, this.state.volName, this.state.description,
             this.state.startDate.toString(), this.state.time.toString(),
             this.state.address, this.state.finishDate.toString(), "",
@@ -308,19 +309,19 @@ export default class KFormVoluntariado extends Component {
                             "Campaña " + this.state.volName + " creada con éxito.\n\nSe envió al correo electrónico "
                             + this.state.email + " y a los administradores los links de registro de voluntariado y administración de voluntariado.");
                     }).catch(function (error) {
-                        this.showPopUp("Error al insertar habilidad",
-                        "Error al insertar habilidad\n" + error + "\nRevise información ingresada en el sistema y vuelva a intentar.\n\nEn caso de no funcionar recargue la página");
+                        pop("Error al insertar habilidad",
+                            "Error al insertar habilidad\n" + error + "\nRevise información ingresada en el sistema y vuelva a intentar.\n\nEn caso de no funcionar recargue la página");
                     })
                 }).catch(function (error) {
-                    this.showPopUp("Error al insertar encargado",
+                    pop("Error al insertar encargado",
                     "Error al insertar encargado\n" + error + "\n\nRevise información ingresada en el sistema y vuelva a intentar.\n\nEn caso de no funcionar recargue la página");
                 })
             }).catch(function (error) {
-                this.showPopUp("Error al insertar el encargado general",
+                pop("Error al insertar el encargado general",
                 "Error al insertar el encargado general\n" + error + "\n\nRevise información ingresada en el sistema y vuelva a intentar.\n\nEn caso de no funcionar recargue la página");
             })
         }).catch(function (error) {
-            this.showPopUp("Error al insertar la campana",
+            pop("Error al insertar la campana",
             "Error al insertar la campana\n" + error + "\n\nRevise información ingresada en el sistema y vuelva a intentar.\n\nEn caso de no funcionar recargue la página");
         });
     }
@@ -342,6 +343,7 @@ export default class KFormVoluntariado extends Component {
                         <li>Documentos</li>
                         <li>Terminos y condiciones</li>
                     </ul>
+                    {(this.state.listo) ? this.state.popup : void(0)}
                 </div>;
                 return (<div className="page_container" >
                           <div className="div_header">
@@ -379,6 +381,7 @@ export default class KFormVoluntariado extends Component {
                         <li>Documentos</li>
                         <li>Terminos y condiciones</li>
                     </ul>
+                    {(this.state.listo) ? this.state.popup : void(0)}
                 </div>;
                 return (<div className="page_container" >
                           <div className="div_header">
@@ -408,6 +411,7 @@ export default class KFormVoluntariado extends Component {
                         <li className="active">Documentos</li>
                         <li>Terminos y condiciones</li>
                     </ul>
+                    {(this.state.listo) ? this.state.popup : void(0)}
                 </div>;
                 return (<div className="page_container" >
                           <div className="div_header">
@@ -443,6 +447,7 @@ export default class KFormVoluntariado extends Component {
                         <li className="active">Documentos</li>
                         <li className="active">Terminos y condiciones</li>
                     </ul>
+                    {(this.state.listo) ? this.state.popup : void(0)}
                 </div>;
                 return (<div className="page_container" >
                           <div className="div_header">
@@ -464,10 +469,8 @@ export default class KFormVoluntariado extends Component {
                             handler={this.handleInputChange}
                             insertInDB={this.insertNewCampaign}
                             estado={this.state}/>
-
-                          {(this.state.listo) ? this.state.popup : void(0)}
-
                         </div>)
+
         }
     }
 }
