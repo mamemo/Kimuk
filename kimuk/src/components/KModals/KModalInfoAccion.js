@@ -93,7 +93,7 @@ export default class KModalHabilidades extends Component
                             onClick={() => {
                                 this.closeModal();
                                 if (this.props.tipoNotificacion.toLowerCase().indexOf("error") === -1) {
-                                    window.location.href ="http://localhost:3000";
+                                    window.location.href ="https://kimuk-backend.firebaseapp.com";
                                 }
                             }}
                         >
